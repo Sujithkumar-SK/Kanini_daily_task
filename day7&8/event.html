@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WebPage</title>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+  <div class="container">
+    <h1 id="til">Jquery Event Handling</h1>
+    <form class="form-id">
+      <label for="fname">First Name:</label>
+      <input type="text" id="fname" name="fname"><br><br>
+
+      <label for="lname">Last Name:</label>
+      <input type="text" id="lname" name="lname"><br><br>
+
+      <button id="btn">Submit</button>
+    </form>
+  </div>
+  <script>
+    $("#fname, #lname").focus(function() {
+      $(this).css("background-color","green");
+    });
+    $("#fname, #lname").focusout(function() {
+      $(this).css("background-color","#cccccc");
+    });
+    $("#fname").change(function(){
+      if ($("#fname-msg").length ===0) {
+        $(".form-id").append('<p id="fname-msg">You Have Changed the First Name.</p>');
+        $("#fname-msg").css({
+          "background-color": "#f3e5f5",
+          "padding": "10px",
+          "border": "1px solid #6a1b9a",
+          "border-radius": "5px",
+          "margin-top": "10px",
+          "width": "fit-content"
+        });
+      }
+    });
+    $("#lname").change(function() {
+      if ($("#lname-msg").length === 0) {
+        $(".form-id").append('<p id="lname-msg">You Have Changed the Last Name.</p>');
+        $("#lname-msg").css({
+          "background-color": "#f3e5f5",
+          "padding": "10px",
+          "border": "1px solid #6a1b9a",
+          "border-radius": "5px",
+          "margin-top": "10px",
+          "width": "fit-content"
+      });
+      }
+    });
+    $("#btn").click(function(s) {
+      s.preventDefault();
+      let firstname = $("#fname").val();
+      let lstname = $("#lname").val();
+
+      $("#fname-msg").text("First Name Entered: " + firstname);
+      $("#lname-msg").text("Last Name Entered: " + lstname);
+    });
+  </script>
+</body>
+</html>

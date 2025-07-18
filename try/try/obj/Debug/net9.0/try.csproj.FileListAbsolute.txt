@@ -1,0 +1,14 @@
+C:\Users\SUJITH KUMAR\OneDrive\Documents\Kanini\try\try\bin\Debug\net9.0\try.exe
+C:\Users\SUJITH KUMAR\OneDrive\Documents\Kanini\try\try\bin\Debug\net9.0\try.deps.json
+C:\Users\SUJITH KUMAR\OneDrive\Documents\Kanini\try\try\bin\Debug\net9.0\try.runtimeconfig.json
+C:\Users\SUJITH KUMAR\OneDrive\Documents\Kanini\try\try\bin\Debug\net9.0\try.dll
+C:\Users\SUJITH KUMAR\OneDrive\Documents\Kanini\try\try\bin\Debug\net9.0\try.pdb
+C:\Users\SUJITH KUMAR\OneDrive\Documents\Kanini\try\try\obj\Debug\net9.0\try.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\SUJITH KUMAR\OneDrive\Documents\Kanini\try\try\obj\Debug\net9.0\try.AssemblyInfoInputs.cache
+C:\Users\SUJITH KUMAR\OneDrive\Documents\Kanini\try\try\obj\Debug\net9.0\try.AssemblyInfo.cs
+C:\Users\SUJITH KUMAR\OneDrive\Documents\Kanini\try\try\obj\Debug\net9.0\try.csproj.CoreCompileInputs.cache
+C:\Users\SUJITH KUMAR\OneDrive\Documents\Kanini\try\try\obj\Debug\net9.0\try.dll
+C:\Users\SUJITH KUMAR\OneDrive\Documents\Kanini\try\try\obj\Debug\net9.0\refint\try.dll
+C:\Users\SUJITH KUMAR\OneDrive\Documents\Kanini\try\try\obj\Debug\net9.0\try.pdb
+C:\Users\SUJITH KUMAR\OneDrive\Documents\Kanini\try\try\obj\Debug\net9.0\try.genruntimeconfig.cache
+C:\Users\SUJITH KUMAR\OneDrive\Documents\Kanini\try\try\obj\Debug\net9.0\ref\try.dll

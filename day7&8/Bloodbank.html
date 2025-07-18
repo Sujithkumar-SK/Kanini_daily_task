@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Capital Blood Bank Centre</title>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f7f9fc;
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            padding: 40px 20px;
+            color: #333;
+        }
+
+        .container {
+            background: white;
+            padding: 25px 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            max-width: 720px;
+            width: 100%;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 25px;
+            color: #d32f2f;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        label {
+            font-weight: 600;
+            display: block;
+            margin-bottom: 6px;
+        }
+
+        input[type="text"], select {
+            width: 100%;
+            padding: 8px 12px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 15px;
+            box-sizing: border-box;
+            margin-bottom: 15px;
+        }
+
+        button {
+            background-color: #d32f2f;
+            color: white;
+            border: none;
+            font-size: 15px;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin-right: 10px;
+        }
+
+        button:hover {
+            background-color: #b71c1c;
+        }
+
+        #msg {
+            margin-bottom: 20px;
+            font-weight: 600;
+            color: green;
+            text-align: center;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            background-color: white;
+            box-shadow: 0 0 12px rgba(0,0,0,0.1);
+            border-radius: 5px;
+            overflow: hidden;
+            margin-top: 20px;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px 15px;
+            text-align: left;
+            font-size: 14px;
+        }
+
+        th {
+            background-color: #d32f2f;
+            color: white;
+            font-weight: 600;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Capital Blood Bank Centre</h1>
+
+        <div id="msg"></div>
+
+        <div class="form-group">
+            <label for="bloodGroup">Blood Group</label>
+            <select id="bloodGroup">
+                <option value="">--Select--</option>
+                <option value="o+ve">O+ve</option>
+                <option value="AB-ve">AB-ve</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="city">City</label>
+            <input type="text" id="city" placeholder="Enter City">
+        </div>
+
+        <div class="form-group">
+            <button id="search">Search Blood Donor(s)</button>
+            <button id="btn">Get Data From API</button>
+        </div>
+
+        <div id="result"></div>
+    </div>
+
+    <script>
+        let personsData = [];
+
+        $("#btn").click(function () {
+            $.ajax({
+                url: "https://webapps.tekstac.com:8443/WebProjects/PersonService/viewPersonListJSON",
+                method: "GET",
+                success: function (response) {
+                    if (response.length > 0) {
+                        $("#msg").text("Data fetched successfully");
+                        personsData = response;
+                    }
+                },
+                error: function () {
+                    $("#msg").text("Error fetching data.");
+                }
+            });
+        });
+
+        $("#search").click(function () {
+            const city = $("#city").val().trim();
+            const bloodGroup = $("#bloodGroup").val();
+            const donorDetails = getBloodDonorsDetails(city, bloodGroup);
+            const resultHtml = displayBloodDonorDetails(donorDetails);
+            $("#result").html(resultHtml);
+        });
+
+        function getBloodDonorsDetails(city, bloodGroup) {
+            const matchedDonors = [];
+            for (let person of personsData) {
+                if (
+                    person.city.toLowerCase() === city.toLowerCase() &&
+                    person.bloodGroup.toLowerCase() === bloodGroup.toLowerCase()
+                ) {
+                    const fullName = person.firstName + " " + person.lastName;
+                    const contact = person.phoneNumber;
+                    const address = getAddressString(person);
+                    matchedDonors.push({
+                        name: fullName,
+                        contactNumber: contact,
+                        address: address
+                    });
+                }
+            }
+            return matchedDonors;
+        }
+
+        function getAddressString(person) {
+            return `Door No: ${person.doorNo}, ${person.streetName}, (LandMark: ${person.landMark}), ${person.city}, ${person.state} ${person.zipCode}<br>${person.country}`;
+        }
+
+        function displayBloodDonorDetails(donorDetails) {
+            if (donorDetails.length === 0) {
+                return "<p>No blood donors available for the specified city and blood group</p>";
+            }
+            let table = `<table>
+                <tr>
+                    <th>Sl.No</th>
+                    <th>Name</th>
+                    <th>Contact Number</th>
+                    <th>Address</th>
+                </tr>`;
+            donorDetails.forEach((donor, index) => {
+                table += `<tr>
+                    <td>${index + 1}</td>
+                    <td>${donor.name}</td>
+                    <td>${donor.contactNumber}</td>
+                    <td>${donor.address}</td>
+                </tr>`;
+            });
+            table += `</table>`;
+            return table;
+        }
+    </script>
+</body>
+</html>

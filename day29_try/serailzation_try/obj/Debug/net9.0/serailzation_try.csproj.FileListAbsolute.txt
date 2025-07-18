@@ -1,0 +1,17 @@
+C:\Users\SUJITH KUMAR\OneDrive\Documents\Kanini\day29_try\serailzation_try\bin\Debug\net9.0\serailzation_try.exe
+C:\Users\SUJITH KUMAR\OneDrive\Documents\Kanini\day29_try\serailzation_try\bin\Debug\net9.0\serailzation_try.deps.json
+C:\Users\SUJITH KUMAR\OneDrive\Documents\Kanini\day29_try\serailzation_try\bin\Debug\net9.0\serailzation_try.runtimeconfig.json
+C:\Users\SUJITH KUMAR\OneDrive\Documents\Kanini\day29_try\serailzation_try\bin\Debug\net9.0\serailzation_try.dll
+C:\Users\SUJITH KUMAR\OneDrive\Documents\Kanini\day29_try\serailzation_try\bin\Debug\net9.0\serailzation_try.pdb
+C:\Users\SUJITH KUMAR\OneDrive\Documents\Kanini\day29_try\serailzation_try\bin\Debug\net9.0\Newtonsoft.Json.dll
+C:\Users\SUJITH KUMAR\OneDrive\Documents\Kanini\day29_try\serailzation_try\obj\Debug\net9.0\serailzation_try.csproj.AssemblyReference.cache
+C:\Users\SUJITH KUMAR\OneDrive\Documents\Kanini\day29_try\serailzation_try\obj\Debug\net9.0\serailzation_try.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\SUJITH KUMAR\OneDrive\Documents\Kanini\day29_try\serailzation_try\obj\Debug\net9.0\serailzation_try.AssemblyInfoInputs.cache
+C:\Users\SUJITH KUMAR\OneDrive\Documents\Kanini\day29_try\serailzation_try\obj\Debug\net9.0\serailzation_try.AssemblyInfo.cs
+C:\Users\SUJITH KUMAR\OneDrive\Documents\Kanini\day29_try\serailzation_try\obj\Debug\net9.0\serailzation_try.csproj.CoreCompileInputs.cache
+C:\Users\SUJITH KUMAR\OneDrive\Documents\Kanini\day29_try\serailzation_try\obj\Debug\net9.0\serailza.7C883E5D.Up2Date
+C:\Users\SUJITH KUMAR\OneDrive\Documents\Kanini\day29_try\serailzation_try\obj\Debug\net9.0\serailzation_try.dll
+C:\Users\SUJITH KUMAR\OneDrive\Documents\Kanini\day29_try\serailzation_try\obj\Debug\net9.0\refint\serailzation_try.dll
+C:\Users\SUJITH KUMAR\OneDrive\Documents\Kanini\day29_try\serailzation_try\obj\Debug\net9.0\serailzation_try.pdb
+C:\Users\SUJITH KUMAR\OneDrive\Documents\Kanini\day29_try\serailzation_try\obj\Debug\net9.0\serailzation_try.genruntimeconfig.cache
+C:\Users\SUJITH KUMAR\OneDrive\Documents\Kanini\day29_try\serailzation_try\obj\Debug\net9.0\ref\serailzation_try.dll

@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Sacred Heart Hospital</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <style>
+        body {
+            background-color: #dff3f5;
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+        h1 {
+            background-color: #2e9465;
+            color: white;
+            padding: 20px;
+        }
+        #btn {
+            margin: 20px;
+            padding: 10px 15px;
+            background-color: #3c3c3c;
+            color: white;
+            border: none;
+            border-radius: 5px;
+        }
+        #msg {
+            font-weight: bold;
+            color: #003399;
+        }
+        .form-container {
+            display: inline-block;
+            background-color: #e3f3e5;
+            border: 2px solid #ccc;
+            padding: 20px;
+            text-align: left;
+            border-radius: 10px;
+        }
+        label {
+            display: block;
+            margin: 10px 0 5px;
+        }
+        input[type="text"], input[type="date"] {
+            width: 100%;
+            padding: 6px;
+            margin-bottom: 10px;
+            box-sizing: border-box;
+        }
+        #search {
+            background-color: #00b060;
+            color: white;
+            padding: 8px 15px;
+            border: none;
+            border-radius: 5px;
+        }
+        #result {
+            margin-top: 20px;
+            font-weight: bold;
+            color: #003399;
+        }
+    </style>
+</head>
+<body>
+    <h1>Sacred Heart Hospital</h1>
+    <button id="btn">Get Data From API</button>
+    <span id="msg"></span>
+    <br>
+    <div class="form-container">
+        <label for="pid">Patient ID</label>
+        <input type="text" id="pid">
+        <label for="contact">Contact Number</label>
+        <input type="text" id="contact">
+        <label for="adate">Appointment Date</label>
+        <input type="date" id="adate">
+        <br>
+        <button id="search">Search</button>
+    </div>
+    <div id="result"></div>
+
+    <script>
+        let patientDetails = [];
+
+        $("#btn").click(function () {
+            $.ajax({
+                url: "https://webapps.tekstac.com:8443/WebProjects/PatientService/viewPatientListJSON",
+                method: "GET",
+                success: function (response) {
+                    if (response.length > 0) {
+                        $("#msg").text("Data acquisition successful");
+                        patientDetails = response;
+                    }
+                },
+                error: function () {
+                    $("#msg").text("Error fetching data.");
+                }
+            });
+        });
+
+        function findPatient(patientDetails, patientId, contactNumber) {
+            for (let i = 0; i < patientDetails.length; i++) {
+                if (
+                    patientDetails[i].patientId.toString() === patientId &&
+                    patientDetails[i].contactNumber.toString() === contactNumber
+                ) {
+                    return patientDetails[i];
+                }
+            }
+            return null;
+        }
+
+        $("#search").click(function () {
+            const patientId = $("#pid").val().trim();
+            const contact = $("#contact").val().trim();
+            const adateStr = $("#adate").val();
+
+            if (!adateStr || !patientId || !contact) {
+                $("#result").html("Please fill all fields correctly");
+                return;
+            }
+
+            const adate = new Date(adateStr);
+            const [yyyy, mm, dd] = adateStr.split("-");
+            const formattedDate = `${dd}-${mm}-${yyyy}`;
+            const today = new Date("2024-07-17");
+
+            const patient = findPatient(patientDetails, patientId, contact);
+            if (patient && adate > today) {
+                $("#result").html(`Hi, ${patient.patientName}. Your appointment with Dr. ${patient.doctorName} on ${formattedDate} is confirmed`);
+            } else {
+                $("#result").html("Patient record missing or Appointment Date is not valid");
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,14 @@
+C:\Users\SUJITH KUMAR\OneDrive\Documents\Kanini\day30_assessment_31b\EmployeePayRoll\bin\Debug\net9.0\EmployeePayRoll.exe
+C:\Users\SUJITH KUMAR\OneDrive\Documents\Kanini\day30_assessment_31b\EmployeePayRoll\bin\Debug\net9.0\EmployeePayRoll.deps.json
+C:\Users\SUJITH KUMAR\OneDrive\Documents\Kanini\day30_assessment_31b\EmployeePayRoll\bin\Debug\net9.0\EmployeePayRoll.runtimeconfig.json
+C:\Users\SUJITH KUMAR\OneDrive\Documents\Kanini\day30_assessment_31b\EmployeePayRoll\bin\Debug\net9.0\EmployeePayRoll.dll
+C:\Users\SUJITH KUMAR\OneDrive\Documents\Kanini\day30_assessment_31b\EmployeePayRoll\bin\Debug\net9.0\EmployeePayRoll.pdb
+C:\Users\SUJITH KUMAR\OneDrive\Documents\Kanini\day30_assessment_31b\EmployeePayRoll\obj\Debug\net9.0\EmployeePayRoll.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\SUJITH KUMAR\OneDrive\Documents\Kanini\day30_assessment_31b\EmployeePayRoll\obj\Debug\net9.0\EmployeePayRoll.AssemblyInfoInputs.cache
+C:\Users\SUJITH KUMAR\OneDrive\Documents\Kanini\day30_assessment_31b\EmployeePayRoll\obj\Debug\net9.0\EmployeePayRoll.AssemblyInfo.cs
+C:\Users\SUJITH KUMAR\OneDrive\Documents\Kanini\day30_assessment_31b\EmployeePayRoll\obj\Debug\net9.0\EmployeePayRoll.csproj.CoreCompileInputs.cache
+C:\Users\SUJITH KUMAR\OneDrive\Documents\Kanini\day30_assessment_31b\EmployeePayRoll\obj\Debug\net9.0\EmployeePayRoll.dll
+C:\Users\SUJITH KUMAR\OneDrive\Documents\Kanini\day30_assessment_31b\EmployeePayRoll\obj\Debug\net9.0\refint\EmployeePayRoll.dll
+C:\Users\SUJITH KUMAR\OneDrive\Documents\Kanini\day30_assessment_31b\EmployeePayRoll\obj\Debug\net9.0\EmployeePayRoll.pdb
+C:\Users\SUJITH KUMAR\OneDrive\Documents\Kanini\day30_assessment_31b\EmployeePayRoll\obj\Debug\net9.0\EmployeePayRoll.genruntimeconfig.cache
+C:\Users\SUJITH KUMAR\OneDrive\Documents\Kanini\day30_assessment_31b\EmployeePayRoll\obj\Debug\net9.0\ref\EmployeePayRoll.dll

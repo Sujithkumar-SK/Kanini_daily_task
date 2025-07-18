@@ -1,0 +1,16 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net9.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <!--StartupObject>Program.Maintain</StartupObject-->
+    <!--StartupObject>Program.StudentManage</StartupObject-->
+    <!--StartupObject>Program.Inventory</StartupObject-->
+    <!--StartupObject>Program.AccountManage</StartupObject-->
+    <!--StartupObject>GameMain</StartupObject-->
+    <StartupObject>LuckyMain</StartupObject>
+  </PropertyGroup>
+
+</Project>

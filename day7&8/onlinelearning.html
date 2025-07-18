@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Online Learning</title>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+  <div id="colorButtons">
+    <button class="btn-red">Red</button>
+    <button class="btn-blue">Blue</button>
+    <button class="btn-green">Green</button>
+  </div>
+  <div id="panel">Color Panel</div>
+  <h2 id="til">Event Log</h2>
+  <div id="log"></div>
+
+  <script>
+    $("body").css({
+      "font-family":"Arial, sans-serif",
+      "padding": "20px",
+      "text-align": "center",
+      "background-color": "#f0f8ff"
+    });
+    $("#colorButtons").css({
+      "margin-bottom":"20px"
+    });
+    $(".btn-red, .btn-blue, .btn-green").css({
+      "padding":"10px 20px",
+      "margin":"10px",
+      "border":"none",
+      "border-radius":"8px",
+      "font-size":"16px",
+      "color":"#fff",
+      "cursor":"pointer"
+    });
+    $('.btn-red').css('background-color', 'red');
+    $('.btn-blue').css('background-color', 'blue');
+    $('.btn-green').css('background-color', 'green');
+    $('#panel').css({
+      'width': '200px',
+      'height': '100px',
+      'margin': '0 auto 20px',
+      'line-height': '100px',
+      'font-weight': 'bold',
+      'background-color': '#ccc',
+      'border-radius': '10px',
+      'color': '#000'
+    });
+    $('#til').css({
+      'margin-top': '30px',
+      'text-decoration': 'underline'
+    });
+    $('#log').css({
+      'margin-top': '10px',
+      'text-align': 'left',
+      'max-width': '400px',
+      'margin-left': 'auto',
+      'margin-right': 'auto',
+      'border': '1px solid #ccc',
+      'padding': '10px',
+      'background-color': '#fff',
+      'border-radius': '8px',
+      'height': '150px',
+      'overflow-y': 'auto'
+    });
+
+    $(".btn-red, .btn-green, .btn-blue").on("click", function(event) {
+      let color = "";
+
+      if ($(this).hasClass("btn-red")) {
+        color = "red";
+      } else if ($(this).hasClass("btn-blue")) {
+        color = "blue";
+      } else if ($(this).hasClass("btn-green")) {
+        color = "green";
+      }
+      $("#panel").css("background-color", color).text(color.toUpperCase());
+      $("#log").append(
+        `<p>Button clicked: ${color.toUpperCase()} | Event Type: ${event.type}</p>`
+      );
+    });
+  </script>
+</body>
+</html>

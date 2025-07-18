@@ -1,0 +1,14 @@
+C:\Users\SUJITH KUMAR\OneDrive\Documents\Kanini\day23\day23\bin\Debug\net9.0\day23.exe
+C:\Users\SUJITH KUMAR\OneDrive\Documents\Kanini\day23\day23\bin\Debug\net9.0\day23.deps.json
+C:\Users\SUJITH KUMAR\OneDrive\Documents\Kanini\day23\day23\bin\Debug\net9.0\day23.runtimeconfig.json
+C:\Users\SUJITH KUMAR\OneDrive\Documents\Kanini\day23\day23\bin\Debug\net9.0\day23.dll
+C:\Users\SUJITH KUMAR\OneDrive\Documents\Kanini\day23\day23\bin\Debug\net9.0\day23.pdb
+C:\Users\SUJITH KUMAR\OneDrive\Documents\Kanini\day23\day23\obj\Debug\net9.0\day23.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\SUJITH KUMAR\OneDrive\Documents\Kanini\day23\day23\obj\Debug\net9.0\day23.AssemblyInfoInputs.cache
+C:\Users\SUJITH KUMAR\OneDrive\Documents\Kanini\day23\day23\obj\Debug\net9.0\day23.AssemblyInfo.cs
+C:\Users\SUJITH KUMAR\OneDrive\Documents\Kanini\day23\day23\obj\Debug\net9.0\day23.csproj.CoreCompileInputs.cache
+C:\Users\SUJITH KUMAR\OneDrive\Documents\Kanini\day23\day23\obj\Debug\net9.0\day23.dll
+C:\Users\SUJITH KUMAR\OneDrive\Documents\Kanini\day23\day23\obj\Debug\net9.0\refint\day23.dll
+C:\Users\SUJITH KUMAR\OneDrive\Documents\Kanini\day23\day23\obj\Debug\net9.0\day23.pdb
+C:\Users\SUJITH KUMAR\OneDrive\Documents\Kanini\day23\day23\obj\Debug\net9.0\day23.genruntimeconfig.cache
+C:\Users\SUJITH KUMAR\OneDrive\Documents\Kanini\day23\day23\obj\Debug\net9.0\ref\day23.dll

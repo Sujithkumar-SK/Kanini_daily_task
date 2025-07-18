@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>One-Stop Mobile Accessories
+  </title>
+  <script src="script.js"></script>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>One-Stop Mobile Accessories</h1>
+    <form onsubmit=" return result()">
+      <table>
+        <tr>
+          <td colspan="2" class="title">Personal Details</td>
+        </tr>
+
+        <tr>
+          <td><label for="name">Name</label></td>
+          <td><input type="text" name="name" id="name" required></td>
+        </tr>
+        <tr>
+          <td><label for="phoneNumber">Phone Number</label></td>
+          <td><input type="number" id="phoneNumber" name="phoneNumber" required></td>
+        </tr>
+
+        <tr>
+          <td><label for="emailid">Email</label></td>
+          <td><input type="email" name="emailid" id="emailid" required></td>
+        </tr>
+
+        <tr>
+          <td><label for="address">Delivery Address</label></td>
+          <td><textarea name="address" rows="4" id="address" required></textarea></td>
+        </tr>
+
+        <tr>
+          <td colspan="2" class="title">Combo Offers (Save upto Rs. 400 on each combo !!)</td>
+        </tr>
+
+        <tr>
+          <td rowspan="5">
+            <input type="checkbox" id="optional1" value="799" name="optional1">
+            <label for="optional1">SanDisk 32GB micro SDHC Memory Card + iXCC Micro-USB cable</label><br>
+            <input type="checkbox" id="optional2" value="899" name="optional2">
+            <label for="optional2">Sandisk Curser Blade 32 GB Pen Drive + Samung Type B 15W Travel Adaptor</label><br>
+            <input type="checkbox" id="optional3" value="1199" name="optional3">
+            <label for="optional3">Sony WFT-1000XM3 Head Phone + SanDisk 16GB micro SDHC Mmemory Card</label><br>
+            <input type="checkbox" id="optional4" value="299" name="optional4">
+            <label for="optional4">Mpow Car Phone Mount + Zebroni 1 Amp Turbo Car Mobile Charger</label><br>
+            <input type="checkbox" id="optional5" value="999" name="optional5">
+            <label for="optional5">Tribit XSound Go Bluetooth Speaker + Mpow Car Phone Mount</label><br>
+          </td>
+          <td>Rs 799/- only</td>
+        </tr>
+        <tr>
+          <td>Rs 899/- only</td>
+        </tr>
+        <tr>
+          <td>Rs 1199/- only</td>
+        </tr>
+        <tr>
+          <td>Rs 299/- only</td>
+        </tr>
+        <tr>
+          <td>Rs 999/- only</td>
+        </tr>
+
+        <tr>
+          <td colspan="2">* Enjoy 20% discount on purchasing combos worth 2000 and above !!</td>
+        </tr>
+      </table>
+      <button type="submit">PLACE ORDER</button>
+    </form>
+  </div>
+
+
+  <h3 id="result"></h3>
+</body>
+</html>

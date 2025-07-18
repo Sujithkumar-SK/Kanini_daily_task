@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JASPER SPORTS ACADEMY</title>
+  <style>
+    td {
+    padding: 10px;
+    border: 1px solid #999;
+  }
+    table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  h2 {
+    text-align: center;
+    color: white;
+    background-color: rgba(0, 0, 0, 0.6);
+    padding: 10px;
+    border-radius: 10px;
+  }
+    form {
+    background-color: rgba(255, 255, 255, 0.95);
+    max-width: 80%;
+    margin: auto;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 0 10px #000;
+  }
+
+    body {
+    font-family: Arial, sans-serif;
+    background-image: url('background.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    margin: 0;
+    padding: 20px;
+  }
+
+  .title {
+    font-weight: bold;
+    text-align: center;
+    background-color: #f2f2f2;
+    font-size: 18px;
+  }
+
+  input[type="text"],
+  input[type="date"],
+  input[type="number"],
+  input[type="email"],
+  input[type="tel"],
+  input[type="file"],
+  textarea,
+  select {
+    width: 95%;
+    padding: 8px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+  }
+  input[type="submit"] {
+    background-color: #28a745;
+    color: white;
+    border: none;
+    padding: 10px 25px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  input[type="submit"]:hover {
+    background-color: #218838;
+  }
+  a#scheduleLink {
+    color: #007bff;
+    text-decoration: none;
+  }
+  a#scheduleLink:hover {
+    text-decoration: underline;
+  }
+  #discountMessage {
+    text-align: center;
+    color: red;
+    font-weight: bold;
+    background-color: #fff3cd;
+  }
+  </style>
+</head>
+<body>
+  <h2>JASPER SPORTS ACADEMY</h2>
+  <form>
+    <table>
+      <tr>
+        <td colspan="2" class="title">player Registration Details</td>
+      </tr>
+
+      <tr>
+        <td><label for="dateOfReg">Date of Registration</label></td>
+        <td><input type="date" id="dateOfReg" name="dateOfReg"></td>
+      </tr>
+      <tr>
+        <td><label for="playerFullName">Name</label></td>
+        <td><input type="text" pattern="[A-Za-z\s]+" required id="playerFullName" name="playerFullName"></td>
+      </tr>
+      
+      <tr>
+        <td><label for="ageOfPlayer">Age</label></td>
+        <td><input type="number" min="3" id="ageOfPlayer" name="ageOfPlayer" required></td>
+      </tr>
+
+      <tr>
+        <td>Sports Type</td>
+        <td>
+          <input type="radio" id="typeIndoor" name="sportsType" value="Indoor">
+          <label for="typeIndoor">Indoor</label>
+          <input type="radio" id="typeOutdoor" name="sportsType" value="Outdoor">
+          <label for="typeOutdoor">Outdoor</label>
+        </td>
+      <tr>
+        <td><label for="telephoneNumber">Phone Number</label></td>
+        <td><input type="tel" pattern="[6-9]\d{9}" name="telephoneNumber" required></td>
+      </tr>
+      <tr>
+        <td><label for="emailField">Email</label></td>
+        <td><input type="email" name="emailField" id="emailField" required></td>
+      </tr>
+      <tr>
+        <td><label for="addressField">Address</label></td>
+        <td><textarea id="addressField" name="addressField" rows="4" cols="30" placeholder="Enter Yoyr Address" required></textarea></td>
+      </tr>
+
+      <tr>
+        <td><label for="numberPlayers">Number of Players</label></td>
+        <td>
+          <select id="numberPlayers" name="numberPlayers">
+            <option disabled selected>--select--</option>
+            <option>Single</option>
+            <option>Double</option>
+            <option>Multiple</option>
+          </select>
+        </td>
+      </tr>
+
+      <tr>
+        <td><label for="playerLocation">Location</label></td>
+        <td><input type="text" id="playerLocation" name="playerLocation"></td>
+      </tr>
+      <tr>
+        <td>Sports (with duration)</td>
+        <td>Sports Fee</td>
+      </tr>
+      <tr>
+        <td rowspan="4">
+          <input type="checkbox" id="cricketSport" name="sports" value="Cricket (3months)">
+          <label for="cricketSport">Cricket (3 months)</label><br>
+          <input type="checkbox" id="basketballSport" name="sports" value="BasketBall (9 months)">
+          <label for="basketballSport">BasketBall (9 months)</label><br>
+          <input type="checkbox" id="tableTennisSport" name="sports" value="Table Tennis (6 months)">
+          <label for="tableTennisSport">Table Tennis (6 months)</label>
+        </td>
+      </tr>
+      <tr>
+        <td>Rs. 20000/-</td>
+      </tr>
+      <tr>
+        <td>Rs. 25000/-</td>
+      </tr>
+      <tr>
+        <td>Rs. 18000/-</td>
+      </tr>
+
+      <tr>
+        <td><label for="birthCert">Birth Certificate (Jpeg/Pdf)</label></td>
+        <td><input type="file" id="birthCert" accept=".jpeg,.jpg,.pdf" required></td>
+      </tr>
+
+      <tr>
+        <td><label for="scheduleLink">Schedule</label></td>
+        <td><a href="timing.html" id="scheduleLink">View Schedule</a></td>
+      </tr>
+
+      <tr>
+        <td><label for="depositRange">Deposit</label></td>
+        <td><input type="range" id="depositRange" name="depositRange" min="0" max="20000" required></td>
+      </tr>
+
+      <tr>
+        <td colspan="2" id="discountMessage"><b>Only on registration for more than 6 months</b></td>
+      </tr>
+      <tr>
+        <td colspan="2" style="text-align: center;">
+          <input type="submit" id="enroll" name="enroll" value="Enroll">
+        </td>
+      </tr>
+    </table>
+  </form>
+</body>
+</html>

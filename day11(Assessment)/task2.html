@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Digi-Library</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+
+  <style>
+    body {
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    main {
+      flex: 1;
+    }
+  </style>
+</head>
+
+<body>
+
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">Digi-Library</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarNavDropdown">
+        <ul class="navbar-nav me-auto">
+          <li class="nav-item">
+            <a class="nav-link active" href="#">Home</a>
+          </li>
+
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+              Categories
+            </a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="#">Languages</a></li>
+              <li><a class="dropdown-item" href="#">Engineering</a></li>
+              <li><a class="dropdown-item" href="#">Math and Commerce</a></li>
+              <li><a class="dropdown-item" href="#">Science</a></li>
+              <li><a class="dropdown-item" href="#">Medical</a></li>
+              <li><a class="dropdown-item" href="#">History</a></li>
+            </ul>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link" href="#">Membership Purchase</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Contact Us</a>
+          </li>
+        </ul>
+
+        <div class="d-flex align-items-center">
+          <a class="nav-link text-white" href="#">
+            <i class="bi bi-person-plus"></i> Sign Up</a>
+          <a class="nav-link text-white ms-3" href="#">
+            <i class="bi bi-box-arrow-in-right"></i> Login</a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <main>
+    <div class="container my-4">
+      <div class="card shadow-sm">
+        <div class="card-body">
+          <h2 class="text-center mb-3">About Us</h2>
+          <p class="text-justify">
+            Specialized research libraries in our country join hands together to make this Digi-Library for providing resources and services that are as diverse as the collections. They span scientific and cultural pursuits from aerospace, anthropology, and art history to zoology. Each library supports its community of scholars and students through access to digital resources and knowledge sharing.
+          </p>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="container mb-5">
+      <h3 class="text-center">Digital Resources Available</h3>
+      <table class="table table-bordered table-striped mt-3">
+        <thead class="table-secondary">
+          <tr>
+            <th>#</th>
+            <th>Category</th>
+            <th>Count</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>1</td>
+            <td>Languages</td>
+            <td>3114</td>
+          </tr>
+          <tr>
+            <td>2</td>
+            <td>Engineering</td>
+            <td>2681</td>
+          </tr>
+          <tr>
+            <td>3</td>
+            <td>Math and Commerce</td>
+            <td>4586</td>
+          </tr>
+          <tr>
+            <td>4</td>
+            <td>Science</td>
+            <td>6527</td>
+          </tr>
+          <tr>
+            <td>5</td>
+            <td>Medical</td>
+            <td>2253</td>
+          </tr>
+          <tr>
+            <td>6</td>
+            <td>History</td>
+            <td>1948</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </main>
+
+  <footer class="bg-dark text-white text-center py-3">
+    All Rights Reserved. DigiLibrary
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

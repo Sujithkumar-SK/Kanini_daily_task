@@ -1,0 +1,14 @@
+C:\Users\SUJITH KUMAR\OneDrive\Documents\Kanini\day27_try\day27_generic_try\bin\Debug\net9.0\day27_generic_try.exe
+C:\Users\SUJITH KUMAR\OneDrive\Documents\Kanini\day27_try\day27_generic_try\bin\Debug\net9.0\day27_generic_try.deps.json
+C:\Users\SUJITH KUMAR\OneDrive\Documents\Kanini\day27_try\day27_generic_try\bin\Debug\net9.0\day27_generic_try.runtimeconfig.json
+C:\Users\SUJITH KUMAR\OneDrive\Documents\Kanini\day27_try\day27_generic_try\bin\Debug\net9.0\day27_generic_try.dll
+C:\Users\SUJITH KUMAR\OneDrive\Documents\Kanini\day27_try\day27_generic_try\bin\Debug\net9.0\day27_generic_try.pdb
+C:\Users\SUJITH KUMAR\OneDrive\Documents\Kanini\day27_try\day27_generic_try\obj\Debug\net9.0\day27_generic_try.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\SUJITH KUMAR\OneDrive\Documents\Kanini\day27_try\day27_generic_try\obj\Debug\net9.0\day27_generic_try.AssemblyInfoInputs.cache
+C:\Users\SUJITH KUMAR\OneDrive\Documents\Kanini\day27_try\day27_generic_try\obj\Debug\net9.0\day27_generic_try.AssemblyInfo.cs
+C:\Users\SUJITH KUMAR\OneDrive\Documents\Kanini\day27_try\day27_generic_try\obj\Debug\net9.0\day27_generic_try.csproj.CoreCompileInputs.cache
+C:\Users\SUJITH KUMAR\OneDrive\Documents\Kanini\day27_try\day27_generic_try\obj\Debug\net9.0\day27_generic_try.dll
+C:\Users\SUJITH KUMAR\OneDrive\Documents\Kanini\day27_try\day27_generic_try\obj\Debug\net9.0\refint\day27_generic_try.dll
+C:\Users\SUJITH KUMAR\OneDrive\Documents\Kanini\day27_try\day27_generic_try\obj\Debug\net9.0\day27_generic_try.pdb
+C:\Users\SUJITH KUMAR\OneDrive\Documents\Kanini\day27_try\day27_generic_try\obj\Debug\net9.0\day27_generic_try.genruntimeconfig.cache
+C:\Users\SUJITH KUMAR\OneDrive\Documents\Kanini\day27_try\day27_generic_try\obj\Debug\net9.0\ref\day27_generic_try.dll

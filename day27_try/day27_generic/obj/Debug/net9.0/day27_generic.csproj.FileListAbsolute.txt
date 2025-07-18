@@ -1,0 +1,14 @@
+C:\Users\SUJITH KUMAR\OneDrive\Documents\Kanini\day27_try\day27_generic\obj\Debug\net9.0\day27_generic.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\SUJITH KUMAR\OneDrive\Documents\Kanini\day27_try\day27_generic\obj\Debug\net9.0\day27_generic.AssemblyInfoInputs.cache
+C:\Users\SUJITH KUMAR\OneDrive\Documents\Kanini\day27_try\day27_generic\obj\Debug\net9.0\day27_generic.AssemblyInfo.cs
+C:\Users\SUJITH KUMAR\OneDrive\Documents\Kanini\day27_try\day27_generic\obj\Debug\net9.0\day27_generic.csproj.CoreCompileInputs.cache
+C:\Users\SUJITH KUMAR\OneDrive\Documents\Kanini\day27_try\day27_generic\bin\Debug\net9.0\day27_generic.exe
+C:\Users\SUJITH KUMAR\OneDrive\Documents\Kanini\day27_try\day27_generic\bin\Debug\net9.0\day27_generic.deps.json
+C:\Users\SUJITH KUMAR\OneDrive\Documents\Kanini\day27_try\day27_generic\bin\Debug\net9.0\day27_generic.runtimeconfig.json
+C:\Users\SUJITH KUMAR\OneDrive\Documents\Kanini\day27_try\day27_generic\bin\Debug\net9.0\day27_generic.dll
+C:\Users\SUJITH KUMAR\OneDrive\Documents\Kanini\day27_try\day27_generic\bin\Debug\net9.0\day27_generic.pdb
+C:\Users\SUJITH KUMAR\OneDrive\Documents\Kanini\day27_try\day27_generic\obj\Debug\net9.0\day27_generic.dll
+C:\Users\SUJITH KUMAR\OneDrive\Documents\Kanini\day27_try\day27_generic\obj\Debug\net9.0\refint\day27_generic.dll
+C:\Users\SUJITH KUMAR\OneDrive\Documents\Kanini\day27_try\day27_generic\obj\Debug\net9.0\day27_generic.pdb
+C:\Users\SUJITH KUMAR\OneDrive\Documents\Kanini\day27_try\day27_generic\obj\Debug\net9.0\day27_generic.genruntimeconfig.cache
+C:\Users\SUJITH KUMAR\OneDrive\Documents\Kanini\day27_try\day27_generic\obj\Debug\net9.0\ref\day27_generic.dll

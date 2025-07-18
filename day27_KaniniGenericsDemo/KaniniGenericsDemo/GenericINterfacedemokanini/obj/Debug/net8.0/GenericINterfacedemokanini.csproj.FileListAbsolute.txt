@@ -1,0 +1,15 @@
+C:\Users\ADMIN\source\repos\KaniniGenericsDemo\GenericINterfacedemokanini\bin\Debug\net8.0\GenericINterfacedemokanini.exe
+C:\Users\ADMIN\source\repos\KaniniGenericsDemo\GenericINterfacedemokanini\bin\Debug\net8.0\GenericINterfacedemokanini.deps.json
+C:\Users\ADMIN\source\repos\KaniniGenericsDemo\GenericINterfacedemokanini\bin\Debug\net8.0\GenericINterfacedemokanini.runtimeconfig.json
+C:\Users\ADMIN\source\repos\KaniniGenericsDemo\GenericINterfacedemokanini\bin\Debug\net8.0\GenericINterfacedemokanini.dll
+C:\Users\ADMIN\source\repos\KaniniGenericsDemo\GenericINterfacedemokanini\bin\Debug\net8.0\GenericINterfacedemokanini.pdb
+C:\Users\ADMIN\source\repos\KaniniGenericsDemo\GenericINterfacedemokanini\obj\Debug\net8.0\GenericINterfacedemokanini.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\ADMIN\source\repos\KaniniGenericsDemo\GenericINterfacedemokanini\obj\Debug\net8.0\GenericINterfacedemokanini.AssemblyInfoInputs.cache
+C:\Users\ADMIN\source\repos\KaniniGenericsDemo\GenericINterfacedemokanini\obj\Debug\net8.0\GenericINterfacedemokanini.AssemblyInfo.cs
+C:\Users\ADMIN\source\repos\KaniniGenericsDemo\GenericINterfacedemokanini\obj\Debug\net8.0\GenericINterfacedemokanini.csproj.CoreCompileInputs.cache
+C:\Users\ADMIN\source\repos\KaniniGenericsDemo\GenericINterfacedemokanini\obj\Debug\net8.0\GenericINterfacedemokanini.sourcelink.json
+C:\Users\ADMIN\source\repos\KaniniGenericsDemo\GenericINterfacedemokanini\obj\Debug\net8.0\GenericINterfacedemokanini.dll
+C:\Users\ADMIN\source\repos\KaniniGenericsDemo\GenericINterfacedemokanini\obj\Debug\net8.0\refint\GenericINterfacedemokanini.dll
+C:\Users\ADMIN\source\repos\KaniniGenericsDemo\GenericINterfacedemokanini\obj\Debug\net8.0\GenericINterfacedemokanini.pdb
+C:\Users\ADMIN\source\repos\KaniniGenericsDemo\GenericINterfacedemokanini\obj\Debug\net8.0\GenericINterfacedemokanini.genruntimeconfig.cache
+C:\Users\ADMIN\source\repos\KaniniGenericsDemo\GenericINterfacedemokanini\obj\Debug\net8.0\ref\GenericINterfacedemokanini.dll

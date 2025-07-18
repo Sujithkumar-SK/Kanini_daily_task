@@ -1,0 +1,132 @@
+
+table, th, td {
+  border: 1px solid black;
+}
+
+td {
+  padding: 10px 15px;
+  border-radius: 5px;
+}
+
+h1 {
+  color: #FF0000;
+  font-weight: bold;
+  font-style: italic;
+  text-align: center;
+}
+div {
+  color: #D03090;
+  font-weight: bold;
+  font-style: italic;
+  text-align: center;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+table {
+  background-color: #77F8AA;
+  border-spacing: 3px;
+  border-width: 5%;
+  border-style: solid;
+  text-align: left;
+  padding: 10px;
+  width: 80%;
+  height: 100%;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.button-row {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-top: 20px;
+}
+
+.button-row button {
+  padding: 10px 25px;
+  font-weight: bold;
+  font-size: 16px;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+#submit {
+  background-color: #4CAF50;
+}
+
+#submit:hover {
+  background-color: #45a049;
+}
+
+#reset {
+  background-color: #f44336;
+}
+
+#reset:hover {
+  background-color: #d32f2f;
+}
+
+.button-row button:last-child {
+  background-color: #2196F3;
+}
+
+.button-row button:last-child:hover {
+  background-color: #0b7dda;
+}
+
+.package-heading {
+  text-align: center;
+  margin-top: 40px;
+  color: #d03090;
+  font-style: italic;
+  font-weight: bold;
+}
+
+.card-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+  padding: 30px;
+  margin: 40px auto;
+  width: 90%;
+  max-width: 1000px;
+  background-color: #f5fff5;
+  border-radius: 15px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+}
+
+
+.package-card {
+  background-color: #ccffcc;
+  border: 2px solid #00aa66;
+  border-radius: 12px;
+  width: 250px;
+  padding: 20px;
+  text-align: left;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease;
+}
+
+.package-card:hover {
+  transform: scale(1.05);
+}
+
+.package-card h3 {
+  margin-top: 0;
+  color: #FF0000;
+  font-weight: bold;
+}
+
+.package-card p {
+  margin: 8px 0;
+  font-weight: 500;
+}

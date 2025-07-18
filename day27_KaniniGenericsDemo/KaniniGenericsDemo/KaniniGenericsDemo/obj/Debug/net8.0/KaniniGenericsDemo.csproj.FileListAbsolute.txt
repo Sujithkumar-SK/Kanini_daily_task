@@ -1,0 +1,15 @@
+C:\Users\ADMIN\source\repos\KaniniGenericsDemo\KaniniGenericsDemo\bin\Debug\net8.0\KaniniGenericsDemo.exe
+C:\Users\ADMIN\source\repos\KaniniGenericsDemo\KaniniGenericsDemo\bin\Debug\net8.0\KaniniGenericsDemo.deps.json
+C:\Users\ADMIN\source\repos\KaniniGenericsDemo\KaniniGenericsDemo\bin\Debug\net8.0\KaniniGenericsDemo.runtimeconfig.json
+C:\Users\ADMIN\source\repos\KaniniGenericsDemo\KaniniGenericsDemo\bin\Debug\net8.0\KaniniGenericsDemo.dll
+C:\Users\ADMIN\source\repos\KaniniGenericsDemo\KaniniGenericsDemo\bin\Debug\net8.0\KaniniGenericsDemo.pdb
+C:\Users\ADMIN\source\repos\KaniniGenericsDemo\KaniniGenericsDemo\obj\Debug\net8.0\KaniniGenericsDemo.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\ADMIN\source\repos\KaniniGenericsDemo\KaniniGenericsDemo\obj\Debug\net8.0\KaniniGenericsDemo.AssemblyInfoInputs.cache
+C:\Users\ADMIN\source\repos\KaniniGenericsDemo\KaniniGenericsDemo\obj\Debug\net8.0\KaniniGenericsDemo.AssemblyInfo.cs
+C:\Users\ADMIN\source\repos\KaniniGenericsDemo\KaniniGenericsDemo\obj\Debug\net8.0\KaniniGenericsDemo.csproj.CoreCompileInputs.cache
+C:\Users\ADMIN\source\repos\KaniniGenericsDemo\KaniniGenericsDemo\obj\Debug\net8.0\KaniniGenericsDemo.sourcelink.json
+C:\Users\ADMIN\source\repos\KaniniGenericsDemo\KaniniGenericsDemo\obj\Debug\net8.0\KaniniGenericsDemo.dll
+C:\Users\ADMIN\source\repos\KaniniGenericsDemo\KaniniGenericsDemo\obj\Debug\net8.0\refint\KaniniGenericsDemo.dll
+C:\Users\ADMIN\source\repos\KaniniGenericsDemo\KaniniGenericsDemo\obj\Debug\net8.0\KaniniGenericsDemo.pdb
+C:\Users\ADMIN\source\repos\KaniniGenericsDemo\KaniniGenericsDemo\obj\Debug\net8.0\KaniniGenericsDemo.genruntimeconfig.cache
+C:\Users\ADMIN\source\repos\KaniniGenericsDemo\KaniniGenericsDemo\obj\Debug\net8.0\ref\KaniniGenericsDemo.dll

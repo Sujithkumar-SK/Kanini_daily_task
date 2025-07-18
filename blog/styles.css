@@ -1,0 +1,184 @@
+html, body {
+  font-family: 'Times New Roman', Times, serif;
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  height: 100%;
+  background-color:whitesmoke;
+}
+#navigation {
+  display: flex;
+  justify-content: flex-end;
+  gap: 30px;
+  background-color: #222;
+  padding: 10px 30px;
+}
+#navigation a {
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 18px;
+  transition: color 0.3s ease;
+}
+.banner img {
+  width: 100%;
+  height: 300px;
+  }
+#navigation a:hover {
+  color: orange;
+}
+h1 {
+  text-align: center;
+}
+.container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+a {
+  text-decoration: none;
+  font-weight: bold;
+  color: rgb(50, 50, 50);
+}
+header {
+  background-color: #222;
+  color: white;
+  padding: 0;
+}
+
+.anime-list {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  margin-top: 40px;
+}
+.anime-card {
+  width: 300px;
+  text-align: center;
+  transition: transform 0.3s ease;
+  animation: pop 0.5s ease;
+}
+.anime-card img {
+  width: 100%;
+  height: 250px;
+  object-fit: cover;
+  border-radius: 10px;
+  transition: transform 0.3s ease;
+}
+
+.anime-card:hover img {
+  transform: scale(1.1);
+}
+.anime-card {
+  animation: pop 0.5s ease;
+}
+@keyframes pop {
+  0% { transform: scale(0.8); opacity: 0;}
+  100% { transform: scale(1); opacity: 1;}
+}
+
+footer {
+  background-color: black;
+  color: white;
+  text-align: center;
+  padding: 20px;
+  font-size: 14px;
+}
+
+.naruto-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px;
+  padding: 30px;
+  background-color: #f0f0f5;
+  border-radius: 10px;
+}
+
+.naruto-card {
+  position: relative;
+  overflow: hidden;
+  border-radius: 10px;
+  background-color: white;
+  box-shadow: 0 2px 8px rgb(0, 0, 0, 0.2);
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+.naruto-card img {
+  width: 100%;
+  height: 250px;
+  object-fit: cover;
+  border-radius: 10px;
+  display: block;
+}
+
+
+.character-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 30px;
+  padding: 30px;
+  background-color: #f4f4f4;
+  border-radius: 15px;
+  margin: 20px;
+}
+
+.character-card {
+  position: relative;
+  overflow: hidden;
+  border-radius: 10px;
+  background-color: white;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+}
+
+.character-card img {
+  width: 100%;
+  height: 250px;
+  object-fit: contain;
+  transition: transform 0.3s ease;
+  display: block;
+}
+.character-card:hover img {
+  transform: scale(1.05);
+}
+
+.naruto-card .character-name {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgb(0, 0, 0, 0.75);
+  color: white;
+  padding: 12px;
+  text-align: center;
+  font-size: 18px;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.naruto-card:hover {
+  transform:scale(1.05);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+}
+
+.character-card:hover .character-name {
+  opacity: 1;
+}
+
+.naruto-card:hover .character-name {
+  opacity: 1;
+}
+
+.character-name {
+  position:absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgb(0, 0, 0, 0.75);
+  color: white;
+  padding: 12px;
+  text-align: center;
+  font-size: 18px;
+  opacity: 0;
+  transition: opacity 0.3s;
+}

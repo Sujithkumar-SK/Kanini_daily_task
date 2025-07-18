@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Dog Adoption</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <style>
+    body {
+      padding-top: 56px;
+    }
+
+    .carousel-inner {
+      max-height: 350px;
+      background: #f8f9fa;
+    }
+
+    .carousel-item img {
+      max-height: 350px;
+      object-fit: contain;
+      width: 100%;
+      padding: 1rem;
+    }
+
+    .card {
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      border-radius: 0.75rem;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 0 12px rgba(0, 0, 0, 0.1);
+    }
+
+    .card-img-top {
+      height: 180px;
+      object-fit: cover;
+      border-radius: 0.75rem 0.75rem 0 0;
+    }
+
+    .card-body {
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .btn {
+      margin-top: auto;
+    }
+
+    footer {
+      background-color: #0d6efd;
+      color: white;
+      text-align: center;
+      padding: 1rem;
+      margin-top: 3rem;
+    }
+
+    @media (max-width: 575px) {
+      .carousel-inner {
+        max-height: 200px;
+      }
+
+      .carousel-item img {
+        max-height: 200px;
+      }
+
+      .card-img-top {
+        height: 120px;
+      }
+
+      .card-title {
+        font-size: 1rem;
+      }
+
+      .card-text {
+        font-size: 0.85rem;
+      }
+
+      footer p {
+        font-size: 0.75rem;
+      }
+    }
+
+    @media (min-width: 576px) and (max-width: 990px) {
+      .carousel-inner {
+        max-height: 300px;
+      }
+
+      .carousel-item img {
+        max-height: 300px;
+      }
+
+      .card-img-top {
+        height: 150px;
+      }
+
+      .card-title {
+        font-size: 1.25rem;
+      }
+
+      .card-text {
+        font-size: 1rem;
+      }
+
+      footer p {
+        font-size: 0.85rem;
+      }
+    }
+
+    @media (min-width: 991px) {
+      .carousel-inner {
+        max-height: 350px;
+      }
+
+      .carousel-item img {
+        max-height: 350px;
+      }
+
+      .card-img-top {
+        height: 180px;
+      }
+
+      .card-title {
+        font-size: 1.5rem;
+      }
+
+      .card-text {
+        font-size: 1.1rem;
+      }
+
+      footer p {
+        font-size: 1rem;
+      }
+    }
+
+    @media (max-width: 575px) {
+      #backToTopBtn {
+        width: 40px;
+        height: 40px;
+        font-size: 20px;
+      }
+    }
+
+    @media (max-width: 575px) {
+      .navbar-brand {
+        font-size: 1.25rem;
+      }
+
+      .nav-link {
+        font-size: 0.9rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
+    <div class="container">
+      <a class="navbar-brand" href="#">Dog Adoption</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navMenu">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a class="nav-link active" href="#carouselSection">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="#cardsSection">Dogs</a></li>
+          <li class="nav-item"><a class="nav-link" href="#" data-bs-toggle="modal"
+              data-bs-target="#registerModal">Register</a></li>
+          <li class="nav-item"><a class="nav-link" href="#" data-bs-toggle="modal"
+              data-bs-target="#feedbackModal">Feedback</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <section id="carouselSection" class="container mt-4">
+    <div id="dogCarousel" class="carousel slide" data-bs-ride="carousel">
+      <div class="carousel-inner rounded shadow" id="carouselInner"></div>
+      <button class="carousel-control-prev" type="button" data-bs-target="#dogCarousel" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon"></span>
+      </button>
+      <button class="carousel-control-next" type="button" data-bs-target="#dogCarousel" data-bs-slide="next">
+        <span class="carousel-control-next-icon"></span>
+      </button>
+    </div>
+  </section>
+
+  <section id="cardsSection" class="container mt-5">
+    <h2 class="mb-4 text-center">Available Dogs for Adoption</h2>
+    <div class="row g-4" id="cardsRow"></div>
+  </section>
+
+  <div class="modal fade" id="registerModal" tabindex="-1">
+    <div class="modal-dialog">
+      <form class="modal-content needs-validation" novalidate
+        onsubmit="event.preventDefault(); alert('Thank you for registering!'); this.reset(); bootstrap.Modal.getInstance(this.closest('.modal')).hide();">
+        <div class="modal-header bg-primary text-white">
+          <h5 class="modal-title">Adoption Registration</h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <div class="mb-3">
+            <label for="nameInput" class="form-label">Your Name</label>
+            <input type="text" class="form-control" id="nameInput" required />
+            <div class="invalid-feedback">Please enter your name.</div>
+          </div>
+          <div class="mb-3">
+            <label for="emailInput" class="form-label">Email address</label>
+            <input type="email" class="form-control" id="emailInput" required />
+            <div class="invalid-feedback">Please enter a valid email.</div>
+          </div>
+          <div class="mb-3">
+            <label for="dogInput" class="form-label">Dog to Adopt</label>
+            <input type="text" class="form-control" id="dogInput" readonly required />
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-primary w-100">Submit</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div class="modal fade" id="feedbackModal" tabindex="-1">
+    <div class="modal-dialog">
+      <form class="modal-content needs-validation" novalidate
+        onsubmit="event.preventDefault(); alert('Thank you for your feedback!'); this.reset(); bootstrap.Modal.getInstance(this.closest('.modal')).hide();">
+        <div class="modal-header bg-primary text-white">
+          <h5 class="modal-title">Feedback</h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <div class="mb-3">
+            <label for="fbNameInput" class="form-label">Your Name</label>
+            <input type="text" class="form-control" id="fbNameInput" required />
+            <div class="invalid-feedback">Please enter your name.</div>
+          </div>
+          <div class="mb-3">
+            <label for="fbEmailInput" class="form-label">Email address</label>
+            <input type="email" class="form-control" id="fbEmailInput" required />
+            <div class="invalid-feedback">Please enter a valid email.</div>
+          </div>
+          <div class="mb-3">
+            <label for="fbMessage" class="form-label">Message</label>
+            <textarea class="form-control" id="fbMessage" rows="3" required></textarea>
+            <div class="invalid-feedback">Please enter your message.</div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-primary w-100">Send Feedback</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <button id="backToTopBtn" class="btn btn-dark position-fixed bottom-0 end-0 m-4 rounded-circle"
+    style="display: none;">&#8593</button>
+
+  <footer>
+    <div class="container">
+      <p class="mb-0">&copy; 2025 Dog Adoption. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    const backToTopBtn = document.getElementById("backToTopBtn");
+
+    window.onscroll = function () {
+      if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {
+        backToTopBtn.style.display = "block";
+      } else {
+        backToTopBtn.style.display = "none";
+      }
+    };
+
+    backToTopBtn.addEventListener("click", function () {
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+      });
+    });
+
+    const carouselInner = document.getElementById('carouselInner');
+    const cardsRow = document.getElementById('cardsRow');
+
+    function capitalizeWords(str) {
+      return str.split('-').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
+    }
+
+    async function loadCarouselImages() {
+      for (let i = 0; i < 3; i++) {
+        const res = await fetch('https://dog.ceo/api/breeds/image/random');
+        const data = await res.json();
+        const isActive = i === 0 ? 'active' : '';
+        carouselInner.innerHTML += `
+          <div class="carousel-item ${isActive}">
+            <img src="${data.message}" alt="Dog Image ${i + 1}" />
+          </div>
+        `;
+      }
+    }
+
+    async function loadCards() {
+      for (let i = 0; i < 4; i++) {
+        const res = await fetch('https://dog.ceo/api/breeds/image/random');
+        const data = await res.json();
+        const urlParts = data.message.split('/');
+        const breedIndex = urlParts.findIndex(part => part === 'breeds') + 1;
+        let breedName = breedIndex > 0 ? urlParts[breedIndex] : 'Unknown';
+        breedName = capitalizeWords(breedName);
+
+        cardsRow.innerHTML += `
+          <div class="col-md-3 d-flex">
+            <div class="card shadow-sm w-100">
+              <img src="${data.message}" class="card-img-top" alt="${breedName}" />
+              <div class="card-body">
+                <h5 class="card-title">${breedName}</h5>
+                <p class="card-text">Meet this adorable ${breedName} ready for a loving home.</p>
+                <button class="btn btn-primary w-100" data-bs-toggle="modal" data-bs-target="#registerModal"
+                  onclick="document.getElementById('dogInput').value='${breedName}'">Adopt Me</button>
+              </div>
+            </div>
+          </div>
+        `;
+      }
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      loadCarouselImages();
+      loadCards();
+    });
+
+    (() => {
+      'use strict';
+      const forms = document.querySelectorAll('.needs-validation');
+      Array.from(forms).forEach(form => {
+        form.addEventListener('submit', event => {
+          if (!form.checkValidity()) {
+            event.preventDefault();
+            event.stopPropagation();
+          }
+          form.classList.add('was-validated');
+        }, false);
+      });
+    })();
+  </script>
+</body>
+
+</html>

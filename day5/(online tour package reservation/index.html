@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Online Tour Package Reservation</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js"></script>
+</head>
+<body>
+  <h1>Online Tour Package Reservation</h1>
+  <form id="tourform">
+    <div class="container">
+      <table>
+        <tr>
+          <td><label for="name">Customer Name</label></td>
+          <td><input type="text" id="name" name="name" placeholder="Customer Name" pattern="[A-Za-z ]+" required></td>
+        </tr>
+        <tr>
+          <td><label for="mobileNumber">Mobile Number</label></td>
+          <td><input type="text" id="mobileNumber" name="mobileNumber" placeholder="9943124887" required pattern="^[1-9]\d{9}$"></td>
+        </tr>
+        <tr>
+          <td><label for="aadharNumber">Aadhar Number</label></td>
+          <td><input type="text" id="aadharNumber" name="aadharNumber" required placeholder="398001164732" pattern="^[1-9]\d{11}$"></td>
+        </tr>
+        <tr>
+          <td><label for="dateOfCheckin">Date of Check-in</label></td>
+          <td><input type="text" id="dateOfCheckin" name="dateOfCheckin" required placeholder="dd/MM/yyyy"></td>
+        </tr>
+        <tr>
+          <td><label for="packageType">Package Type</label></td>
+          <td>
+            <select id="packageType" name="packageType" required>
+              <option>--Select Package</option>
+              <option>1 Night & 2 Days</option>
+              <option>2 Nights & 3 Days</option>
+              <option>3 Nights & 4 Days</option>
+              <option>4 Nights & 5 Days</option>
+              <option>5 Nights & 6 Days</option>
+            </select>
+          </td>
+        </tr>
+        <tr>
+          <td><label for="adults">Number Of Adults</label></td>
+          <td><input type="number" id="adults" name="adults" placeholder="Enter Number of Adults" required></td>
+        </tr>
+        <tr>
+          <td><label for="children">Number Of Children</label></td>
+          <td><input type="number" id="children" name="children" required placeholder="Enter Number of Children"></td>
+        </tr>
+        <tr>
+          <td><label for="paymentMode">Payment Mode</label></td>
+          <td>
+            <input type="radio" id="paymentMode" name="paymentMode" value="CC" required>CC
+            <input type="radio" id="paymentMode" name="paymentMode" value="DC" required>DC
+          </td>
+        </tr>
+        <tr>
+          <td><label for="cardNumber">Card Number</label></td>
+          <td><input type="text" id="cardNumber" name="cardNumber" pattern="^[3-5]\d{15}$" required placeholder="Enter Card Number"></td>
+        </tr>
+        <tr>
+          <td><label for="cvvNumber">CVV Number</label></td>
+          <td><input type="text" id="cvvNumber" name="cvvNumber" required pattern="^\d{3}$" placeholder="Enter cvv Number"></td>
+        </tr>
+      </table>
+    </div>
+    <div class="button-row">
+      <button type="submit" id="submit" name="submit">Pay</button>
+      <button type="reset" id="reset" name="reset">Clear</button>
+      <!--<button type="button" onclick="opendetails()">Show Details</button>-->
+    </div>
+  </form>
+
+  <h2 class="package-heading">Tour Package Details</h2>
+  <div class="card-container">
+    <div class="package-card">
+      <h3>1 Night & 2 Days</h3>
+      <p><strong>Charges:</strong> ₹11,000</p>
+      <p><strong>Visitor Allowed:</strong> 2</p>
+      <p><strong>Extra Person:</strong> ₹3,500</p>
+    </div>
+
+    <div class="package-card">
+      <h3>2 Nights & 3 Days</h3>
+      <p><strong>Charges:</strong> ₹20,000</p>
+      <p><strong>Visitors Allowed:</strong> 3</p>
+      <p><strong>Extra Person:</strong> ₹3,500</p>
+    </div>
+  
+    <div class="package-card">
+      <h3>3 Nights & 4 Days</h3>
+      <p><strong>Charges:</strong> ₹29,000</p>
+      <p><strong>Visitors Allowed:</strong> 3</p>
+      <p><strong>Extra Person:</strong> ₹3,500</p>
+    </div>
+    <div class="package-card">
+      <h3>4 Nights & 5 Days</h3>
+      <p><strong>Charges:</strong> ₹37,000</p>
+      <p><strong>Visitors Allowed:</strong> 4</p>
+      <p><strong>Extra Person:</strong> ₹4,000</p>
+    </div>
+
+    <div class="package-card">
+      <h3>5 Nights & 6 Days</h3>
+      <p><strong>Charges:</strong> ₹45,000</p>
+      <p><strong>Visitors Allowed:</strong> 4</p>
+      <p><strong>Extra Person:</strong> ₹4,000</p>
+    </div>
+  </div>
+  
+
+  </div>
+</body>
+</html>

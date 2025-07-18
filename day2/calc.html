@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Simple Calculator</title>
+</head>
+<body>
+
+    <h1 style="color: darkblue; text-align: center;">My Calculator</h1>
+    <div style="text-align: center;">
+        <img src="calc.jpg" alt="Calculator Image" height="250" width="350">
+    </div>
+
+    <br>
+    <form style="text-align: center;">
+        
+        <label for="input1">First Number:</label>
+        <input type="number" id="input1" name="input1"><br><br>
+
+        <label for="input2">Second Number:</label>
+        <input type="number" id="input2" name="input2"><br><br>
+
+        <label for="operation">Choose Operation:</label>
+        <select id="operation" name="operation">
+            <option value="">--Select--</option>
+            <option value="ADD">Add</option>
+            <option value="SUBTRACT">Subtract</option>
+            <option value="MULTIPLY">Multiply</option>
+            <option value="DIVIDE">Divide</option>
+        </select><br><br>
+        <input type="submit" value="Calculate">
+        <input type="reset" value="Clear">
+    </form>
+
+</body>
+</html>

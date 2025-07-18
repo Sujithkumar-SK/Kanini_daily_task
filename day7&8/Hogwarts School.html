@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hogwarts School</title>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <style>
+    table {
+      margin: 30px auto;
+      width: 80%;
+      border-radius: 15px;
+      background-color: grey;
+    }
+    table, th, td {
+      border: 1px solid black;
+      padding: 10px;
+      text-align: left;
+    }
+    .mar {
+      font-size: 30px;
+      color: white;
+      background-color: grey;
+      padding: 10px;
+      border-radius: 10px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <h1 id="til"> Hogwarts School of Witchcraft and Wizardry</h1>
+  <table>
+    <tr style="background-color: aliceblue;">
+      <th>Name</th>
+      <th>House</th>
+    </tr>
+    <tr class="hufflepuff">
+      <td>Ernie Macmillan</td>
+      <td>Hufflepuff</td>
+    </tr>
+
+    <tr class="ravenclaw">
+      <td>Terry Boot</td>
+      <td>Ravenclaw</td>
+    </tr>
+
+    <tr class="gryffindor">
+      <td>Neville Longbottom</td>
+      <td>Gryffindor</td>
+    </tr>
+
+    <tr class="ravenclaw">
+      <td>Mandy Brocklehurst</td>
+      <td>Ravenclaw</td>
+    </tr>
+
+    <tr class="hufflepuff">
+      <td>Ernie Macmillan</td>
+      <td>Hufflepuff</td>
+    </tr>
+
+    <tr class="gryffindor">
+      <td>Harry Potter</td>
+      <td>Gryffindor</td>
+    </tr>
+
+    <tr class="slytherin">
+      <td>Theodore Nott</td>
+      <td>Slytherin</td>
+    </tr>
+
+    <tr class="hufflepuff">
+      <td>Hannah Abbott</td>
+      <td>Hufflepuff</td>
+    </tr>
+
+  </table>
+
+  <script>
+    $(".gryffindor").css({
+      "background-color":"red","font-weight":"bold"
+    });
+    $(".hufflepuff").css({
+      "background-color":"yellow",
+      "font-weight":"bold"
+    });
+    $("#til").css({
+      "background-color":"gray",
+      "text-align":"center"
+
+    });
+    $("#til").click(function() {
+      let tx = $(this).text();
+      $(this).replaceWith(`<marquee class="mar">${tx}</marquee>`)
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Movie Booking Online</title>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+
+<body>
+  <h2 id="til">Movie Ticket Booking</h2>
+
+  <label for="row">Seat Code</label>
+  <select id="row">
+    <option value="">Select Row</option>
+    <option value="A">A</option>
+    <option value="B">B</option>
+    <option value="C">C</option>
+    <option value="D">D</option>
+    <option value="E">E</option>
+    <option value="F">F</option>
+    <option value="G">G</option>
+    <option value="H">H</option>
+    <option value="I">I</option>
+    <option value="J">J</option>
+  </select><br /><br />
+
+  <label for="ticketCount">Number of Tickets</label>
+  <input type="number" id="ticketCount" min="1" max="10" /><br /><br />
+
+  <label for="seatNum">Seat Number</label>
+  <input type="number" id="seatNum" min="1" max="10" /><br /><br />
+
+  <h3>Seat Layout</h3>
+  <div id="seats"></div><br />
+
+  <button id="bookBtn">Book Ticket</button>
+
+  <div id="output" style="margin-top: 20px; font-weight: bold;"></div>
+
+  <script>
+    $(document).ready(function () {
+      $("body").css({
+        "font-family": "Arial, sans-serif",
+        "text-align": "center",
+        "margin": "30px",
+        "background-color": "#f0f0f0"
+      });
+
+      $("#til").css({
+        "color": "#333",
+        "margin-bottom": "20px"
+      });
+
+      $("label").css({
+        "font-weight": "bold",
+        "margin-right": "10px",
+        "display": "inline-block",
+        "width": "140px",
+        "text-align": "right",
+        "vertical-align": "middle"
+      });
+
+      $("input, select").css({
+        "padding": "5px",
+        "margin": "5px 0 5px 10px",
+        "border-radius": "4px",
+        "border": "1px solid #999",
+        "width": "120px",
+        "vertical-align": "middle"
+      });
+
+      $("#bookBtn").css({
+        "padding": "10px 20px",
+        "background-color": "#28a745",
+        "color": "white",
+        "border": "none",
+        "border-radius": "5px",
+        "cursor": "pointer",
+        "margin-top": "10px"
+      });
+
+      $("#bookBtn").hover(
+        function () {
+          $(this).css("background-color", "#218838");
+        },
+        function () {
+          $(this).css("background-color", "#28a745");
+        }
+      );
+
+      $("#output").css({
+        "margin-top": "20px",
+        "font-weight": "bold",
+        "min-height": "20px"
+      });
+
+      $("#seats").css({
+        "display": "inline-block",
+        "padding": "20px",
+        "background-color": "#fff",
+        "border": "2px solid #ccc",
+        "border-radius": "10px"
+      });
+
+      var rows = "ABCDEFGHIJ";
+      for (var r = 0; r < rows.length; r++) {
+        var rowLetter = rows[r];
+        var rowDiv = $("<div>").addClass("row").css("margin", "10px 0");
+
+        var rowLabel = $("<span>")
+          .text(rowLetter + ":")
+          .css({
+            "display": "inline-block",
+            "width": "20px",
+            "font-weight": "bold"
+          });
+
+        rowDiv.append(rowLabel);
+
+        for (var s = 1; s <= 10; s++) {
+          var seat = $("<span>")
+            .addClass("seat")
+            .attr("id", rowLetter + s)
+            .text(s)
+            .css({
+              "display": "inline-block",
+              "padding": "6px",
+              "margin": "4px",
+              "border": "1px solid #555",
+              "width": "25px",
+              "height": "25px",
+              "font-size": "12px",
+              "text-align": "center",
+              "line-height": "25px",
+              "cursor": "pointer",
+              "background-color": "#e0e0e0",
+              "border-radius": "4px"
+            });
+          //console.log(seat);
+
+          rowDiv.append(seat);
+        }
+
+        $("#seats").append(rowDiv);
+      }
+      var bookedSeats = new Set();
+      function refreshSeatsColor() {
+        $(".seat").css({
+          "background-color": "#e0e0e0",
+          "color": "black",
+          "font-weight": "normal"
+        });
+
+        bookedSeats.forEach(function (seatId) {
+          $("#" + seatId).css({
+            "background-color": "#007bff",
+            "color": "white",
+            "font-weight": "bold"
+          });
+        });
+      }
+
+      refreshSeatsColor();
+
+      $("#bookBtn").click(function () {
+        var row = $("#row").val().toUpperCase();
+        var seatNum = parseInt($("#seatNum").val());
+        var ticketCount = parseInt($("#ticketCount").val());
+        var endSeat = seatNum + ticketCount - 1;
+
+        if (
+          !row ||
+          isNaN(seatNum) ||
+          isNaN(ticketCount) ||
+          !/[A-J]/.test(row) ||
+          seatNum < 1 ||
+          seatNum > 10 ||
+          ticketCount < 1
+        ) {
+          $("#output").text("Please enter valid input.");
+          return;
+        }
+
+        if (endSeat > 10) {
+          var available = 11 - seatNum;
+          refreshSeatsColor();
+
+          for (var i = seatNum; i <= 10; i++) {
+            var seatId = row + i;
+            if (!bookedSeats.has(seatId)) {
+              $("#" + seatId).css({       //#A1
+                "background-color": "orange",
+                "color": "black",
+                "font-weight": "bold"
+              });
+            }
+          }
+
+          $("#output").text(
+            "Unfortunately, only " +
+            available +
+            " ticket(s) remain in " +
+            row +
+            ", starting at seat number " +
+            seatNum
+          );
+          return;
+        }
+        var conflictSeats = [];
+        for (var i = seatNum; i <= endSeat; i++) {
+          var seatId = row + i;
+          if (bookedSeats.has(seatId)) {
+            conflictSeats.push(seatId);
+          }
+        }
+
+        if (conflictSeats.length > 0) {
+          refreshSeatsColor();
+          conflictSeats.forEach(function (seatId) {
+            $("#" + seatId).css({
+              "background-color": "red",
+              "color": "white",
+              "font-weight": "bold"
+            });
+          });
+          $("#output").text(
+            "Seat(s) " + conflictSeats.join(", ") + " already booked. Please select other seats."
+          );
+          return;
+        }
+        for (var i = seatNum; i <= endSeat; i++) {
+          var seatId = row + i;
+          bookedSeats.add(seatId);
+        }
+
+        refreshSeatsColor();
+
+        var total = ticketCount * 120;
+        $("#output").text("Booking successful! You need to pay Rs." + total);
+      });
+    });
+  </script>
+</body>
+
+</html>

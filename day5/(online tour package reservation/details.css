@@ -1,0 +1,29 @@
+/* details-style.css */
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f8f8f8;
+}
+
+h2 {
+  text-align: center;
+  color: #FF0000;
+  margin-top: 30px;
+}
+
+table {
+  width: 60%;
+  margin: 30px auto;
+  border-collapse: collapse;
+  background-color: #ffffff;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+th, td {
+  border: 1px solid #ccc;
+  padding: 12px;
+  text-align: left;
+}
+
+th {
+  background-color: #f2f2f2;
+}
