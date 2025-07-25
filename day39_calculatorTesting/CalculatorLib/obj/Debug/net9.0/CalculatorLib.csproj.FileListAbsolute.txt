@@ -1,0 +1,11 @@
+C:\Users\SUJITH KUMAR\OneDrive\Documents\Kanini\day39_calculatorTesting\CalculatorLib\bin\Debug\net9.0\CalculatorLib.deps.json
+C:\Users\SUJITH KUMAR\OneDrive\Documents\Kanini\day39_calculatorTesting\CalculatorLib\bin\Debug\net9.0\CalculatorLib.dll
+C:\Users\SUJITH KUMAR\OneDrive\Documents\Kanini\day39_calculatorTesting\CalculatorLib\bin\Debug\net9.0\CalculatorLib.pdb
+C:\Users\SUJITH KUMAR\OneDrive\Documents\Kanini\day39_calculatorTesting\CalculatorLib\obj\Debug\net9.0\CalculatorLib.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\SUJITH KUMAR\OneDrive\Documents\Kanini\day39_calculatorTesting\CalculatorLib\obj\Debug\net9.0\CalculatorLib.AssemblyInfoInputs.cache
+C:\Users\SUJITH KUMAR\OneDrive\Documents\Kanini\day39_calculatorTesting\CalculatorLib\obj\Debug\net9.0\CalculatorLib.AssemblyInfo.cs
+C:\Users\SUJITH KUMAR\OneDrive\Documents\Kanini\day39_calculatorTesting\CalculatorLib\obj\Debug\net9.0\CalculatorLib.csproj.CoreCompileInputs.cache
+C:\Users\SUJITH KUMAR\OneDrive\Documents\Kanini\day39_calculatorTesting\CalculatorLib\obj\Debug\net9.0\CalculatorLib.dll
+C:\Users\SUJITH KUMAR\OneDrive\Documents\Kanini\day39_calculatorTesting\CalculatorLib\obj\Debug\net9.0\refint\CalculatorLib.dll
+C:\Users\SUJITH KUMAR\OneDrive\Documents\Kanini\day39_calculatorTesting\CalculatorLib\obj\Debug\net9.0\CalculatorLib.pdb
+C:\Users\SUJITH KUMAR\OneDrive\Documents\Kanini\day39_calculatorTesting\CalculatorLib\obj\Debug\net9.0\ref\CalculatorLib.dll

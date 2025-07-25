@@ -1,0 +1,133 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\ADMIN\\source\\repos\\Testdemokanini\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{EA5A05B7-F7D6-4540-9311-75E6095AD99F}|testdemoxunit\\testdemoxunit.csproj|c:\\users\\admin\\source\\repos\\testdemokanini\\testdemoxunit\\unittest1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{EA5A05B7-F7D6-4540-9311-75E6095AD99F}|testdemoxunit\\testdemoxunit.csproj|solutionrelative:testdemoxunit\\unittest1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8626540F-ABDF-477D-841E-5DEF17EF7EEE}|TestProject1\\TestProject1.csproj|c:\\users\\admin\\source\\repos\\testdemokanini\\testproject1\\unittest1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8626540F-ABDF-477D-841E-5DEF17EF7EEE}|TestProject1\\TestProject1.csproj|solutionrelative:testproject1\\unittest1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DD6E96B9-15EB-49C4-8FBA-6B4525052C68}|Testdemokanini\\Testdemokanini.csproj|c:\\users\\admin\\source\\repos\\testdemokanini\\testdemokanini\\employee.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DD6E96B9-15EB-49C4-8FBA-6B4525052C68}|Testdemokanini\\Testdemokanini.csproj|solutionrelative:testdemokanini\\employee.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DD6E96B9-15EB-49C4-8FBA-6B4525052C68}|Testdemokanini\\Testdemokanini.csproj|c:\\users\\admin\\source\\repos\\testdemokanini\\testdemokanini\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DD6E96B9-15EB-49C4-8FBA-6B4525052C68}|Testdemokanini\\Testdemokanini.csproj|solutionrelative:testdemokanini\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DD6E96B9-15EB-49C4-8FBA-6B4525052C68}|Testdemokanini\\Testdemokanini.csproj|c:\\users\\admin\\source\\repos\\testdemokanini\\testdemokanini\\mathope.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DD6E96B9-15EB-49C4-8FBA-6B4525052C68}|Testdemokanini\\Testdemokanini.csproj|solutionrelative:testdemokanini\\mathope.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 5,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{eefa5220-e298-11d0-8f78-00a0c9110057}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{cce594b6-0c39-4442-ba28-10c64ac7e89f}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{0ad07096-bba9-4900-a651-0598d26f6d24}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{34e76e81-ee4a-11d0-ae2e-00a0c90fffc3}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "UnitTest1.cs",
+              "DocumentMoniker": "C:\\Users\\ADMIN\\source\\repos\\Testdemokanini\\testdemoxunit\\UnitTest1.cs",
+              "RelativeDocumentMoniker": "testdemoxunit\\UnitTest1.cs",
+              "ToolTip": "C:\\Users\\ADMIN\\source\\repos\\Testdemokanini\\testdemoxunit\\UnitTest1.cs*",
+              "RelativeToolTip": "testdemoxunit\\UnitTest1.cs*",
+              "ViewState": "AgIAABAAAAAAAAAAAAAQwBcAAAAYAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-24T07:10:08.696Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Employee.cs",
+              "DocumentMoniker": "C:\\Users\\ADMIN\\source\\repos\\Testdemokanini\\Testdemokanini\\Employee.cs",
+              "RelativeDocumentMoniker": "Testdemokanini\\Employee.cs",
+              "ToolTip": "C:\\Users\\ADMIN\\source\\repos\\Testdemokanini\\Testdemokanini\\Employee.cs",
+              "RelativeToolTip": "Testdemokanini\\Employee.cs",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAAAAsAAAAQAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-24T06:45:36.74Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{e1b7d1f8-9b3c-49b1-8f4f-bfc63a88835d}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{d78612c7-9962-4b83-95d9-268046dad23a}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "UnitTest1.cs",
+              "DocumentMoniker": "C:\\Users\\ADMIN\\source\\repos\\Testdemokanini\\TestProject1\\UnitTest1.cs",
+              "RelativeDocumentMoniker": "TestProject1\\UnitTest1.cs",
+              "ToolTip": "C:\\Users\\ADMIN\\source\\repos\\Testdemokanini\\TestProject1\\UnitTest1.cs",
+              "RelativeToolTip": "TestProject1\\UnitTest1.cs",
+              "ViewState": "AgIAABoAAAAAAAAAAAAgwB8AAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-24T06:31:48.987Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "MathOpe.cs",
+              "DocumentMoniker": "C:\\Users\\ADMIN\\source\\repos\\Testdemokanini\\Testdemokanini\\MathOpe.cs",
+              "RelativeDocumentMoniker": "Testdemokanini\\MathOpe.cs",
+              "ToolTip": "C:\\Users\\ADMIN\\source\\repos\\Testdemokanini\\Testdemokanini\\MathOpe.cs",
+              "RelativeToolTip": "Testdemokanini\\MathOpe.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABkAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-24T06:28:30.188Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\ADMIN\\source\\repos\\Testdemokanini\\Testdemokanini\\Program.cs",
+              "RelativeDocumentMoniker": "Testdemokanini\\Program.cs",
+              "ToolTip": "C:\\Users\\ADMIN\\source\\repos\\Testdemokanini\\Testdemokanini\\Program.cs",
+              "RelativeToolTip": "Testdemokanini\\Program.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-24T06:26:29.92Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

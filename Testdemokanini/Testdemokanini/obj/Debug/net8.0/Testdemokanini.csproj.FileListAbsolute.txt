@@ -1,0 +1,15 @@
+C:\Users\ADMIN\source\repos\Testdemokanini\Testdemokanini\bin\Debug\net8.0\Testdemokanini.exe
+C:\Users\ADMIN\source\repos\Testdemokanini\Testdemokanini\bin\Debug\net8.0\Testdemokanini.deps.json
+C:\Users\ADMIN\source\repos\Testdemokanini\Testdemokanini\bin\Debug\net8.0\Testdemokanini.runtimeconfig.json
+C:\Users\ADMIN\source\repos\Testdemokanini\Testdemokanini\bin\Debug\net8.0\Testdemokanini.dll
+C:\Users\ADMIN\source\repos\Testdemokanini\Testdemokanini\bin\Debug\net8.0\Testdemokanini.pdb
+C:\Users\ADMIN\source\repos\Testdemokanini\Testdemokanini\obj\Debug\net8.0\Testdemokanini.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\ADMIN\source\repos\Testdemokanini\Testdemokanini\obj\Debug\net8.0\Testdemokanini.AssemblyInfoInputs.cache
+C:\Users\ADMIN\source\repos\Testdemokanini\Testdemokanini\obj\Debug\net8.0\Testdemokanini.AssemblyInfo.cs
+C:\Users\ADMIN\source\repos\Testdemokanini\Testdemokanini\obj\Debug\net8.0\Testdemokanini.csproj.CoreCompileInputs.cache
+C:\Users\ADMIN\source\repos\Testdemokanini\Testdemokanini\obj\Debug\net8.0\Testdemokanini.sourcelink.json
+C:\Users\ADMIN\source\repos\Testdemokanini\Testdemokanini\obj\Debug\net8.0\Testdemokanini.dll
+C:\Users\ADMIN\source\repos\Testdemokanini\Testdemokanini\obj\Debug\net8.0\refint\Testdemokanini.dll
+C:\Users\ADMIN\source\repos\Testdemokanini\Testdemokanini\obj\Debug\net8.0\Testdemokanini.pdb
+C:\Users\ADMIN\source\repos\Testdemokanini\Testdemokanini\obj\Debug\net8.0\Testdemokanini.genruntimeconfig.cache
+C:\Users\ADMIN\source\repos\Testdemokanini\Testdemokanini\obj\Debug\net8.0\ref\Testdemokanini.dll

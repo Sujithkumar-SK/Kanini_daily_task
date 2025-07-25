@@ -1,0 +1,11 @@
+C:\Users\SUJITH KUMAR\OneDrive\Documents\Kanini\day38_try\MyApp\bin\Debug\net9.0\MyApp.deps.json
+C:\Users\SUJITH KUMAR\OneDrive\Documents\Kanini\day38_try\MyApp\bin\Debug\net9.0\MyApp.dll
+C:\Users\SUJITH KUMAR\OneDrive\Documents\Kanini\day38_try\MyApp\bin\Debug\net9.0\MyApp.pdb
+C:\Users\SUJITH KUMAR\OneDrive\Documents\Kanini\day38_try\MyApp\obj\Debug\net9.0\MyApp.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\SUJITH KUMAR\OneDrive\Documents\Kanini\day38_try\MyApp\obj\Debug\net9.0\MyApp.AssemblyInfoInputs.cache
+C:\Users\SUJITH KUMAR\OneDrive\Documents\Kanini\day38_try\MyApp\obj\Debug\net9.0\MyApp.AssemblyInfo.cs
+C:\Users\SUJITH KUMAR\OneDrive\Documents\Kanini\day38_try\MyApp\obj\Debug\net9.0\MyApp.csproj.CoreCompileInputs.cache
+C:\Users\SUJITH KUMAR\OneDrive\Documents\Kanini\day38_try\MyApp\obj\Debug\net9.0\MyApp.dll
+C:\Users\SUJITH KUMAR\OneDrive\Documents\Kanini\day38_try\MyApp\obj\Debug\net9.0\refint\MyApp.dll
+C:\Users\SUJITH KUMAR\OneDrive\Documents\Kanini\day38_try\MyApp\obj\Debug\net9.0\MyApp.pdb
+C:\Users\SUJITH KUMAR\OneDrive\Documents\Kanini\day38_try\MyApp\obj\Debug\net9.0\ref\MyApp.dll

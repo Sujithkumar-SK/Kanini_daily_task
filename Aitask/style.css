@@ -1,0 +1,416 @@
+.invoice {
+  background-color: #ffffff;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  width: 100%;
+}
+
+.invoice .div {
+  background-color: #ffffff;
+  width: 850px;
+  height: 630px;
+  position: relative;
+}
+
+.invoice .overlap {
+  height: 80px;
+  top: 0;
+  background-color: #2b75b2;
+  position: absolute;
+  width: 850px;
+  left: 0;
+}
+
+.invoice .logo-placeholder {
+  position: absolute;
+  width: 100px;
+  height: 60px;
+  top: 10px;
+  left: 20px;
+  background-color: #7f7f7f;
+}
+
+.invoice .invoice-title {
+  width: 200px;
+  top: 22px;
+  left: 325px;
+  font-size: 28px;
+  position: absolute;
+  font-family: "Inter-Regular", Helvetica;
+  font-weight: 400;
+  color: #ffffff;
+  letter-spacing: 0;
+  line-height: normal;
+}
+
+.invoice .invoice-number {
+  width: 150px;
+  top: 9px;
+  left: 680px;
+  font-size: 11px;
+  position: absolute;
+  font-family: "Inter-Regular", Helvetica;
+  font-weight: 400;
+  color: #ffffff;
+  letter-spacing: 0;
+  line-height: normal;
+}
+
+.invoice .invoice-date {
+  width: 150px;
+  top: 29px;
+  left: 680px;
+  font-size: 11px;
+  position: absolute;
+  font-family: "Inter-Regular", Helvetica;
+  font-weight: 400;
+  color: #ffffff;
+  letter-spacing: 0;
+  line-height: normal;
+}
+
+.invoice .order-ID {
+  position: absolute;
+  width: 150px;
+  top: 49px;
+  left: 680px;
+  font-family: "Inter-Regular", Helvetica;
+  font-weight: 400;
+  color: #ffffff;
+  font-size: 11px;
+  letter-spacing: 0;
+  line-height: normal;
+}
+
+.invoice .overlap-group {
+  height: 150px;
+  top: 80px;
+  background-color: #ffffff;
+  position: absolute;
+  width: 850px;
+  left: 0;
+}
+
+.invoice .bill-to-title {
+  position: absolute;
+  width: 100px;
+  top: 9px;
+  left: 20px;
+  font-family: "Inter-Regular", Helvetica;
+  font-weight: 400;
+  color: #2b75b2;
+  font-size: 14px;
+  letter-spacing: 0;
+  line-height: normal;
+}
+
+.invoice .customer-name {
+  top: 29px;
+  position: absolute;
+  width: 200px;
+  left: 20px;
+  font-family: "Inter-Regular", Helvetica;
+  font-weight: 400;
+  color: #333333;
+  font-size: 11px;
+  letter-spacing: 0;
+  line-height: normal;
+}
+
+.invoice .customer-address {
+  top: 49px;
+  position: absolute;
+  width: 200px;
+  left: 20px;
+  font-family: "Inter-Regular", Helvetica;
+  font-weight: 400;
+  color: #333333;
+  font-size: 11px;
+  letter-spacing: 0;
+  line-height: normal;
+}
+
+.invoice .customer-email {
+  top: 89px;
+  position: absolute;
+  width: 200px;
+  left: 20px;
+  font-family: "Inter-Regular", Helvetica;
+  font-weight: 400;
+  color: #333333;
+  font-size: 11px;
+  letter-spacing: 0;
+  line-height: normal;
+}
+
+.invoice .customer-phone {
+  top: 109px;
+  position: absolute;
+  width: 200px;
+  left: 20px;
+  font-family: "Inter-Regular", Helvetica;
+  font-weight: 400;
+  color: #333333;
+  font-size: 11px;
+  letter-spacing: 0;
+  line-height: normal;
+}
+
+.invoice .ship-to-title {
+  position: absolute;
+  width: 100px;
+  top: 9px;
+  left: 425px;
+  font-family: "Inter-Regular", Helvetica;
+  font-weight: 400;
+  color: #2b75b2;
+  font-size: 14px;
+  letter-spacing: 0;
+  line-height: normal;
+}
+
+.invoice .recipient-name {
+  top: 29px;
+  position: absolute;
+  width: 200px;
+  left: 425px;
+  font-family: "Inter-Regular", Helvetica;
+  font-weight: 400;
+  color: #333333;
+  font-size: 11px;
+  letter-spacing: 0;
+  line-height: normal;
+}
+
+.invoice .recipient-address {
+  top: 49px;
+  position: absolute;
+  width: 200px;
+  left: 425px;
+  font-family: "Inter-Regular", Helvetica;
+  font-weight: 400;
+  color: #333333;
+  font-size: 11px;
+  letter-spacing: 0;
+  line-height: normal;
+}
+
+.invoice .recipient-phone {
+  top: 89px;
+  position: absolute;
+  width: 200px;
+  left: 425px;
+  font-family: "Inter-Regular", Helvetica;
+  font-weight: 400;
+  color: #333333;
+  font-size: 11px;
+  letter-spacing: 0;
+  line-height: normal;
+}
+
+.invoice .overlap-2 {
+  height: 400px;
+  top: 230px;
+  background-color: #ffffff;
+  position: absolute;
+  width: 850px;
+  left: 0;
+}
+
+.invoice .navbar {
+  height: 30px;
+  top: 0;
+  background-color: #2b75b2;
+  position: absolute;
+  width: 850px;
+  left: 0;
+}
+
+.invoice .product-name-header {
+  position: absolute;
+  width: 200px;
+  top: 4px;
+  left: 20px;
+  font-family: "Inter-Regular", Helvetica;
+  font-weight: 400;
+  color: #ffffff;
+  font-size: 12px;
+  letter-spacing: 0;
+  line-height: normal;
+}
+
+.invoice .description-header {
+  position: absolute;
+  width: 200px;
+  top: 4px;
+  left: 220px;
+  font-family: "Inter-Regular", Helvetica;
+  font-weight: 400;
+  color: #ffffff;
+  font-size: 12px;
+  letter-spacing: 0;
+  line-height: normal;
+}
+
+.invoice .quantity-header {
+  position: absolute;
+  width: 80px;
+  top: 4px;
+  left: 420px;
+  font-family: "Inter-Regular", Helvetica;
+  font-weight: 400;
+  color: #ffffff;
+  font-size: 12px;
+  letter-spacing: 0;
+  line-height: normal;
+}
+
+.invoice .unit-price-header {
+  position: absolute;
+  width: 100px;
+  top: 4px;
+  left: 500px;
+  font-family: "Inter-Regular", Helvetica;
+  font-weight: 400;
+  color: #ffffff;
+  font-size: 12px;
+  letter-spacing: 0;
+  line-height: normal;
+}
+
+.invoice .total-header {
+  position: absolute;
+  width: 100px;
+  top: 4px;
+  left: 730px;
+  font-family: "Inter-Regular", Helvetica;
+  font-weight: 400;
+  color: #ffffff;
+  font-size: 12px;
+  letter-spacing: 0;
+  line-height: normal;
+}
+
+.invoice .navbar-2 {
+  height: 40px;
+  top: 30px;
+  background-color: #ffffff;
+  position: absolute;
+  width: 850px;
+  left: 0;
+}
+
+.invoice .product-name {
+  position: absolute;
+  width: 200px;
+  top: 9px;
+  left: 20px;
+  font-family: "Inter-Regular", Helvetica;
+  font-weight: 400;
+  color: #333333;
+  font-size: 11px;
+  letter-spacing: 0;
+  line-height: normal;
+}
+
+.invoice .description {
+  width: 200px;
+  left: 220px;
+  color: #7f7f7f;
+  position: absolute;
+  top: 9px;
+  font-family: "Inter-Regular", Helvetica;
+  font-weight: 400;
+  font-size: 11px;
+  letter-spacing: 0;
+  line-height: normal;
+}
+
+.invoice .quantity {
+  width: 80px;
+  left: 420px;
+  color: #333333;
+  position: absolute;
+  top: 9px;
+  font-family: "Inter-Regular", Helvetica;
+  font-weight: 400;
+  font-size: 11px;
+  letter-spacing: 0;
+  line-height: normal;
+}
+
+.invoice .unit-price {
+  color: #333333;
+  position: absolute;
+  width: 100px;
+  top: 9px;
+  left: 500px;
+  font-family: "Inter-Regular", Helvetica;
+  font-weight: 400;
+  font-size: 11px;
+  letter-spacing: 0;
+  line-height: normal;
+}
+
+.invoice .total {
+  width: 100px;
+  left: 730px;
+  color: #333333;
+  position: absolute;
+  top: 9px;
+  font-family: "Inter-Regular", Helvetica;
+  font-weight: 400;
+  font-size: 11px;
+  letter-spacing: 0;
+  line-height: normal;
+}
+
+.invoice .navbar-3 {
+  height: 40px;
+  top: 70px;
+  background-color: #eff4f9;
+  position: absolute;
+  width: 850px;
+  left: 0;
+}
+
+.invoice .navbar-4 {
+  height: 40px;
+  top: 110px;
+  background-color: #ffffff;
+  position: absolute;
+  width: 850px;
+  left: 0;
+}
+
+.invoice .navbar-5 {
+  height: 40px;
+  top: 150px;
+  background-color: #eff4f9;
+  position: absolute;
+  width: 850px;
+  left: 0;
+}
+
+.invoice .navbar-6 {
+  height: 40px;
+  top: 190px;
+  background-color: #ffffff;
+  position: absolute;
+  width: 850px;
+  left: 0;
+}
+
+.invoice .text-wrapper {
+  color: #000000;
+  position: absolute;
+  width: 100px;
+  top: 9px;
+  left: 500px;
+  font-family: "Inter-Regular", Helvetica;
+  font-weight: 400;
+  font-size: 11px;
+  letter-spacing: 0;
+  line-height: normal;
+}
