@@ -1,0 +1,14 @@
+C:\Users\ADMIN\source\repos\SoliPrincipleDemo\SoliPrincipleDemo\bin\Debug\net8.0\SoliPrincipleDemo.exe
+C:\Users\ADMIN\source\repos\SoliPrincipleDemo\SoliPrincipleDemo\bin\Debug\net8.0\SoliPrincipleDemo.deps.json
+C:\Users\ADMIN\source\repos\SoliPrincipleDemo\SoliPrincipleDemo\bin\Debug\net8.0\SoliPrincipleDemo.runtimeconfig.json
+C:\Users\ADMIN\source\repos\SoliPrincipleDemo\SoliPrincipleDemo\bin\Debug\net8.0\SoliPrincipleDemo.dll
+C:\Users\ADMIN\source\repos\SoliPrincipleDemo\SoliPrincipleDemo\bin\Debug\net8.0\SoliPrincipleDemo.pdb
+C:\Users\ADMIN\source\repos\SoliPrincipleDemo\SoliPrincipleDemo\obj\Debug\net8.0\SoliPrincipleDemo.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\ADMIN\source\repos\SoliPrincipleDemo\SoliPrincipleDemo\obj\Debug\net8.0\SoliPrincipleDemo.AssemblyInfoInputs.cache
+C:\Users\ADMIN\source\repos\SoliPrincipleDemo\SoliPrincipleDemo\obj\Debug\net8.0\SoliPrincipleDemo.AssemblyInfo.cs
+C:\Users\ADMIN\source\repos\SoliPrincipleDemo\SoliPrincipleDemo\obj\Debug\net8.0\SoliPrincipleDemo.csproj.CoreCompileInputs.cache
+C:\Users\ADMIN\source\repos\SoliPrincipleDemo\SoliPrincipleDemo\obj\Debug\net8.0\SoliPrincipleDemo.dll
+C:\Users\ADMIN\source\repos\SoliPrincipleDemo\SoliPrincipleDemo\obj\Debug\net8.0\refint\SoliPrincipleDemo.dll
+C:\Users\ADMIN\source\repos\SoliPrincipleDemo\SoliPrincipleDemo\obj\Debug\net8.0\SoliPrincipleDemo.pdb
+C:\Users\ADMIN\source\repos\SoliPrincipleDemo\SoliPrincipleDemo\obj\Debug\net8.0\SoliPrincipleDemo.genruntimeconfig.cache
+C:\Users\ADMIN\source\repos\SoliPrincipleDemo\SoliPrincipleDemo\obj\Debug\net8.0\ref\SoliPrincipleDemo.dll

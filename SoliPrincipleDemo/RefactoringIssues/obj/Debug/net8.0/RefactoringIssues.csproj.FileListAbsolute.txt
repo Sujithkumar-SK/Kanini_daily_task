@@ -1,0 +1,14 @@
+C:\Users\ADMIN\source\repos\SoliPrincipleDemo\RefactoringIssues\bin\Debug\net8.0\RefactoringIssues.exe
+C:\Users\ADMIN\source\repos\SoliPrincipleDemo\RefactoringIssues\bin\Debug\net8.0\RefactoringIssues.deps.json
+C:\Users\ADMIN\source\repos\SoliPrincipleDemo\RefactoringIssues\bin\Debug\net8.0\RefactoringIssues.runtimeconfig.json
+C:\Users\ADMIN\source\repos\SoliPrincipleDemo\RefactoringIssues\bin\Debug\net8.0\RefactoringIssues.dll
+C:\Users\ADMIN\source\repos\SoliPrincipleDemo\RefactoringIssues\bin\Debug\net8.0\RefactoringIssues.pdb
+C:\Users\ADMIN\source\repos\SoliPrincipleDemo\RefactoringIssues\obj\Debug\net8.0\RefactoringIssues.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\ADMIN\source\repos\SoliPrincipleDemo\RefactoringIssues\obj\Debug\net8.0\RefactoringIssues.AssemblyInfoInputs.cache
+C:\Users\ADMIN\source\repos\SoliPrincipleDemo\RefactoringIssues\obj\Debug\net8.0\RefactoringIssues.AssemblyInfo.cs
+C:\Users\ADMIN\source\repos\SoliPrincipleDemo\RefactoringIssues\obj\Debug\net8.0\RefactoringIssues.csproj.CoreCompileInputs.cache
+C:\Users\ADMIN\source\repos\SoliPrincipleDemo\RefactoringIssues\obj\Debug\net8.0\RefactoringIssues.dll
+C:\Users\ADMIN\source\repos\SoliPrincipleDemo\RefactoringIssues\obj\Debug\net8.0\refint\RefactoringIssues.dll
+C:\Users\ADMIN\source\repos\SoliPrincipleDemo\RefactoringIssues\obj\Debug\net8.0\RefactoringIssues.pdb
+C:\Users\ADMIN\source\repos\SoliPrincipleDemo\RefactoringIssues\obj\Debug\net8.0\RefactoringIssues.genruntimeconfig.cache
+C:\Users\ADMIN\source\repos\SoliPrincipleDemo\RefactoringIssues\obj\Debug\net8.0\ref\RefactoringIssues.dll

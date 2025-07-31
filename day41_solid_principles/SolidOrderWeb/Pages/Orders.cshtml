@@ -1,0 +1,31 @@
+@page
+@model OrdersModel
+@{
+    ViewData["Title"] = "Process Orders";
+}
+
+<h2>Order Processing</h2>
+
+<form method="post">
+    <label>Order Type:</label>
+    <select asp-for="Order.OrderType">
+        <option value="Online">Online Order</option>
+        <option value="Store">Store Order</option>
+    </select>
+
+    <label>Amount:</label>
+    <input asp-for="Order.Amount" type="number" />
+
+    <button type="submit">Process</button>
+</form>
+
+@if (Model.Logs?.Any() == true)
+{
+    <h3>Logs:</h3>
+    <ul>
+        @foreach (var log in Model.Logs)
+        {
+            <li>@log</li>
+        }
+    </ul>
+}
