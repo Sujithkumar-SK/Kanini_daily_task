@@ -1,11 +1,11 @@
 public class OrderProcessor
 {
-    private readonly IDatabase _database;
+    private readonly IOrderRepository _repository;
     private readonly INotification _notification;
 
-    public OrderProcessor(IDatabase database, INotification notification)
+    public OrderProcessor(IOrderRepository repository, INotification notification)
     {
-        _database = database;
+        _repository = repository;
         _notification = notification;
     }
 
@@ -15,9 +15,14 @@ public class OrderProcessor
         {
             "Order processing started...",
             order.PlaceOrder(amount),
-            _database.Save(),
-            _notification.Send()
         };
+        _repository.SaveOrder(new OrderModel
+        {
+            OrderType = order.GetType().Name,
+            Amount = amount,
+        });
+        logs.Add("Order saved to repository.");
+        logs.AddRange(_notification.Send());
         return logs;
     }
 }
