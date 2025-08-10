@@ -11,7 +11,6 @@ namespace codeFirst.Models
     public int Age { get; set; }
     public int MarksId { get; set; }
 
-    [ForeignKey("MarksId")]
-    public Marks? Marks { get; set; }
+    public ICollection<Marks>? Marks { get; set; } = new List<Marks>();
   }
 }

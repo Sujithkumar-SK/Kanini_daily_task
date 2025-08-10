@@ -1,5 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using codeFirst.Models;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 namespace codeFirst.Controllers;
 
 public class MarksController : Controller
@@ -9,63 +11,105 @@ public class MarksController : Controller
   {
     _context = context;
   }
-  public IActionResult Index()
+  public async Task<IActionResult> Index()
   {
-    IEnumerable<Marks> marks = _context.Marks.ToList();
+    var marks = await _context.Marks
+                              .Include(m => m.Student)
+                              .ToListAsync();
     return View(marks);
   }
-  public IActionResult Details(int id)
+
+  public async Task<IActionResult> Details(int? id)
   {
-    Marks? mark = _context.Marks.FirstOrDefault(m => m.MarksId == id);
-    if (mark == null)
+    if (id == null)
     {
       return NotFound();
     }
-    return View(mark);
+
+    var student = await _context.Students
+        .Include(s => s.Marks)
+        .FirstOrDefaultAsync(m => m.Id == id);
+
+    if (student == null)
+    {
+      return NotFound();
+    }
+
+    return View(student);
   }
+
   public IActionResult Create()
   {
+    ViewData["StudentId"] = new SelectList(_context.Students, "Id", "Name");
     return View();
   }
   [HttpPost]
   public IActionResult Create(Marks marks)
   {
-    _context.Marks.Add(marks);
-    _context.SaveChanges();
-    return RedirectToAction("Index");
+    if (ModelState.IsValid)
+    {
+      _context.Marks.Add(marks);
+      _context.SaveChanges();
+      return RedirectToAction(nameof(Index));
+    }
+    ViewData["StudentId"] = new SelectList(_context.Students, "Id", "Name", marks.StudentId);
+    return View(marks);
   }
   public IActionResult Edit(int id)
   {
-    Marks? mark = _context.Marks.FirstOrDefault(m => m.MarksId == id);
+    var mark = _context.Marks.Find(id);
     if (mark == null)
     {
       return NotFound();
     }
+    ViewData["StudentId"] = new SelectList(_context.Students, "Id", "Name", mark.StudentId);
     return View(mark);
   }
   [HttpPost]
-  public IActionResult Edit(int id, Marks newmark)
+  public IActionResult Edit(int id, Marks marks)
   {
-    Marks? mark = _context.Marks.FirstOrDefault(m => m.MarksId == id);
-    mark!.Subject = newmark.Subject;
-    _context.SaveChanges();
-    return RedirectToAction("Index");
-  }
-  public IActionResult Delete(int id)
-  {
-    Marks? mark = _context.Marks.FirstOrDefault(m => m.MarksId == id);
-    if (mark == null)
+    if (id != marks.MarksId)
     {
       return NotFound();
     }
-    return View(mark);
+
+    if (ModelState.IsValid)
+    {
+      _context.Update(marks);
+      _context.SaveChanges();
+      return RedirectToAction(nameof(Index));
+    }
+    ViewData["StudentId"] = new SelectList(_context.Students, "Id", "Name", marks.StudentId);
+    return View(marks);
   }
-  [HttpPost]
-  public IActionResult Delete(int id, Marks newmark)
+  public async Task<IActionResult> Delete(int? id)
   {
-    Marks? mark = _context.Marks.FirstOrDefault(m => m.MarksId == id);
-    _context.Marks.Remove(mark!);
-    _context.SaveChanges();
-    return RedirectToAction("Index");
+    if (id == null)
+    {
+      return NotFound();
+    }
+
+    var student = await _context.Students
+        .Include(s => s.Marks)
+        .FirstOrDefaultAsync(m => m.Id == id);
+
+    if (student == null)
+    {
+      return NotFound();
+    }
+
+    return View(student);
+  }
+
+  [HttpPost]
+  public IActionResult DeleteConfirmed(int id)
+  {
+    var mark = _context.Marks.Find(id);
+    if (mark != null)
+    {
+      _context.Marks.Remove(mark);
+      _context.SaveChanges();
+    }
+    return RedirectToAction(nameof(Index));
   }
 }

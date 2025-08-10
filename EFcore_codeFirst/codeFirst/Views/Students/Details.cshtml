@@ -1,30 +1,38 @@
 @model codeFirst.Models.Student
+@using System.Linq
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Student Details";
 }
 
-<h1>Details</h1>
+<h1>Student Details</h1>
+
+<dl class="row">
+    <dt class="col-sm-2">Name</dt>
+    <dd class="col-sm-10">@Model.Name</dd>
+
+    <dt class="col-sm-2">Age</dt>
+    <dd class="col-sm-10">@Model.Age</dd>
+
+    <dt class="col-sm-2">Subjects</dt>
+    <dd class="col-sm-10">
+        @if (Model.Marks != null && Model.Marks.Any())
+        {
+            <ul>
+                @foreach (var mark in Model.Marks)
+                {
+                    <li>@mark.Subject</li>
+                }
+            </ul>
+        }
+        else
+        {
+            <span>No subjects assigned</span>
+        }
+    </dd>
+</dl>
 
 <div>
-    <h4>Student</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Name)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Age)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Age)
-        </dd>
-    </dl>
-</div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning">Edit</a>
+    <a asp-action="Index" class="btn btn-secondary">Back</a>
 </div>

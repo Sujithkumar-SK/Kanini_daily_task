@@ -21,23 +21,25 @@ namespace codeFirst.Controllers
         // GET: Students
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Students.ToListAsync());
+            var students = await _context.Students
+                                        .Include(s => s.Marks)
+                                        .ToListAsync();
+            return View(students);
         }
+
 
         // GET: Students/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
-            {
                 return NotFound();
-            }
 
             var student = await _context.Students
+                .Include(s => s.Marks)
                 .FirstOrDefaultAsync(m => m.Id == id);
+
             if (student == null)
-            {
                 return NotFound();
-            }
 
             return View(student);
         }
@@ -45,15 +47,14 @@ namespace codeFirst.Controllers
         // GET: Students/Create
         public IActionResult Create()
         {
+            ViewData["MarksId"] = new SelectList(_context.Marks, "MarksId", "Subject");
             return View();
         }
 
         // POST: Students/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,Age")] Student student)
+        public async Task<IActionResult> Create(Student student)
         {
             if (ModelState.IsValid)
             {
@@ -61,6 +62,8 @@ namespace codeFirst.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+
+            ViewData["MarksId"] = new SelectList(_context.Marks, "MarksId", "Subject", student.MarksId);
             return View(student);
         }
 
@@ -68,29 +71,23 @@ namespace codeFirst.Controllers
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
-            {
                 return NotFound();
-            }
 
             var student = await _context.Students.FindAsync(id);
             if (student == null)
-            {
                 return NotFound();
-            }
+
+            ViewData["MarksId"] = new SelectList(_context.Marks, "MarksId", "Subject", student.MarksId);
             return View(student);
         }
 
         // POST: Students/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Age")] Student student)
+        public async Task<IActionResult> Edit(int id, Student student)
         {
             if (id != student.Id)
-            {
                 return NotFound();
-            }
 
             if (ModelState.IsValid)
             {
@@ -102,16 +99,14 @@ namespace codeFirst.Controllers
                 catch (DbUpdateConcurrencyException)
                 {
                     if (!StudentExists(student.Id))
-                    {
                         return NotFound();
-                    }
                     else
-                    {
                         throw;
-                    }
                 }
                 return RedirectToAction(nameof(Index));
             }
+
+            ViewData["MarksId"] = new SelectList(_context.Marks, "MarksId", "Subject", student.MarksId);
             return View(student);
         }
 
@@ -119,16 +114,14 @@ namespace codeFirst.Controllers
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
-            {
                 return NotFound();
-            }
 
             var student = await _context.Students
+                .Include(s => s.Marks)
                 .FirstOrDefaultAsync(m => m.Id == id);
+
             if (student == null)
-            {
                 return NotFound();
-            }
 
             return View(student);
         }
@@ -142,9 +135,8 @@ namespace codeFirst.Controllers
             if (student != null)
             {
                 _context.Students.Remove(student);
+                await _context.SaveChangesAsync();
             }
-
-            await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
