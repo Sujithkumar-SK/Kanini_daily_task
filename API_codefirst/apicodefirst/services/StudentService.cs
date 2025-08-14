@@ -13,6 +13,20 @@ public class StudentService : IStudent
   }
   public async Task<Student> GetStudentById(int id)
   {
-    return await _context.Students.Include(s=>s.Mark).FirstOrDefaultAsync(s => s.Id == id);
+    return await _context.Students.Include(s => s.Mark).FirstOrDefaultAsync(s => s.Id == id) ?? throw new NullReferenceException("Student not found");
+  }
+  public async Task<Student> AddStudent(Student student)
+  {
+    _context.Students.Add(student);
+    await _context.SaveChangesAsync();
+    return student;
+  }
+  public async Task<Student> UpdateStudent(int id, Student student)
+  {
+    var stu = await _context.Students.FirstOrDefaultAsync(s => s.Id == id);
+    stu!.Name = student.Name;
+    stu.Age = student.Age;
+    _context.SaveChanges();
+    return stu;
   }
 }

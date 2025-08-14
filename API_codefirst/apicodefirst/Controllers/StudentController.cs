@@ -22,4 +22,29 @@ public class StudentController : ControllerBase
     }
     return Ok(std);
   }
+  [HttpPost]
+  public async Task<ActionResult<Student>> Post([FromBody]Student student)
+  {
+      return Ok(await _studentService.AddStudent(student));
+  }
+  [HttpPut("{id}")]
+  public async Task<ActionResult<Student>> Put(int id, [FromBody]Student student)
+  {
+    if (student == null || id != student.Id)
+    {
+      return BadRequest("Invalid student data");
+    }
+    else
+    {
+      var stu = await _studentService.UpdateStudent(id, student);
+      if (stu == null)
+      {
+        return NotFound("Student not found");
+      }
+      else
+      {
+        return Ok(stu);
+      }
+    }
+  }
 }
