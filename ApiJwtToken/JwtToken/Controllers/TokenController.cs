@@ -25,12 +25,12 @@ namespace DemoAPI_JWTConnection.Controllers
                 );                                
         }
         [HttpPost]
-        public async Task<IActionResult> Post(User userData)
+        public async Task<IActionResult> Post(LoginDto userData)
         {
-            if (userData != null && !string.IsNullOrEmpty(userData.Email) &&
+            if (userData != null && !string.IsNullOrEmpty(userData.UserName) &&
             !string.IsNullOrEmpty(userData.Password))
             {
-                var client = await GetUser(userData.Email, userData.Password,userData.Role!);
+                var client = await GetUser(userData.UserName!,userData.Password);
                 if (client != null)
                 {
                     var token = GenerateToken(client);
@@ -48,10 +48,10 @@ namespace DemoAPI_JWTConnection.Controllers
                 return BadRequest("Invalid request data");
             }
         }
-        private async Task<User> GetUser(string name, string email, string role)
+        private async Task<User> GetUser(string name, string password)
         {
-            return await _con.users.FirstOrDefaultAsync(u => u.Email == email && u.UserName == name
-            && u.Role == role);
+            return await _con.users.FirstOrDefaultAsync(u => u.UserName == name
+            && u.Password == password);
 
         }
         private string GenerateToken(User user)
@@ -62,9 +62,7 @@ namespace DemoAPI_JWTConnection.Controllers
                 new Claim(JwtRegisteredClaimNames.NameId,user.UserName!),
                 new Claim(JwtRegisteredClaimNames.Email,user.Email!),
                 new Claim(ClaimTypes.Role, user.Role!)
-
-
-};//Uses the secret key + HMAC-SHA256 algorithm to digitally sign the JWT.
+            };//Uses the secret key + HMAC-SHA256 algorithm to digitally sign the JWT.
   //  This ensures the token can’t be tampered with(server can later verify signature using the same key)
             var cred = new SigningCredentials(_key, SecurityAlgorithms.HmacSha256);
             var tokenDescription = new SecurityTokenDescriptor

@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.BlazorIdentity.Pages;
 
 namespace JwtToken.Controllers
 {
@@ -22,7 +23,6 @@ namespace JwtToken.Controllers
 
         // GET: api/User
         [HttpGet]
-        [Authorize(Roles="Admin,User")]
         public async Task<ActionResult<IEnumerable<User>>> Getusers()
         {
             return await _context.users.ToListAsync();
@@ -30,7 +30,6 @@ namespace JwtToken.Controllers
 
         // GET: api/User/5
         [HttpGet("{id}")]
-        [Authorize(Roles="Admin,User")]
         public async Task<ActionResult<User>> GetUser(int id)
         {
             var user = await _context.users.FindAsync(id);
@@ -46,8 +45,7 @@ namespace JwtToken.Controllers
         // PUT: api/User/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        [Authorize(Roles="Admin")]
-        public async Task<IActionResult> PutUser(int id, User user)
+        public async Task<IActionResult> Put(int id, User user)
         {
             if (id != user.UserId)
             {
@@ -78,18 +76,23 @@ namespace JwtToken.Controllers
         // POST: api/User
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        [Authorize(Roles="Admin")]
-        public async Task<ActionResult<User>> PostUser(User user)
+        public async Task<ActionResult<User>> PostUser([FromBody]UserDto dto)
         {
-            _context.users.Add(user);
+            User temp = new User
+            {
+                UserName = dto.UserName,
+                Email = dto.Email,
+                Password = dto.Password,
+                Role = dto.Role
+            };
+            _context.users.Add(temp);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetUser", new { id = user.UserId }, user);
+            return Ok(temp);
         }
 
         // DELETE: api/User/5
         [HttpDelete("{id}")]
-        [Authorize(Roles="Admin")]
         public async Task<IActionResult> DeleteUser(int id)
         {
             var user = await _context.users.FindAsync(id);

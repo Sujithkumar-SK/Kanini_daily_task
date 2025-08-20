@@ -8,15 +8,15 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
-namespace JwtToken.Controllers
+namespace GameMvc.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
     public class GameController : ControllerBase
     {
-        private readonly GameDbContext _context;
+        private readonly IGameService _context;
 
-        public GameController(GameDbContext context)
+        public GameController(IGameService context)
         {
             _context = context;
         }
@@ -24,54 +24,37 @@ namespace JwtToken.Controllers
         // GET: api/Game
         [HttpGet]
         [Authorize(Roles ="Admin,User")]
-        public async Task<ActionResult<IEnumerable<Game>>> GetGames()
+        public async Task<ActionResult<IEnumerable<Game>>> Get()
         {
-            return await _context.Games.ToListAsync();
+            return Ok(await _context.GetGames());
         }
 
         // GET: api/Game/5
         [HttpGet("{id}")]
         [Authorize(Roles="Admin,User")]
-        public async Task<ActionResult<Game>> GetGame(int id)
+        public async Task<ActionResult<Game>> Get(int id)
         {
-            var game = await _context.Games.FindAsync(id);
+            var game = await _context.GetGame(id);
 
             if (game == null)
             {
                 return NotFound();
             }
 
-            return game;
+            return Ok(game);
         }
 
         // PUT: api/Game/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
         [Authorize(Roles ="Admin")]
-        public async Task<IActionResult> PutGame(int id, Game game)
+        public async Task<IActionResult> Put(int id, Game game)
         {
             if (id != game.Id)
             {
                 return BadRequest();
             }
-
-            _context.Entry(game).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!GameExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+            await _context.UpdateGame(game);
 
             return NoContent();
         }
@@ -80,34 +63,25 @@ namespace JwtToken.Controllers
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
         [Authorize(Roles="Admin")]
-        public async Task<ActionResult<Game>> PostGame(Game game)
+        public async Task<ActionResult<Game>> Post(GameDto game)
         {
-            _context.Games.Add(game);
-            await _context.SaveChangesAsync();
+            Game temp = new Game
+            {
+                GameName = game.GameName,
+                GameType = game.GameType
+            };
+            var created = await _context.CreateGame(temp);
 
-            return CreatedAtAction("GetGame", new { id = game.Id }, game);
+            return CreatedAtAction(nameof(Get), new { id = created.Id }, created);
         }
 
         // DELETE: api/Game/5
         [HttpDelete("{id}")]
         [Authorize(Roles ="Admin")]
-        public async Task<IActionResult> DeleteGame(int id)
+        public async Task<IActionResult> Delete(int id)
         {
-            var game = await _context.Games.FindAsync(id);
-            if (game == null)
-            {
-                return NotFound();
-            }
-
-            _context.Games.Remove(game);
-            await _context.SaveChangesAsync();
-
+            await _context.DeleteGame(id);
             return NoContent();
-        }
-
-        private bool GameExists(int id)
-        {
-            return _context.Games.Any(e => e.Id == id);
         }
     }
 }
