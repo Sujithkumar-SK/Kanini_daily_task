@@ -1,5 +1,7 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 [Route("api/[controller]")]
+[Authorize]
 public class MarkController : ControllerBase
 {
   private readonly IMark _markService;

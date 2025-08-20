@@ -1,5 +1,7 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 [Route("api/[controller]")]
+
 public class StudentController : ControllerBase
 {
   private readonly IStudent _studentService;
@@ -8,11 +10,13 @@ public class StudentController : ControllerBase
     _studentService = studentService;
   }
   [HttpGet]
+  [Authorize(Roles = "Admin,User")]
   public async Task<IEnumerable<Student>> Get()
   {
     return await _studentService.GetAllStudents();
   }
   [HttpGet("{id}")]
+  [Authorize(Roles = "Admin,User")]
   public async Task<ActionResult<Student>> Get(int id)
   {
     var std = await _studentService.GetStudentById(id);
@@ -23,12 +27,14 @@ public class StudentController : ControllerBase
     return Ok(std);
   }
   [HttpPost]
-  public async Task<ActionResult<Student>> Post([FromBody]Student student)
+  [Authorize(Roles = "Admin")]
+  public async Task<ActionResult<Student>> Post([FromBody] Student student)
   {
-      return Ok(await _studentService.AddStudent(student));
+    return Ok(await _studentService.AddStudent(student));
   }
   [HttpPut("{id}")]
-  public async Task<ActionResult<Student>> Put(int id, [FromBody]Student student)
+  [Authorize(Roles = "Admin")]
+  public async Task<ActionResult<Student>> Put(int id, [FromBody] Student student)
   {
     if (student == null || id != student.Id)
     {

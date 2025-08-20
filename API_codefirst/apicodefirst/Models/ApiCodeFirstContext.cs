@@ -3,6 +3,7 @@ public class ApiCodeFirstContext : DbContext
 {
   public DbSet<Student> Students { get; set; }
   public DbSet<Mark> Marks { get; set; }
+  public DbSet<User> Users { get; set; }
 
   public ApiCodeFirstContext(DbContextOptions<ApiCodeFirstContext> options) : base(options)
   { }
