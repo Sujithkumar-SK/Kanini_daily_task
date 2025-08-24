@@ -2,7 +2,7 @@ using Backend.DTOs;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace KidsLearningPlatform.Controllers
+namespace Backend.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]

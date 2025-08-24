@@ -1,0 +1,25 @@
+@model IEnumerable<Frontend.Models.KidsDto>
+
+<h2>Kids List</h2>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Kid Id</th>
+            <th>Name</th>
+            <th>Age</th>
+            <th>User Id</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var kid in Model)
+        {
+            <tr>
+                <td>@kid.Id</td>
+                <td>@kid.Name</td>
+                <td>@kid.Age</td>
+                <td>@kid.UserId</td>
+            </tr>
+        }
+    </tbody>
+</table>
