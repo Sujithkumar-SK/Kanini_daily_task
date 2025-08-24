@@ -8,4 +8,8 @@ public interface IEnrollmentService
   Task<IEnumerable<EnrollmentDto>> GetEnrollmentsByKid(int kidId);
   Task<IEnumerable<EnrollmentDto>> GetEnrollmentsByCourse(int courseId);
   Task<bool> Unenroll(int enrollmentId);
+
+  Task<IEnumerable<EnrollmentDto>> GetEnrollmentsByDateRange(DateTime start, DateTime end);
+  Task<IEnumerable<object>> GetKidsByCourseAndGrade(int courseId, string grade);
+  Task<IEnumerable<object>> GetCoursesByKidAndInstructor(int kidId, string instructor);
 }

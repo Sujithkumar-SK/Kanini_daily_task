@@ -15,7 +15,7 @@ public class EnrollmentsController : ControllerBase
     }
     [Authorize(Roles = "Parent")]
     [HttpPost]
-    public async Task<IActionResult> Enroll([FromBody]CreateEnrollmentDto dto)
+    public async Task<IActionResult> Enroll([FromBody] CreateEnrollmentDto dto)
     {
         var result = await _service.Enroll(dto);
         if (result == null) return BadRequest("Kid is already enrolled in this course");
@@ -45,4 +45,28 @@ public class EnrollmentsController : ControllerBase
         if (!success) return NotFound("Enrollment not found");
         return Ok("Unenrolled successfully");
     }
+    [Authorize(Roles = "Admin,Parent")]
+    [HttpGet("filter/date-range")]
+    public async Task<IActionResult> GetByDateRange([FromQuery] DateTime start, [FromQuery] DateTime end)
+    {
+        var result = await _service.GetEnrollmentsByDateRange(start, end);
+        return Ok(result);
+    }
+
+    [Authorize(Roles = "Admin")]
+    [HttpGet("course/{courseId}/by-grade")]
+    public async Task<IActionResult> GetKidsByCourseAndGrade(int courseId, [FromQuery] string grade)
+    {
+        var result = await _service.GetKidsByCourseAndGrade(courseId, grade);
+        return Ok(result);
+    }
+
+    [Authorize(Roles = "Admin,Parent,Kid")]
+    [HttpGet("kid/{kidId}/by-instructor")]
+    public async Task<IActionResult> GetCoursesByKidAndInstructor(int kidId, [FromQuery] string instructor)
+    {
+        var result = await _service.GetCoursesByKidAndInstructor(kidId, instructor);
+        return Ok(result);
+    }
+
 }

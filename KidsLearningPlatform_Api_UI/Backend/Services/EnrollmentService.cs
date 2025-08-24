@@ -70,4 +70,23 @@ public class EnrollmentService : IEnrollmentService
     await _repo.SaveChanges();
     return true;
   }
+
+
+
+
+
+  public async Task<IEnumerable<EnrollmentDto>> GetEnrollmentsByDateRange(DateTime start, DateTime end)
+  {
+    return await _repo.GetEnrollmentsByDateRange(start, end);
+  }
+
+  public async Task<IEnumerable<object>> GetKidsByCourseAndGrade(int courseId, string grade)
+  {
+    return await _repo.GetKidsByCourseAndGrade(courseId, grade);
+  }
+
+  public async Task<IEnumerable<object>> GetCoursesByKidAndInstructor(int kidId, string instructor)
+  {
+    return await _repo.GetCoursesByKidAndInstructor(kidId, instructor);
+  }
 }
