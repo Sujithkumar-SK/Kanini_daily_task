@@ -14,7 +14,7 @@ public class User
   public string? Email { get; set; }
 
   [Required]
-  public byte[]? Password { get; set; }
+  public string Password { get; set; } = string.Empty;
 
   [Required, MaxLength(20)]
   public string? Role { get; set; }

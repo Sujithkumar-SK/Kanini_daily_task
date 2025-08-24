@@ -32,7 +32,7 @@ public class BackendDbContext : DbContext
                   UserId = 1,
                   UserName = "sujith",
                   Email = "sujinano777@gmail.com.com",
-                  Password = new byte[] { 0x12, 0x34 },
+                  Password = "admin123",
                   Role = "Admin"
                 });
     modelBuilder.Entity<Kid>().HasData(

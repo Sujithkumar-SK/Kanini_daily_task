@@ -1,5 +1,6 @@
 using Backend.DTOs;
 using Backend.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Backend.Controllers;
@@ -14,11 +15,13 @@ public class KidController : ControllerBase
     _ser = ser;
   }
   [HttpGet]
+  [Authorize(Roles = "Admin")]
   public async Task<IActionResult> GetAll()
   {
     var kids = await _ser.GetAllKids();
     return Ok(kids);
   }
+  [Authorize(Roles = "Admin,Parent,Kid")]
   [HttpGet("{id}")]
   public async Task<IActionResult> GetById(int id)
   {
@@ -26,6 +29,7 @@ public class KidController : ControllerBase
     if (res == null) return BadRequest("Kid not found");
     return Ok(res);
   }
+  [Authorize(Roles = "Parent")]
   [HttpPost]
   public async Task<IActionResult> Create([FromBody] CreateKidDto dto)
   {
@@ -33,6 +37,7 @@ public class KidController : ControllerBase
     if (!res) return BadRequest("Failed to create Kid");
     return Ok("Kid created Successfully");
   }
+  [Authorize(Roles = "Parent")]
   [HttpPut("{id}")]
   public async Task<IActionResult> Update(int id, [FromBody] UpdateKidDto dto)
   {
@@ -40,6 +45,7 @@ public class KidController : ControllerBase
     if (!res) return BadRequest("Kidnot Found");
     return Ok("Kid updated Successfully");
   }
+  [Authorize(Roles = "Parent")]
   [HttpDelete("{id}")]
   public async Task<IActionResult> Delete(int id)
   {

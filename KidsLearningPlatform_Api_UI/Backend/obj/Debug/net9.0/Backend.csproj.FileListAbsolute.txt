@@ -160,3 +160,4 @@ C:\Users\SUJITH KUMAR\OneDrive\Documents\Kanini\KidsLearningPlatform_Api_UI\Back
 C:\Users\SUJITH KUMAR\OneDrive\Documents\Kanini\KidsLearningPlatform_Api_UI\Backend\obj\Debug\net9.0\Backend.pdb
 C:\Users\SUJITH KUMAR\OneDrive\Documents\Kanini\KidsLearningPlatform_Api_UI\Backend\obj\Debug\net9.0\Backend.genruntimeconfig.cache
 C:\Users\SUJITH KUMAR\OneDrive\Documents\Kanini\KidsLearningPlatform_Api_UI\Backend\obj\Debug\net9.0\ref\Backend.dll
+C:\Users\SUJITH KUMAR\OneDrive\Documents\Kanini\KidsLearningPlatform_Api_UI\Backend\bin\Debug\net9.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
