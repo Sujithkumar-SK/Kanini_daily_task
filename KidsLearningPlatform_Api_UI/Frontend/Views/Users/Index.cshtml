@@ -1,4 +1,5 @@
 @model IEnumerable<Frontend.Models.UserDto>
+@using System.Linq
 
 @{
     ViewData["Title"] = "Users";
@@ -7,7 +8,7 @@
 <div class="container mt-4">
     <h2>Users</h2>
 
-    @if (Model != null && Model.Count > 0)
+    @if (Model != null && Model.Any())
     {
         <table class="table table-bordered">
             <thead>
@@ -21,8 +22,8 @@
                 @foreach (var user in Model)
                 {
                     <tr>
-                        <td>@user.Id</td>
-                        <td>@user.Username</td>
+                        <td>@user.UserId</td>
+                        <td>@user.UserName</td>
                         <td>@user.Email</td>
                     </tr>
                 }

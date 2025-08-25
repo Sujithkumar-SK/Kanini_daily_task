@@ -1,8 +1,7 @@
-using Microsoft.AspNetCore.Mvc;
 using System.Net.Http.Headers;
 using System.Text.Json;
 using Frontend.Models;
-
+using Microsoft.AspNetCore.Mvc;
 
 public class EnrollmentController : Controller
 {
@@ -31,8 +30,10 @@ public class EnrollmentController : Controller
         }
 
         var json = await response.Content.ReadAsStringAsync();
-        var enrollments = JsonSerializer.Deserialize<List<EnrollmentDto>>(json,
-            new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+        var enrollments = JsonSerializer.Deserialize<List<EnrollmentDto>>(
+            json,
+            new JsonSerializerOptions { PropertyNameCaseInsensitive = true }
+        );
 
         return View(enrollments);
     }
@@ -48,21 +49,25 @@ public class EnrollmentController : Controller
         var kidsResponse = await client.GetAsync("http://localhost:5225/api/Kid");
         var coursesResponse = await client.GetAsync("http://localhost:5225/api/Course");
 
-        var kids = new List<KidDto>();
+        var kids = new List<KidsDto>();
         var courses = new List<CourseDto>();
 
         if (kidsResponse.IsSuccessStatusCode)
         {
             var kidsJson = await kidsResponse.Content.ReadAsStringAsync();
-            kids = JsonSerializer.Deserialize<List<KidDto>>(kidsJson,
-                new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+            kids = JsonSerializer.Deserialize<List<KidsDto>>(
+                kidsJson,
+                new JsonSerializerOptions { PropertyNameCaseInsensitive = true }
+            );
         }
 
         if (coursesResponse.IsSuccessStatusCode)
         {
             var coursesJson = await coursesResponse.Content.ReadAsStringAsync();
-            courses = JsonSerializer.Deserialize<List<CourseDto>>(coursesJson,
-                new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+            courses = JsonSerializer.Deserialize<List<CourseDto>>(
+                coursesJson,
+                new JsonSerializerOptions { PropertyNameCaseInsensitive = true }
+            );
         }
 
         ViewBag.Kids = kids;
@@ -79,7 +84,10 @@ public class EnrollmentController : Controller
         var token = HttpContext.Session.GetString("JWToken");
         client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
 
-        var response = await client.PostAsJsonAsync("http://localhost:5225/api/Enrollment", enrollment);
+        var response = await client.PostAsJsonAsync(
+            "http://localhost:5225/api/Enrollment",
+            enrollment
+        );
 
         if (response.IsSuccessStatusCode)
         {
@@ -102,4 +110,3 @@ public class EnrollmentController : Controller
         return RedirectToAction("Index");
     }
 }
-

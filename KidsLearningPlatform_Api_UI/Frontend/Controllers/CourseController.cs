@@ -1,7 +1,7 @@
-using Microsoft.AspNetCore.Mvc;
 using System.Net.Http.Headers;
 using System.Text.Json;
 using Frontend.Models;
+using Microsoft.AspNetCore.Mvc;
 
 public class CourseController : Controller
 {
@@ -21,8 +21,7 @@ public class CourseController : Controller
         }
 
         var client = _httpClientFactory.CreateClient();
-        client.DefaultRequestHeaders.Authorization =
-            new AuthenticationHeaderValue("Bearer", token);
+        client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
 
         var response = await client.GetAsync("http://localhost:5225/api/Course");
         if (!response.IsSuccessStatusCode)
@@ -31,10 +30,11 @@ public class CourseController : Controller
         }
 
         var json = await response.Content.ReadAsStringAsync();
-        var courses = JsonSerializer.Deserialize<List<CourseDto>>(json,
-            new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+        var courses = JsonSerializer.Deserialize<List<CourseDto>>(
+            json,
+            new JsonSerializerOptions { PropertyNameCaseInsensitive = true }
+        );
 
         return View(courses);
     }
 }
-

@@ -4,20 +4,20 @@ namespace Backend.Models;
 
 public class Course
 {
-  [Key]
-  public int CourseId { get; set; }
+    [Key]
+    public int CourseId { get; set; }
 
-  [Required, MaxLength(100)]
-  public string? Title { get; set; }
+    [Required, MaxLength(100)]
+    public string? Title { get; set; }
 
-  public string? Description { get; set; }
+    public string? Description { get; set; }
 
-  public string? Duration { get; set; }
+    public string? Duration { get; set; }
 
-  [Required, MaxLength(50)]
-  public string? Instructor { get; set; }
+    [Required, MaxLength(50)]
+    public string? Instructor { get; set; }
 
-  public byte[]? CourseImage { get; set; }
-  
-  public ICollection<Enrollment>?Enrollments { get; set; }
+    public byte[]? CourseImage { get; set; }
+
+    public ICollection<Enrollment>? Enrollments { get; set; }
 }

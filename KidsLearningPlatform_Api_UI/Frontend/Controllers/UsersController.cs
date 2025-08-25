@@ -1,52 +1,50 @@
+using System.Net.Http.Headers;
+using System.Text.Json;
 using Frontend.Models;
 using Microsoft.AspNetCore.Mvc;
-using System.Net.Http;
-using System.Text.Json;
-using System.Threading.Tasks;
 
 namespace Frontend.Controllers
 {
-    public class CourseController : Controller
+    public class UsersController : Controller
     {
-        private readonly HttpClient _httpClient;
+        private readonly IHttpClientFactory _httpClientFactory;
 
-        public CourseController(IHttpClientFactory httpClientFactory)
+        public UsersController(IHttpClientFactory httpClientFactory)
         {
-            _httpClient = httpClientFactory.CreateClient("KidsLearningApi");
+            _httpClientFactory = httpClientFactory;
         }
 
-        // GET: Course
+        // GET: /Users
         public async Task<IActionResult> Index()
         {
-            var response = await _httpClient.GetAsync("api/Course");
+            // 🔑 Get JWT from session
+            var token = HttpContext.Session.GetString("JWToken");
+            if (string.IsNullOrEmpty(token))
+            {
+                return RedirectToAction("Login", "Account");
+            }
+
+            var client = _httpClientFactory.CreateClient();
+            client.DefaultRequestHeaders.Authorization =
+                new AuthenticationHeaderValue("Bearer", token);
+
+            // 🔗 Call your backend API
+            var response = await client.GetAsync("http://localhost:5225/api/Users");
+
             if (!response.IsSuccessStatusCode)
             {
-                return View(new List<CourseDto>()); // return empty list on failure
+                return View(new List<UserDto>()); // return empty list on failure
             }
 
             var json = await response.Content.ReadAsStringAsync();
 
-            // ✅ Deserialize into Frontend.Models.CourseDto (NOT global CourseDto)
-            var courses = JsonSerializer.Deserialize<List<Frontend.Models.CourseDto>>(json,
-                new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+            // ✅ Deserialize into UserDto list
+            var users = JsonSerializer.Deserialize<List<UserDto>>(
+                json,
+                new JsonSerializerOptions { PropertyNameCaseInsensitive = true }
+            );
 
-            return View(courses);
-        }
-
-        // GET: Course/Details/5
-        public async Task<IActionResult> Details(int id)
-        {
-            var response = await _httpClient.GetAsync($"api/Course/{id}");
-            if (!response.IsSuccessStatusCode)
-            {
-                return NotFound();
-            }
-
-            var json = await response.Content.ReadAsStringAsync();
-            var course = JsonSerializer.Deserialize<Frontend.Models.CourseDto>(json,
-                new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
-
-            return View(course);
+            return View(users);
         }
     }
 }

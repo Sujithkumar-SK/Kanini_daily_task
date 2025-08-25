@@ -8,6 +8,6 @@ public class EnrollmentDto
     public int KidId { get; set; }
     public int CourseId { get; set; }
 
-    public KidDto? Kid { get; set; }
+    public KidsDto? Kid { get; set; }
     public CourseDto? Course { get; set; }
 }
