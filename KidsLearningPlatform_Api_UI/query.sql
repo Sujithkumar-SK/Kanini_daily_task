@@ -1,4 +1,4 @@
-ALTER DATABASE SCOPED CONFIGURATION SET IDENTITY_CACHE = OFF;
+﻿ALTER DATABASE SCOPED CONFIGURATION SET IDENTITY_CACHE = OFF;
 DELETE FROM users;
 
 DBCC CHECKIDENT ('Users', RESEED, 0);
@@ -28,10 +28,10 @@ VALUES
 
 INSERT INTO Enrollments (KidId, CourseId, EnrolledDate)
 VALUES
-(1, 1, GETDATE()),  -- Santhosh ? Alphabets
-(1, 2, GETDATE()),  -- Santhosh ? Numbers
-(2, 3, GETDATE()),  -- Mani ? Rhymes
-(3, 1, GETDATE());  -- Priya ? Alphabets
+(1, 1, GETDATE()),  -- Santhosh → Alphabets
+(1, 2, GETDATE()),  -- Santhosh → Numbers
+(2, 3, GETDATE()),  -- Mani → Rhymes
+(3, 1, GETDATE());  -- Priya → Alphabets
 
 INSERT INTO Kids (Name, Age, Grade, UserId)
 VALUES 
