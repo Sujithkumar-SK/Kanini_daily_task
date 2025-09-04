@@ -1,0 +1,24 @@
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.2.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApiAssement", "ApiAssement\ApiAssement.csproj", "{9F11FE90-74CA-9446-6FE3-934E60C1D757}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9F11FE90-74CA-9446-6FE3-934E60C1D757}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9F11FE90-74CA-9446-6FE3-934E60C1D757}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9F11FE90-74CA-9446-6FE3-934E60C1D757}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9F11FE90-74CA-9446-6FE3-934E60C1D757}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {896F9BF8-F654-40E2-9A02-C856F8EBF5EA}
+	EndGlobalSection
+EndGlobal
