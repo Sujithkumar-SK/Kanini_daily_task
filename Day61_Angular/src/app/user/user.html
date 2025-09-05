@@ -1,0 +1,14 @@
+<div class="profile">
+  <h2>Edit Profile</h2>
+  <form>
+    <label>Name:</label>
+    <input type="text" [(ngModel)]="user.name" name="name">
+
+    <label>Email:</label>
+    <input type="email" [(ngModel)]="user.email"name="email">
+  </form>
+
+  <p><strong>Live Preview:</strong></p>
+  <p>Name: {{user.name}}</p>
+  <p>Email: {{user.email}}</p>
+</div>

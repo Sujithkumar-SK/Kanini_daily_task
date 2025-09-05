@@ -1,0 +1,21 @@
+<div class="product">
+  <h2>{{product.productName}}</h2>
+  <p class="price">Price: {{product.price}}</p>
+  <p class="dec">{{product.description}}</p>
+  <p><strong>Rating:</strong>
+  <span [style.color]="getRatingColor()">*****</span>
+  ({{product.rating}}/5)</p>
+  <button [disabled]="product.stock <= 0">BuyNow</button>
+
+  <button (click)="addToCart(product)"[disabled]="product.stock <= 0">Add to Cart</button>
+</div>
+
+<h3>Shopping Cart</h3>
+<div class="cart-section" *ngIf="cart.length > 0">
+    <h3>Shopping Cart</h3>
+    <ul>
+      <li *ngFor="let item of cart">
+        {{ item.productName }} - ₹{{ item.price }}
+      </li>
+    </ul>
+  </div>

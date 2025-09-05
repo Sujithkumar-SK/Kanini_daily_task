@@ -1,0 +1,12 @@
+<div class="product-card">
+  <h2>{{ product.productName }}</h2>
+  <p><strong>Price:</strong> ₹{{ product.price }}</p>
+  <p>{{ product.description }}</p>
+
+  <h3>Customer Reviews:</h3>
+  <ul>
+    <li *ngFor="let review of product.reviews; let i = index">
+      {{ i + 1 }}. {{ review }}
+    </li>
+  </ul>
+</div>

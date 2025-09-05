@@ -1,0 +1,7 @@
+<div class="card">
+  <img [src]="imageUrl" class="product-image">
+  <h2 class="name">{{productName}}</h2>
+  <p class="price">Price: Rs{{price}}</p>
+  <p class="stock">{{inStock ? 'In Stock' : 'Out Of Stock'}}</p>
+  <button [disabled]="inActive ||!inStock">Buy Now</button>
+</div>

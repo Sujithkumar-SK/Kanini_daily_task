@@ -1,0 +1,41 @@
+<h1>Hi Man You Have Done Custom Component</h1>
+
+<h3>{{fname}} {{lname}}</h3>
+<img [src]="imgname">
+
+<input [type]="showPassword ? 'text' : 'password'">
+<button (click)="TogglePassword()">{{showPassword ? 'Hide':'Show'}}</button><br><br>
+
+
+<input type="text" [(ngModel)]="txtTesting">
+<h1>{{txtTesting}}</h1><br>
+<input type="number" [(ngModel)]="num1">
+<input type="number" [(ngModel)]="num2">
+<h1>{{num1+num2}}</h1>
+<table>
+  <thead>
+    <tr>
+      <th>ProducId</th>
+      <th>ProductName</th>
+      <th>ProductImage</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let i of productList">
+      <td>{{i.productId}}</td>
+      <td>{{i.productName}}</td>
+      <td><img [src]="i.productImage"></td>
+    </tr>
+  </tbody>
+</table>
+
+<div *ngIf="showProduct;else noProduct">
+  <ul *ngFor="let i of productList">
+    <li>{{i.productId}}</li>
+    <li>{{i.productName}}</li>
+  </ul>
+</div>
+<ng-template #noProduct><p>No Product found</p></ng-template>
+
+<button (click)="toggleProduct()">{{showProduct ? 'HideProduct':'ShowProduct'}}</button>
+
