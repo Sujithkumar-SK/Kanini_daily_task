@@ -10,6 +10,9 @@ public class Bus : BaseEntity
   [Required, MaxLength(50)]
   public string BusType { get; set; } = string.Empty;
 
+  [Required,Range(1,100)]
+  public int TotalSeats { get; set; }
+
   [Required, MaxLength(50)]
   public string RegistrationNo { get; set; } = string.Empty;
 

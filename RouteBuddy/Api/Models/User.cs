@@ -26,7 +26,10 @@ public class User : BaseEntity
   public string Gender { get; set; } = "Other";
   [Column(TypeName = "VARBINARY(MAX)")]
   public byte[]? ProfilePicture { get; set; }
+  [Required]
+  public bool IsActive { get; set; } = true;
 
-  public ICollection<Booking> Bookings { get; set; } = new List<Booking>();
+  public ICollection<Booking> Bookings
+  { get; set; } = new List<Booking>();
   public ICollection<Review> Reviews { get; set; } = new List<Review>();
 }

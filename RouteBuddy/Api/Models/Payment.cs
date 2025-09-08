@@ -15,6 +15,8 @@ public class Payment : BaseEntity
   [RegularExpression("^(Pending|Success|Failed)$", ErrorMessage = "Invalid payment status")]
   public string PaymentStatus { get; set; } = "Pending";
 
+  public DateTime PaymentDate { get; set; } = DateTime.UtcNow;
+
   public int BookingId { get; set; }
   public Booking Booking { get; set; } = null!;
 

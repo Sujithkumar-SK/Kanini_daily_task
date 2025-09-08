@@ -22,6 +22,10 @@ public class Booking : BaseEntity
     public int BusId { get; set; }
     public Bus Bus { get; set; } = null!;
 
+    public int ScheduleId { get; set; }
+    public BusSchedule Schedule { get; set; } = null!;
+
+
     public Payment Payment { get; set; } = null!;
     public ICollection<BookedSeat> BookedSeats { get; set; } = new List<BookedSeat>();
     public Cancellation? Cancellation { get; set; }

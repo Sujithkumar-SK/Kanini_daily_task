@@ -10,9 +10,19 @@ public class BusSchedule : BaseEntity
   [Range(0, double.MaxValue)]
   public decimal Fare { get; set; }
 
+  [Required, MaxLength(20)]
+  [RegularExpression("^(Scheduled|Cancelled|Completed|Delayed)$")]
+  public string Status { get; set; } = "Scheduled";
+
+
   public int BusId { get; set; }
   public Bus Bus { get; set; } = null!;
 
   public int RouteId { get; set; }
   public Route Route { get; set; } = null!;
+
+  public ICollection<DriverAssignment> DriverAssignments { get; set; } = new List<DriverAssignment>();
+
+  public ICollection<Booking> Bookings { get; set; } = new List<Booking>();
+
 }

@@ -7,6 +7,6 @@ public abstract class BaseEntity
   public DateTime CreatedOn { get; set; } = DateTime.UtcNow;
 
   [MaxLength(100)]
-  public string? UpdateBy { get; set; }
+  public string? UpdateBy { get; set; }/// int accept Id
   public DateTime? UpdatedOn { get; set; }
 }

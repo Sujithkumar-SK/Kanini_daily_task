@@ -16,4 +16,6 @@ public class Route : BaseEntity
   public TimeSpan Duration { get; set; }
 
   public ICollection<BusSchedule> Schedules { get; set; } = new List<BusSchedule>();
+
+  public ICollection<Stop> Stops { get; set; } = new List<Stop>();
 }
