@@ -1,0 +1,13 @@
+@if (seletedFood()){
+<h3>Detailed View</h3>
+<div class="card" style="width: 18rem;">
+  <img class="card-img-top" [src]="seletedFood()?.imageUrl" alt="Card image cap"
+    style="height: 200px; object-fit: cover;">
+  <div class="card-body">
+    <h5 class="card-title">{{seletedFood()?.name}}</h5>
+    <p class="card-text">{{seletedFood()?.category}}</p>
+    <p class="card-text">Rs {{seletedFood()?.price}}</p>
+    <a href="#" class="btn btn-primary" (click)="foodservice.addToCart(seletedFood()!)">Add To Cart</a>
+  </div>
+</div>
+}

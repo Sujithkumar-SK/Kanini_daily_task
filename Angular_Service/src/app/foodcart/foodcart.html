@@ -1,0 +1,14 @@
+@if (foodService.cart().length > 0){
+  <div class="d-flex flex-column gap-3">
+  @for (i of foodService.cart(); track $index){
+  <div class="card" style="width: 18rem;">
+    <ul class="list-group list-group-flush">
+      <li class="list-group-item">{{i.name}}- ₹{{i.price}}<button class="btn btn-sm btn-danger" (click)="foodService.removeFromCart($index)">Remove</button>
+      </li>
+    </ul>
+  </div>
+  }
+  <h2>₹{{total()}}</h2>
+  <button class="btn btn-sm btn-danger" (click)="foodService.clearCart()">Clear</button>
+</div>
+}
