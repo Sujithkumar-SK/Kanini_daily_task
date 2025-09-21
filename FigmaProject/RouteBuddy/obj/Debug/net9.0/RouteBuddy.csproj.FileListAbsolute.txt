@@ -1,0 +1,9 @@
+C:\Users\SUJITH KUMAR\OneDrive\Documents\Kanini\FigmaProject\RouteBuddy\obj\Debug\net9.0\rpswa.dswa.cache.json
+C:\Users\SUJITH KUMAR\OneDrive\Documents\Kanini\FigmaProject\RouteBuddy\obj\Debug\net9.0\RouteBuddy.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\SUJITH KUMAR\OneDrive\Documents\Kanini\FigmaProject\RouteBuddy\obj\Debug\net9.0\RouteBuddy.AssemblyInfoInputs.cache
+C:\Users\SUJITH KUMAR\OneDrive\Documents\Kanini\FigmaProject\RouteBuddy\obj\Debug\net9.0\RouteBuddy.AssemblyInfo.cs
+C:\Users\SUJITH KUMAR\OneDrive\Documents\Kanini\FigmaProject\RouteBuddy\obj\Debug\net9.0\RouteBuddy.csproj.CoreCompileInputs.cache
+C:\Users\SUJITH KUMAR\OneDrive\Documents\Kanini\FigmaProject\RouteBuddy\obj\Debug\net9.0\RouteBuddy.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\SUJITH KUMAR\OneDrive\Documents\Kanini\FigmaProject\RouteBuddy\obj\Debug\net9.0\RouteBuddy.RazorAssemblyInfo.cache
+C:\Users\SUJITH KUMAR\OneDrive\Documents\Kanini\FigmaProject\RouteBuddy\obj\Debug\net9.0\RouteBuddy.RazorAssemblyInfo.cs
+C:\Users\SUJITH KUMAR\OneDrive\Documents\Kanini\FigmaProject\RouteBuddy\obj\Debug\net9.0\RouteBuddy.csproj.AssemblyReference.cache

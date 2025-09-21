@@ -1,0 +1,24 @@
+@model IEnumerable<RouteBuddy.Models.Bus>
+@{
+    Layout = "_Layout";
+    ViewData["Title"] = "Manage Buses";
+}
+<h2>Manage Buses</h2>
+<form method="post" action="/Admin/AddBus" class="card p-3 bg-white shadow-sm mb-3">
+  <div class="row g-2">
+    <div class="col"><input class="form-control" name="vendorId" placeholder="VendorId" required /></div>
+    <div class="col"><input class="form-control" name="busNumber" placeholder="Bus Number" required /></div>
+    <div class="col"><input class="form-control" name="busType" placeholder="Bus Type" /></div>
+    <div class="col"><input class="form-control" type="number" name="seatCount" placeholder="Seat Count" required /></div>
+    <div class="col"><button class="btn btn-success">Add Bus</button></div>
+  </div>
+</form>
+<table class="table table-bordered bg-white shadow-sm">
+  <thead><tr><th>Bus</th><th>Type</th><th>Vendor</th><th>Seats</th></tr></thead>
+  <tbody>
+@foreach (var b in Model)
+{
+  <tr><td>@b.BusNumber</td><td>@b.BusType</td><td>@b.Vendor?.VendorName</td><td>@b.SeatCount</td></tr>
+}
+  </tbody>
+</table>

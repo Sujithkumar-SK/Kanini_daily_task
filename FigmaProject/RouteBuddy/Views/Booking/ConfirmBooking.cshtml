@@ -1,0 +1,8 @@
+@model RouteBuddy.Models.Booking
+@{
+    Layout = "_Layout";
+    ViewData["Title"] = "Confirm Booking";
+}
+<h2>Booking Created</h2>
+<div class="alert alert-info">PNR: <strong>@Model.PNR</strong> | Seat: @Model.SeatNumber</div>
+<a class="btn btn-success" href="/Payment/Pay?bookingId=@Model.BookingId">Proceed to Payment</a>

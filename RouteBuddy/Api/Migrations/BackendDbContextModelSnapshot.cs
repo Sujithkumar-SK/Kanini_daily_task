@@ -32,6 +32,9 @@ namespace Api.Migrations
                     b.Property<int>("BookingId")
                         .HasColumnType("int");
 
+                    b.Property<int>("BookingSegmentId")
+                        .HasColumnType("int");
+
                     b.Property<int>("BusId")
                         .HasColumnType("int");
 
@@ -48,6 +51,11 @@ namespace Api.Migrations
                         .HasMaxLength(10)
                         .HasColumnType("nvarchar(10)");
 
+                    b.Property<string>("SeatType")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
                     b.Property<DateTime>("TravelDate")
                         .HasColumnType("datetime2");
 
@@ -62,9 +70,25 @@ namespace Api.Migrations
 
                     b.HasIndex("BookingId");
 
+                    b.HasIndex("BookingSegmentId");
+
                     b.HasIndex("BusId");
 
                     b.ToTable("BookedSeats");
+
+                    b.HasData(
+                        new
+                        {
+                            BookedSeatId = 1,
+                            BookingId = 1,
+                            BookingSegmentId = 1,
+                            BusId = 1,
+                            CreadtedBy = "System",
+                            CreatedOn = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            SeatNumber = "A1",
+                            SeatType = "Sleeper",
+                            TravelDate = new DateTime(2025, 9, 20, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        });
                 });
 
             modelBuilder.Entity("Booking", b =>
@@ -124,6 +148,69 @@ namespace Api.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("Bookings");
+
+                    b.HasData(
+                        new
+                        {
+                            BookingId = 1,
+                            BookedAt = new DateTime(2025, 9, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            BusId = 1,
+                            CreadtedBy = "System",
+                            CreatedOn = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            PNRNo = "PNR12345",
+                            ScheduleId = 1,
+                            Status = "Confirmed",
+                            TravelDate = new DateTime(2025, 9, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            UserId = 2
+                        });
+                });
+
+            modelBuilder.Entity("BookingSegment", b =>
+                {
+                    b.Property<int>("BookingSegmentId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("BookingSegmentId"));
+
+                    b.Property<int>("BookingId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("CreadtedBy")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("ScheduleId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UpdateBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<DateTime?>("UpdatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("BookingSegmentId");
+
+                    b.HasIndex("BookingId");
+
+                    b.HasIndex("ScheduleId");
+
+                    b.ToTable("BookingSegments");
+
+                    b.HasData(
+                        new
+                        {
+                            BookingSegmentId = 1,
+                            BookingId = 1,
+                            CreadtedBy = "",
+                            CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ScheduleId = 1
+                        });
                 });
 
             modelBuilder.Entity("Bus", b =>
@@ -183,6 +270,20 @@ namespace Api.Migrations
                     b.HasIndex("VendorId");
 
                     b.ToTable("Buses");
+
+                    b.HasData(
+                        new
+                        {
+                            BusId = 1,
+                            BusName = "Kanini Express",
+                            BusType = "Sleeper",
+                            CreadtedBy = "System",
+                            CreatedOn = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            RegistrationNo = "TN01AB1234",
+                            Status = "Active",
+                            TotalSeats = 40,
+                            VendorId = 1
+                        });
                 });
 
             modelBuilder.Entity("BusPhoto", b =>
@@ -251,7 +352,8 @@ namespace Api.Migrations
                         .HasColumnType("time");
 
                     b.Property<decimal>("Fare")
-                        .HasColumnType("decimal(18,2)");
+                        .HasPrecision(10, 2)
+                        .HasColumnType("decimal(10,2)");
 
                     b.Property<int>("RouteId")
                         .HasColumnType("int");
@@ -278,6 +380,21 @@ namespace Api.Migrations
                     b.HasIndex("RouteId");
 
                     b.ToTable("BusSchedules");
+
+                    b.HasData(
+                        new
+                        {
+                            ScheduleId = 1,
+                            ArrivalTime = new TimeSpan(0, 4, 0, 0, 0),
+                            BusId = 1,
+                            CreadtedBy = "System",
+                            CreatedOn = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DepartureTime = new TimeSpan(0, 22, 0, 0, 0),
+                            Fare = 999m,
+                            RouteId = 1,
+                            Status = "Scheduled",
+                            TravelDate = new DateTime(2025, 9, 20, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        });
                 });
 
             modelBuilder.Entity("Cancellation", b =>
@@ -308,7 +425,8 @@ namespace Api.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<decimal>("PenaltyAmount")
-                        .HasColumnType("decimal(18,2)");
+                        .HasPrecision(10, 2)
+                        .HasColumnType("decimal(10,2)");
 
                     b.Property<string>("Reason")
                         .IsRequired()
@@ -328,6 +446,19 @@ namespace Api.Migrations
                         .IsUnique();
 
                     b.ToTable("Cancellations");
+
+                    b.HasData(
+                        new
+                        {
+                            CancellationId = 1,
+                            BookingId = 1,
+                            CancelledBy = "Customer1",
+                            CancelledOn = new DateTime(2025, 9, 16, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CreadtedBy = "System",
+                            CreatedOn = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            PenaltyAmount = 100m,
+                            Reason = "Personal reasons"
+                        });
                 });
 
             modelBuilder.Entity("Driver", b =>
@@ -383,6 +514,20 @@ namespace Api.Migrations
                         .IsUnique();
 
                     b.ToTable("Drivers");
+
+                    b.HasData(
+                        new
+                        {
+                            DriverId = 1,
+                            CreadtedBy = "System",
+                            CreatedOn = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DriverName = "Ramesh Kumar",
+                            IsActive = true,
+                            IsDeleted = false,
+                            LicenseExpiry = new DateTime(2030, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            LicenseNumber = "DL1234567",
+                            Phone = "9876512345"
+                        });
                 });
 
             modelBuilder.Entity("DriverAssignment", b =>
@@ -421,6 +566,69 @@ namespace Api.Migrations
                     b.HasIndex("ScheduleId");
 
                     b.ToTable("DriverAssignments");
+
+                    b.HasData(
+                        new
+                        {
+                            AssignmentId = 1,
+                            CreadtedBy = "System",
+                            CreatedOn = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DriverId = 1,
+                            ScheduleId = 1
+                        });
+                });
+
+            modelBuilder.Entity("Fare", b =>
+                {
+                    b.Property<int>("FareId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("FareId"));
+
+                    b.Property<string>("CreadtedBy")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<decimal>("Price")
+                        .HasPrecision(10, 2)
+                        .HasColumnType("decimal(10,2)");
+
+                    b.Property<int>("ScheduleId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("SeatType")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("UpdateBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<DateTime?>("UpdatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("FareId");
+
+                    b.HasIndex("ScheduleId");
+
+                    b.ToTable("Fares");
+
+                    b.HasData(
+                        new
+                        {
+                            FareId = 1,
+                            CreadtedBy = "System",
+                            CreatedOn = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Price = 999m,
+                            ScheduleId = 1,
+                            SeatType = "Sleeper"
+                        });
                 });
 
             modelBuilder.Entity("Payment", b =>
@@ -432,7 +640,8 @@ namespace Api.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("PaymentId"));
 
                     b.Property<decimal>("Amount")
-                        .HasColumnType("decimal(18,2)");
+                        .HasPrecision(10, 2)
+                        .HasColumnType("decimal(10,2)");
 
                     b.Property<int>("BookingId")
                         .HasColumnType("int");
@@ -471,6 +680,19 @@ namespace Api.Migrations
                         .IsUnique();
 
                     b.ToTable("Payments");
+
+                    b.HasData(
+                        new
+                        {
+                            PaymentId = 1,
+                            Amount = 999m,
+                            BookingId = 1,
+                            CreadtedBy = "System",
+                            CreatedOn = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            PaymentDate = new DateTime(2025, 9, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            PaymentMethod = "Mock",
+                            PaymentStatus = "Success"
+                        });
                 });
 
             modelBuilder.Entity("Refund", b =>
@@ -493,7 +715,8 @@ namespace Api.Migrations
                         .HasColumnType("int");
 
                     b.Property<decimal>("RefundAmount")
-                        .HasColumnType("decimal(18,2)");
+                        .HasPrecision(10, 2)
+                        .HasColumnType("decimal(10,2)");
 
                     b.Property<string>("RefundMethod")
                         .IsRequired()
@@ -520,6 +743,19 @@ namespace Api.Migrations
                     b.HasIndex("PaymentId");
 
                     b.ToTable("Refunds");
+
+                    b.HasData(
+                        new
+                        {
+                            RefundId = 1,
+                            CreadtedBy = "System",
+                            CreatedOn = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            PaymentId = 1,
+                            RefundAmount = 899m,
+                            RefundMethod = "UPI",
+                            RefundStatus = "Processed",
+                            RefundedOn = new DateTime(2025, 9, 17, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        });
                 });
 
             modelBuilder.Entity("Review", b =>
@@ -566,6 +802,18 @@ namespace Api.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("Reviews");
+
+                    b.HasData(
+                        new
+                        {
+                            ReviewId = 1,
+                            BusId = 1,
+                            Comment = "Very comfortable ride!",
+                            CreadtedBy = "Customer1",
+                            CreatedOn = new DateTime(2025, 9, 21, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Rating = 5,
+                            UserId = 2
+                        });
                 });
 
             modelBuilder.Entity("Route", b =>
@@ -613,6 +861,19 @@ namespace Api.Migrations
                     b.HasKey("RouteId");
 
                     b.ToTable("Routes");
+
+                    b.HasData(
+                        new
+                        {
+                            RouteId = 1,
+                            CreadtedBy = "System",
+                            CreatedOn = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Destination = "Bangalore",
+                            Distance = 350.0,
+                            Duration = new TimeSpan(0, 6, 0, 0, 0),
+                            IsDeleted = false,
+                            Source = "Chennai"
+                        });
                 });
 
             modelBuilder.Entity("Stop", b =>
@@ -658,6 +919,28 @@ namespace Api.Migrations
                     b.HasIndex("RouteId");
 
                     b.ToTable("Stops");
+
+                    b.HasData(
+                        new
+                        {
+                            StopId = 1,
+                            CreadtedBy = "System",
+                            CreatedOn = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            IsDeleted = false,
+                            Landmark = "Railway Station",
+                            Name = "Chennai Central",
+                            RouteId = 1
+                        },
+                        new
+                        {
+                            StopId = 2,
+                            CreadtedBy = "System",
+                            CreatedOn = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            IsDeleted = false,
+                            Landmark = "Bangalore",
+                            Name = "Silk Board",
+                            RouteId = 1
+                        });
                 });
 
             modelBuilder.Entity("User", b =>
@@ -674,6 +957,9 @@ namespace Api.Migrations
                         .HasColumnType("nvarchar(100)");
 
                     b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("DateOfBirth")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Email")
@@ -727,6 +1013,38 @@ namespace Api.Migrations
                         .IsUnique();
 
                     b.ToTable("Users");
+
+                    b.HasData(
+                        new
+                        {
+                            UserId = 1,
+                            CreadtedBy = "System",
+                            CreatedOn = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DateOfBirth = new DateTime(1990, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Email = "admin@routebuddy.com",
+                            Gender = "Male",
+                            IsActive = true,
+                            IsDeleted = false,
+                            PasswordHash = "hashedpwd123",
+                            Phone = "9876543210",
+                            Role = "Admin",
+                            UserName = "AdminUser"
+                        },
+                        new
+                        {
+                            UserId = 2,
+                            CreadtedBy = "System",
+                            CreatedOn = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DateOfBirth = new DateTime(1995, 5, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Email = "cust1@routebuddy.com",
+                            Gender = "Female",
+                            IsActive = true,
+                            IsDeleted = false,
+                            PasswordHash = "hashedpwd456",
+                            Phone = "9876501234",
+                            Role = "Customer",
+                            UserName = "Customer1"
+                        });
                 });
 
             modelBuilder.Entity("Vendor", b =>
@@ -773,6 +1091,18 @@ namespace Api.Migrations
                     b.HasKey("VendorId");
 
                     b.ToTable("Vendors");
+
+                    b.HasData(
+                        new
+                        {
+                            VendorId = 1,
+                            CreadtedBy = "System",
+                            CreatedOn = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Email = "vendor@kanini.com",
+                            IsDeleted = false,
+                            Status = "Active",
+                            VendorName = "Kanini Travels"
+                        });
                 });
 
             modelBuilder.Entity("BookedSeat", b =>
@@ -780,6 +1110,12 @@ namespace Api.Migrations
                     b.HasOne("Booking", "Booking")
                         .WithMany("BookedSeats")
                         .HasForeignKey("BookingId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("BookingSegment", "BookingSegment")
+                        .WithMany("BookedSeats")
+                        .HasForeignKey("BookingSegmentId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -791,6 +1127,8 @@ namespace Api.Migrations
 
                     b.Navigation("Booking");
 
+                    b.Navigation("BookingSegment");
+
                     b.Navigation("Bus");
                 });
 
@@ -799,7 +1137,7 @@ namespace Api.Migrations
                     b.HasOne("Bus", "Bus")
                         .WithMany("Bookings")
                         .HasForeignKey("BusId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("BusSchedule", "Schedule")
@@ -819,6 +1157,25 @@ namespace Api.Migrations
                     b.Navigation("Schedule");
 
                     b.Navigation("User");
+                });
+
+            modelBuilder.Entity("BookingSegment", b =>
+                {
+                    b.HasOne("Booking", "Booking")
+                        .WithMany("Segments")
+                        .HasForeignKey("BookingId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("BusSchedule", "Schedule")
+                        .WithMany("Segments")
+                        .HasForeignKey("ScheduleId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Booking");
+
+                    b.Navigation("Schedule");
                 });
 
             modelBuilder.Entity("Bus", b =>
@@ -892,6 +1249,17 @@ namespace Api.Migrations
                     b.Navigation("Schedule");
                 });
 
+            modelBuilder.Entity("Fare", b =>
+                {
+                    b.HasOne("BusSchedule", "Schedule")
+                        .WithMany("Fares")
+                        .HasForeignKey("ScheduleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Schedule");
+                });
+
             modelBuilder.Entity("Payment", b =>
                 {
                     b.HasOne("Booking", "Booking")
@@ -952,6 +1320,13 @@ namespace Api.Migrations
 
                     b.Navigation("Payment")
                         .IsRequired();
+
+                    b.Navigation("Segments");
+                });
+
+            modelBuilder.Entity("BookingSegment", b =>
+                {
+                    b.Navigation("BookedSeats");
                 });
 
             modelBuilder.Entity("Bus", b =>
@@ -972,6 +1347,10 @@ namespace Api.Migrations
                     b.Navigation("Bookings");
 
                     b.Navigation("DriverAssignments");
+
+                    b.Navigation("Fares");
+
+                    b.Navigation("Segments");
                 });
 
             modelBuilder.Entity("Driver", b =>

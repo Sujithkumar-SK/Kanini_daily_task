@@ -1,0 +1,18 @@
+@{
+    Layout = "_Layout";
+    ViewData["Title"] = "Payment";
+    var bookingId = ViewBag.BookingId;
+}
+<h2>Payment</h2>
+<form method="post" class="card p-3 bg-white shadow-sm">
+  <input type="hidden" name="bookingId" value="@bookingId" />
+  <div class="mb-3">
+    <label>Method</label>
+    <select name="method" class="form-select">
+      <option>Card</option>
+      <option>UPI</option>
+      <option>Wallet</option>
+    </select>
+  </div>
+  <button class="btn btn-primary">Pay</button>
+</form>

@@ -1,0 +1,24 @@
+@model IEnumerable<RouteBuddy.Models.Schedule>
+@{
+    Layout = "_Layout";
+    ViewData["Title"] = "Results";
+}
+<h2>Results</h2>
+<table class="table table-striped bg-white shadow-sm">
+  <thead>
+    <tr><th>Bus</th><th>Vendor</th><th>Route</th><th>Departure</th><th>Price</th><th></th></tr>
+  </thead>
+  <tbody>
+@foreach (var s in Model)
+{
+  <tr>
+    <td>@s.Bus?.BusNumber (@s.Bus?.BusType)</td>
+    <td>@s.Bus?.Vendor?.VendorName</td>
+    <td>@s.Route?.Source → @s.Route?.Destination</td>
+    <td>@s.DepartureTime</td>
+    <td>@s.Price</td>
+    <td><a class="btn btn-sm btn-success" href="/Booking/BookSeat?scheduleId=@s.ScheduleId">Book</a></td>
+  </tr>
+}
+  </tbody>
+</table>

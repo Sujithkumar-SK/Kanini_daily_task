@@ -1,0 +1,14 @@
+@{
+    Layout = "_Layout";
+    ViewData["Title"] = "Choose Seat";
+    var scheduleId = ViewBag.ScheduleId;
+}
+<h2>Choose Seat</h2>
+<form method="post" action="/Booking/ConfirmBooking" class="card p-3 bg-white shadow-sm">
+  <input type="hidden" name="scheduleId" value="@scheduleId" />
+  <div class="mb-3">
+    <label>Seat Number</label>
+    <input type="number" name="seatNumber" class="form-control" min="1" required />
+  </div>
+  <button class="btn btn-primary">Continue</button>
+</form>

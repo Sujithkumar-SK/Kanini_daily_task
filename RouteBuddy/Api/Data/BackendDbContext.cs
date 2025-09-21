@@ -15,14 +15,24 @@ public class BackendDbContext : DbContext
     public DbSet<BusPhoto> BusPhotos { get; set; }
     public DbSet<BookedSeat> BookedSeats { get; set; }
     public DbSet<Payment> Payments { get; set; }
+    public DbSet<BookingSegment> BookingSegments { get; set; }
     public DbSet<Refund> Refunds { get; set; }
     public DbSet<Review> Reviews { get; set; }
     public DbSet<Cancellation> Cancellations { get; set; }
+    public DbSet<Fare> Fares { get; set; }
+
     public DbSet<Driver> Drivers { get; set; }
     public DbSet<DriverAssignment> DriverAssignments { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        // Decimal precision configuration
+        modelBuilder.Entity<BusSchedule>().Property(b => b.Fare).HasPrecision(10, 2);
+        modelBuilder.Entity<Cancellation>().Property(c => c.PenaltyAmount).HasPrecision(10, 2);
+        modelBuilder.Entity<Fare>().Property(f => f.Price).HasPrecision(10, 2);
+        modelBuilder.Entity<Payment>().Property(p => p.Amount).HasPrecision(10, 2);
+        modelBuilder.Entity<Refund>().Property(r => r.RefundAmount).HasPrecision(10, 2);
+
         // ✅ Global Query Filters for Soft Delete
         modelBuilder.Entity<User>().HasQueryFilter(u => !u.IsDeleted);
         modelBuilder.Entity<Vendor>().HasQueryFilter(v => !v.IsDeleted);
@@ -46,6 +56,22 @@ public class BackendDbContext : DbContext
             .WithMany(u => u.Bookings)
             .HasForeignKey(b => b.UserId)
             .OnDelete(DeleteBehavior.Restrict);
+        // 📑 Booking ↔ BookingSegment (1:M)
+        modelBuilder.Entity<BookingSegment>()
+            .HasOne(bs => bs.Booking)
+            .WithMany(b => b.Segments)
+            .HasForeignKey(bs => bs.BookingId);
+        // 🚌 BusSchedule ↔ BookingSegment (1:M)
+        modelBuilder.Entity<BookingSegment>()
+            .HasOne(bs => bs.Schedule)
+            .WithMany(s => s.Segments)
+            .HasForeignKey(bs => bs.ScheduleId)
+            .OnDelete(DeleteBehavior.Restrict);
+        // 🎟️ BookingSegment ↔ BookedSeats (1:M)
+        modelBuilder.Entity<BookedSeat>()
+            .HasOne(bs => bs.BookingSegment)
+            .WithMany(seg => seg.BookedSeats)
+            .HasForeignKey(bs => bs.BookingSegmentId);
 
         // 👤 User ↔ Reviews (1:M)
         modelBuilder.Entity<Review>()
@@ -57,7 +83,8 @@ public class BackendDbContext : DbContext
         modelBuilder.Entity<Booking>()
             .HasOne(b => b.Bus)
             .WithMany(bu => bu.Bookings)
-            .HasForeignKey(b => b.BusId);
+            .HasForeignKey(b => b.BusId)
+            .OnDelete(DeleteBehavior.Restrict);
 
         // 🚌 Bus ↔ BookedSeats (1:M)
         modelBuilder.Entity<BookedSeat>()
@@ -101,7 +128,8 @@ public class BackendDbContext : DbContext
         modelBuilder.Entity<BookedSeat>()
             .HasOne(bs => bs.Booking)
             .WithMany(b => b.BookedSeats)
-            .HasForeignKey(bs => bs.BookingId);
+            .HasForeignKey(bs => bs.BookingId)
+            .OnDelete(DeleteBehavior.Restrict);
 
         // 💳 Booking ↔ Payment (1:1)
         modelBuilder.Entity<Booking>()
@@ -133,10 +161,263 @@ public class BackendDbContext : DbContext
             .WithMany(s => s.DriverAssignments)
             .HasForeignKey(da => da.ScheduleId);
 
+        // Booking ↔ BusSchedule (M:1)
         modelBuilder.Entity<Booking>()
             .HasOne(b => b.Schedule)
             .WithMany(s => s.Bookings)
             .HasForeignKey(b => b.ScheduleId)
             .OnDelete(DeleteBehavior.Restrict);
+
+        // 🚌 Schedule ↔ Fare (1:M)
+        modelBuilder.Entity<Fare>()
+            .HasOne(f => f.Schedule)
+            .WithMany(s => s.Fares)
+            .HasForeignKey(f => f.ScheduleId)
+            .OnDelete(DeleteBehavior.Cascade);
+
+        // ========= USERS =========
+        modelBuilder.Entity<User>().HasData(
+            new User
+            {
+                UserId = 1,
+                UserName = "AdminUser",
+                Email = "admin@routebuddy.com",
+                PasswordHash = "hashedpwd123",
+                Phone = "9876543210",
+                Role = "Admin",
+                Gender = "Male",
+                DateOfBirth = new DateTime(1990, 01, 01),
+                IsActive = true,
+                IsDeleted = false,
+                CreadtedBy = "System",
+                CreatedOn = new DateTime(2025, 01, 01)
+            },
+            new User
+            {
+                UserId = 2,
+                UserName = "Customer1",
+                Email = "cust1@routebuddy.com",
+                PasswordHash = "hashedpwd456",
+                Phone = "9876501234",
+                Role = "Customer",
+                Gender = "Female",
+                DateOfBirth = new DateTime(1995, 05, 05),
+                IsActive = true,
+                IsDeleted = false,
+                CreadtedBy = "System",
+                CreatedOn = new DateTime(2025, 01, 01)
+            }
+        );
+
+        // ========= VENDORS =========
+        modelBuilder.Entity<Vendor>().HasData(
+            new Vendor
+            {
+                VendorId = 1,
+                VendorName = "Kanini Travels",
+                Email = "vendor@kanini.com",
+                Status = "Active",
+                IsDeleted = false,
+                CreadtedBy = "System",
+                CreatedOn = new DateTime(2025, 01, 01)
+            }
+        );
+
+        // ========= ROUTES =========
+        modelBuilder.Entity<Route>().HasData(
+            new Route
+            {
+                RouteId = 1,
+                Source = "Chennai",
+                Destination = "Bangalore",
+                Distance = 350,
+                Duration = new TimeSpan(6, 0, 0),
+                IsDeleted = false,
+                CreadtedBy = "System",
+                CreatedOn = new DateTime(2025, 01, 01)
+            }
+        );
+
+        // ========= STOPS =========
+        modelBuilder.Entity<Stop>().HasData(
+            new Stop { StopId = 1, Name = "Chennai Central", Landmark = "Railway Station", RouteId = 1, CreadtedBy = "System", CreatedOn = new DateTime(2025, 01, 01), IsDeleted = false },
+            new Stop { StopId = 2, Name = "Silk Board", Landmark = "Bangalore", RouteId = 1, CreadtedBy = "System", CreatedOn = new DateTime(2025, 01, 01), IsDeleted = false }
+        );
+
+        // ========= BUS =========
+        modelBuilder.Entity<Bus>().HasData(
+            new Bus
+            {
+                BusId = 1,
+                BusName = "Kanini Express",
+                BusType = "Sleeper",
+                TotalSeats = 40,
+                RegistrationNo = "TN01AB1234",
+                Status = "Active",
+                VendorId = 1,
+                CreadtedBy = "System",
+                CreatedOn = new DateTime(2025, 01, 01)
+            }
+        );
+
+        // ========= SCHEDULE =========
+        modelBuilder.Entity<BusSchedule>().HasData(
+            new BusSchedule
+            {
+                ScheduleId = 1,
+                TravelDate = new DateTime(2025, 09, 20),
+                DepartureTime = new TimeSpan(22, 0, 0),
+                ArrivalTime = new TimeSpan(4, 0, 0),
+                Fare = 999,
+                Status = "Scheduled",
+                BusId = 1,
+                RouteId = 1,
+                CreadtedBy = "System",
+                CreatedOn = new DateTime(2025, 01, 01)
+            }
+        );
+
+        // ========= BOOKING =========
+        modelBuilder.Entity<Booking>().HasData(
+            new Booking
+            {
+                BookingId = 1,
+                PNRNo = "PNR12345",
+                TravelDate = new DateTime(2025, 09, 20),
+                Status = "Confirmed",
+                BookedAt = new DateTime(2025, 09, 15),
+                UserId = 2,
+                BusId = 1,
+                ScheduleId = 1,
+                CreadtedBy = "System",
+                CreatedOn = new DateTime(2025, 01, 01)
+            }
+        );
+
+        // ========= PAYMENT =========
+        modelBuilder.Entity<Payment>().HasData(
+            new Payment
+            {
+                PaymentId = 1,
+                Amount = 999,
+                PaymentMethod = "Mock",
+                PaymentStatus = "Success",
+                PaymentDate = new DateTime(2025, 09, 15),
+                BookingId = 1,
+                CreadtedBy = "System",
+                CreatedOn = new DateTime(2025, 01, 01)
+            }
+        );
+        // ========= BOOKING SEGMENTS =========
+        modelBuilder.Entity<BookingSegment>().HasData(
+            new BookingSegment
+            {
+                BookingSegmentId = 1,
+                BookingId = 1,
+                ScheduleId = 1
+            }
+        );
+
+        // ========= BOOKED SEATS =========
+        modelBuilder.Entity<BookedSeat>().HasData(
+            new BookedSeat
+            {
+                BookedSeatId = 1,
+                TravelDate = new DateTime(2025, 09, 20),
+                SeatNumber = "A1",
+                SeatType = "Sleeper",
+                BookingId = 1,
+                BusId = 1,
+                BookingSegmentId = 1,
+                CreadtedBy = "System",
+                CreatedOn = new DateTime(2025, 01, 01)
+            }
+        );
+
+        // ========= FARES =========
+        modelBuilder.Entity<Fare>().HasData(
+            new Fare
+            {
+                FareId = 1,
+                ScheduleId = 1,
+                SeatType = "Sleeper",
+                Price = 999,
+                CreadtedBy = "System",
+                CreatedOn = new DateTime(2025, 01, 01)
+            }
+        );
+
+        // ========= CANCELLATIONS =========
+        modelBuilder.Entity<Cancellation>().HasData(
+            new Cancellation
+            {
+                CancellationId = 1,
+                CancelledOn = new DateTime(2025, 09, 16),
+                CancelledBy = "Customer1",
+                Reason = "Personal reasons",
+                PenaltyAmount = 100,
+                BookingId = 1,
+                CreadtedBy = "System",
+                CreatedOn = new DateTime(2025, 01, 01)
+            }
+        );
+
+        // ========= REFUNDS =========
+        modelBuilder.Entity<Refund>().HasData(
+            new Refund
+            {
+                RefundId = 1,
+                RefundAmount = 899,
+                RefundMethod = "UPI",
+                RefundStatus = "Processed",
+                RefundedOn = new DateTime(2025, 09, 17),
+                PaymentId = 1,
+                CreadtedBy = "System",
+                CreatedOn = new DateTime(2025, 01, 01)
+            }
+        );
+
+        // ========= REVIEWS =========
+        modelBuilder.Entity<Review>().HasData(
+            new Review
+            {
+                ReviewId = 1,
+                Rating = 5,
+                Comment = "Very comfortable ride!",
+                UserId = 2,   // Customer1
+                BusId = 1,
+                CreadtedBy = "Customer1",
+                CreatedOn = new DateTime(2025, 09, 21)
+            }
+        );
+
+        // ========= DRIVERS =========
+        modelBuilder.Entity<Driver>().HasData(
+            new Driver
+            {
+                DriverId = 1,
+                DriverName = "Ramesh Kumar",
+                LicenseNumber = "DL1234567",
+                LicenseExpiry = new DateTime(2030, 01, 01),
+                Phone = "9876512345",
+                IsActive = true,
+                IsDeleted = false,
+                CreadtedBy = "System",
+                CreatedOn = new DateTime(2025, 01, 01)
+            }
+        );
+
+        // ========= DRIVER ASSIGNMENTS =========
+        modelBuilder.Entity<DriverAssignment>().HasData(
+            new DriverAssignment
+            {
+                AssignmentId = 1,
+                ScheduleId = 1,
+                DriverId = 1,
+                CreadtedBy = "System",
+                CreatedOn = new DateTime(2025, 01, 01)
+            }
+        );
+
     }
 }
