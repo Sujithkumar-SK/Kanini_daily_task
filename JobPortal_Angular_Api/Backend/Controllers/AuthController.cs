@@ -1,6 +1,7 @@
 using Backend.DTOs;
 using Backend.Interfaces;
 using Backend.Models;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using System.Security.Cryptography;
@@ -10,12 +11,12 @@ namespace Backend.Controllers
 {
   [Route("api/[controller]")]
   [ApiController]
-  public class TokenController : ControllerBase
+  public class AuthController : ControllerBase
   {
     private readonly IToken _tokenService;
     private readonly IUserService _userSer;
 
-    public TokenController(IUserService user, IToken tokenService)
+    public AuthController(IUserService user, IToken tokenService)
     {
       _tokenService = tokenService;
       _userSer = user;
@@ -27,6 +28,7 @@ namespace Backend.Controllers
       var user = await _userSer.GetUserByEmailAsync(loginDto.Email);
 
       if (user == null) return Unauthorized("Invalid username");
+      var hashedInput = HashPassword(loginDto.Password);
 
       // validate password (assuming PasswordHash is stored as plain for now, ideally hash & compare)
       if (user.PasswordHash != loginDto.Password)
@@ -47,6 +49,20 @@ namespace Backend.Controllers
       using var sha256 = SHA256.Create();
       var bytes = sha256.ComputeHash(Encoding.UTF8.GetBytes(password));
       return Convert.ToBase64String(bytes);
+    }
+
+    [HttpPost("register")]
+    public async Task<IActionResult> Register([FromBody] RegisterDto dto)
+    {
+      try
+      {
+        var users = await _userSer.RegisterAsync(dto);
+        return Ok(users);
+      }
+      catch (Exception ex)
+      {
+        return BadRequest(new { message = ex.Message });
+      }
     }
   }
 }

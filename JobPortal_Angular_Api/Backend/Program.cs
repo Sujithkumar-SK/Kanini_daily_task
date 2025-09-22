@@ -44,6 +44,18 @@ builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IJobRepository, JobRepository>();
 builder.Services.AddScoped<IJobService, JobService>();
+builder.Services.AddScoped<IApplicationRepository, ApplicationRepository>();
+builder.Services.AddScoped<IApplicationService, ApplicationService>();
+builder.Services.AddScoped<ICandidateRepository, CandidatRepository>();
+builder.Services.AddScoped<ICandidateService, CandidateService>();
+builder.Services.AddScoped<IJobSearchRepository, JobSearchRepository>();
+builder.Services.AddScoped<IJobSearchService, JobSearchService>();
+builder.Services.AddScoped<IResumeRepository, ResumeRepository>();
+builder.Services.AddScoped<IResumeService, ResumeService>();
+builder.Services.AddScoped<ICompanyRepository, CompanyRepository>();
+builder.Services.AddScoped<ICompanyService, CompanyService>();
+builder.Services.AddScoped<IAdminRepository, AdminRepository>();
+builder.Services.AddScoped<IAdminService, AdminService>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
