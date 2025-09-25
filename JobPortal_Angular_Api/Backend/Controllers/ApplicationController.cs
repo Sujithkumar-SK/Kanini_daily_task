@@ -23,7 +23,7 @@ public class ApplicationController : ControllerBase
     if (app == null) return BadRequest("You have already applied for this job.");
     return Ok(app);
   }
-  [HttpGet("job/{joiId}")]
+  [HttpGet("job/{jobId}")]
   [Authorize(Roles = "Recruiter,Admin")]
   public async Task<IActionResult> GetByJob(int jobId)
   {
@@ -52,5 +52,12 @@ public class ApplicationController : ControllerBase
     var done = await _ser.DeleteApplicationAsync(applicationId);
     if (!done) return NotFound();
     return NoContent();
+  }
+  [HttpGet("recruiter")]
+  [Authorize(Roles = "Recruiter")]
+  public async Task<IActionResult> GetByRecruiter()
+  {
+    var apps = await _ser.GetApplicationsByRecruiterAsync(CurrentUserId);
+    return Ok(apps);
   }
 }

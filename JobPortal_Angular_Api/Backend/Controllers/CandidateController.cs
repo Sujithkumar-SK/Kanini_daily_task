@@ -9,7 +9,7 @@ namespace Backend.Controllers
 {
   [Route("api/[controller]")]
   [ApiController]
-  [Authorize(Roles = "Candidate")]
+  [Authorize(Roles = "Candidate,Recruiter")]
   public class CandidateController : ControllerBase
   {
     private readonly ICandidateService _service;

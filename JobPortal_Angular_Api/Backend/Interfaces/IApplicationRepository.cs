@@ -9,5 +9,7 @@ public interface IApplicationRepository
   Task<Application?> GetByIdAsync(int applicationId);
   Task<Application?> UpdateAsync(Application app);
   Task<bool> DeleteAsync(Application app);
+  Task<IEnumerable<Application>> GetApplicationsByRecruiterAsync(int recruiterId);
+
   Task Commit();
 }

@@ -19,6 +19,7 @@ public class ApplicationService : IApplicationService
     {
       CandidateId = candidateId,
       JobId = jobId,
+      ResumeId = resumeId,
       Status = "Applied",
       AppliedOn = DateTime.UtcNow,
       IsActive = true
@@ -42,7 +43,11 @@ public class ApplicationService : IApplicationService
       CandidateName = a.Candidate.FullName,
       JobTitle = a.Job.Title,
       Status = a.Status,
-      AppliedOn = a.AppliedOn
+      AppliedOn = a.AppliedOn,
+      ResumeName = a.Resume?.FileName,
+      Job = a.Job,
+      Resume = a.Resume,
+      Candidate = a.Candidate
     });
   }
   public async Task<IEnumerable<ApplicationResponseDto>> GetApplicationsByCandidateAsync(int candidateId)
@@ -54,7 +59,10 @@ public class ApplicationService : IApplicationService
       CandidateName = a.Candidate.FullName,
       JobTitle = a.Job.Title,
       Status = a.Status,
-      AppliedOn = a.AppliedOn
+      AppliedOn = a.AppliedOn,
+      ResumeName = a.Resume?.FileName,
+      Job = a.Job,
+      Resume = a.Resume
     });
   }
   public async Task<ApplicationResponseDto?> UpdateStatusAsync(int applicationId, string status, bool isActive)
@@ -79,4 +87,21 @@ public class ApplicationService : IApplicationService
     if (app == null) return false;
     return await _repo.DeleteAsync(app);
   }
+  public async Task<IEnumerable<ApplicationResponseDto>> GetApplicationsByRecruiterAsync(int recruiterId)
+  {
+    var apps = await _repo.GetApplicationsByRecruiterAsync(recruiterId);
+    return apps.Select(a => new ApplicationResponseDto
+    {
+      ApplicationId = a.ApplicationId,
+      CandidateName = a.Candidate.FullName,
+      JobTitle = a.Job.Title,
+      Status = a.Status,
+      AppliedOn = a.AppliedOn,
+      ResumeName = a.Resume?.FileName,
+      Job = a.Job,
+      Resume = a.Resume,
+      Candidate = a.Candidate
+    });
+  }
+
 }

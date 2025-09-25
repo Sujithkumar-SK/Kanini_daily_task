@@ -16,6 +16,7 @@ builder.Services.AddControllers()
     .AddJsonOptions(options =>
     {
         options.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.IgnoreCycles;
+        options.JsonSerializerOptions.Converters.Add(new System.Text.Json.Serialization.JsonStringEnumConverter());
     });
 builder.Services.AddDbContext<JobPortalContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("db")));
@@ -36,6 +37,15 @@ builder.Services.AddAuthentication("Bearer")
             )
         };
     });
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAngular", Policy =>
+    {
+        Policy.WithOrigins("http://localhost:4200")
+        .AllowAnyHeader()
+        .AllowAnyMethod();
+    });
+});
 
 
 
@@ -46,7 +56,7 @@ builder.Services.AddScoped<IJobRepository, JobRepository>();
 builder.Services.AddScoped<IJobService, JobService>();
 builder.Services.AddScoped<IApplicationRepository, ApplicationRepository>();
 builder.Services.AddScoped<IApplicationService, ApplicationService>();
-builder.Services.AddScoped<ICandidateRepository, CandidatRepository>();
+builder.Services.AddScoped<ICandidateRepository, CandidateRepository>();
 builder.Services.AddScoped<ICandidateService, CandidateService>();
 builder.Services.AddScoped<IJobSearchRepository, JobSearchRepository>();
 builder.Services.AddScoped<IJobSearchService, JobSearchService>();
@@ -67,7 +77,7 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseAuthentication();
 app.UseAuthorization();
-
+app.UseCors("AllowAngular");
 app.MapControllers();
 
 app.Run();

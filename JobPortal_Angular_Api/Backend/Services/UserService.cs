@@ -49,4 +49,15 @@ public class UserService : IUserService
     var bytes = sha.ComputeHash(Encoding.UTF8.GetBytes(password));
     return Convert.ToBase64String(bytes);
   }
+
+  public async Task<User?> GetUserByIdAsync(int userId)
+  {
+    return await _repo.GetUserByIdAsync(userId);
+  }
+
+  public async Task UpdateProfileAsync(int userId, UpdateProfileDto dto)
+  {
+    await _repo.UpdateProfileAsync(userId, dto);
+  }
+
 }

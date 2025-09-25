@@ -27,7 +27,7 @@ public class Job
     public DateTime PostedOn { get; set; } = DateTime.UtcNow;
     public bool IsActive { get; set; } = true;
 
-    public User Recruiter { get; set; } = null!;
+    public User? Recruiter { get; set; } = null;
     public ICollection<Application> Applications { get; set; } = new List<Application>();
     public ICollection<JobSkill> JobSkills { get; set; } = new List<JobSkill>();
 }

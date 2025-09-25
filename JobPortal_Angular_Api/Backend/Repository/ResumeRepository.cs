@@ -23,7 +23,7 @@ public class ResumeRepository : IResumeRepository
   public async Task<IEnumerable<Resume>> GetResumesByCandidateAsync(int userId)
   {
     return await _context.Resumes
-        .Where(r => r.UserId == userId)
+        .Where(r => r.UserId == userId && r.IsActive)
         .OrderByDescending(r => r.UploadedOn)
         .ToListAsync();
   }
@@ -31,7 +31,7 @@ public class ResumeRepository : IResumeRepository
   public async Task<Resume?> GetByIdAsync(int resumeId)
   {
     return await _context.Resumes
-        .FirstOrDefaultAsync(r => r.ResumeId == resumeId);
+        .FirstOrDefaultAsync(r => r.ResumeId == resumeId && r.IsActive);
   }
 
   public async Task<bool> DeleteResumeAsync(int resumeId)

@@ -1,0 +1,324 @@
+<div class="dashboard-container">
+  <div class="dashboard-header">
+    <h1>Recruiter Dashboard</h1>
+    <p *ngIf="profile">Welcome, {{ profile.fullName }}!</p>
+  </div>
+
+  <!-- Navigation Tabs -->
+  <div class="nav-tabs">
+    <button 
+      class="tab-btn" 
+      [class.active]="activeTab === 'jobs'"
+      (click)="setActiveTab('jobs')">
+      My Jobs ({{ jobs.length }})
+    </button>
+    <button 
+      class="tab-btn" 
+      [class.active]="activeTab === 'applications'"
+      (click)="setActiveTab('applications')">
+      Applications ({{ applications.length }})
+    </button>
+    <button 
+      class="tab-btn" 
+      [class.active]="activeTab === 'profile'"
+      (click)="setActiveTab('profile')">
+      Profile
+    </button>
+  </div>
+
+  <!-- Loading Indicator -->
+  <div *ngIf="isLoading" class="loading-container">
+    <div class="spinner"></div>
+    <span>Loading dashboard...</span>
+  </div>
+
+  <!-- Message Display -->
+  <div *ngIf="message" class="alert" [class.success]="message.includes('success')" [class.error]="!message.includes('success')">
+    {{ message }}
+  </div>
+
+  <!-- Tab Content -->
+  <div *ngIf="!isLoading" class="tabs-container">
+    
+    <!-- Jobs Tab -->
+    <div *ngIf="activeTab === 'jobs'" class="tab-content">
+      <div class="jobs-header">
+        <h2>My Job Postings</h2>
+        <button class="btn-primary" (click)="startCreateJob()" *ngIf="!isCreatingJob">Create New Job</button>
+      </div>
+
+      <!-- Create Job Form -->
+      <div *ngIf="isCreatingJob" class="create-job-form">
+        <h3>Create New Job</h3>
+        <div class="form-group">
+          <label>Job Title *</label>
+          <input type="text" [(ngModel)]="newJob.title" class="form-control" placeholder="e.g., Senior Software Developer">
+        </div>
+        <div class="form-group">
+          <label>Company Name *</label>
+          <input type="text" [(ngModel)]="newJob.companyName" class="form-control" placeholder="e.g., Tech Solutions Inc.">
+        </div>
+        <div class="form-group">
+          <label>Location *</label>
+          <input type="text" [(ngModel)]="newJob.location" class="form-control" placeholder="e.g., New York, NY">
+        </div>
+        <div class="form-group">
+          <label>Employment Type</label>
+          <select [(ngModel)]="newJob.employmentType" class="form-control">
+            <option value="Full-time">Full-time</option>
+            <option value="Part-time">Part-time</option>
+            <option value="Contract">Contract</option>
+            <option value="Internship">Internship</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Salary (Optional)</label>
+          <input type="number" [(ngModel)]="newJob.salary" class="form-control" placeholder="e.g., 75000">
+        </div>
+        <div class="form-group">
+          <label>Job Description *</label>
+          <textarea [(ngModel)]="newJob.description" class="form-control" rows="4" placeholder="Describe the role, responsibilities, and requirements..."></textarea>
+        </div>
+        <div class="form-actions">
+          <button class="btn-success" (click)="createJob()">Create Job</button>
+          <button class="btn-secondary" (click)="cancelCreateJob()">Cancel</button>
+        </div>
+      </div>
+
+      <!-- Edit Job Form -->
+      <div *ngIf="isEditingJob" class="edit-job-form">
+        <h3>Edit Job</h3>
+        <div class="form-group">
+          <label>Job Title *</label>
+          <input type="text" [(ngModel)]="editJob.title" class="form-control">
+        </div>
+        <div class="form-group">
+          <label>Location *</label>
+          <input type="text" [(ngModel)]="editJob.location" class="form-control">
+        </div>
+        <div class="form-group">
+          <label>Employment Type</label>
+          <select [(ngModel)]="editJob.employmentType" class="form-control">
+            <option value="Full-time">Full-time</option>
+            <option value="Part-time">Part-time</option>
+            <option value="Contract">Contract</option>
+            <option value="Internship">Internship</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Salary (Optional)</label>
+          <input type="number" [(ngModel)]="editJob.salary" class="form-control">
+        </div>
+        <div class="form-group">
+          <label>Job Description *</label>
+          <textarea [(ngModel)]="editJob.description" class="form-control" rows="4"></textarea>
+        </div>
+        <div class="form-actions">
+          <button class="btn-success" (click)="updateJob()">Update Job</button>
+          <button class="btn-secondary" (click)="cancelEditJob()">Cancel</button>
+        </div>
+      </div>
+
+      <!-- Jobs List -->
+      <div *ngIf="jobs.length > 0" class="jobs-list">
+        <div *ngFor="let job of jobs" class="job-card">
+          <div class="job-header">
+            <h3>{{ job.title }}</h3>
+            <span class="job-status" [class]="job.isActive ? 'active' : 'inactive'">
+              {{ job.isActive ? 'Active' : 'Inactive' }}
+            </span>
+          </div>
+          <p class="job-location">📍 {{ job.location }}</p>
+          <p class="job-type">{{ job.employmentType }}</p>
+          <p class="job-salary" *ngIf="job.salary">💰 ${{ job.salary | number }}</p>
+          <p class="job-description">{{ job.description | slice:0:150 }}...</p>
+          <p class="job-posted">Posted: {{ job.postedOn | date:'short' }}</p>
+          <div class="job-actions">
+            <button class="btn-primary" (click)="viewJobApplications(job)">View Applications</button>
+            <button class="btn-secondary" (click)="editJobDetails(job)">Edit</button>
+            <button class="btn-danger" (click)="deleteJob(job.jobId)">Delete</button>
+          </div>
+        </div>
+      </div>
+
+      <div *ngIf="jobs.length === 0 && !isCreatingJob" class="no-jobs">
+        <p>You haven't posted any jobs yet.</p>
+        <button class="btn-primary" (click)="startCreateJob()">Create Your First Job</button>
+      </div>
+    </div>
+
+    <!-- Applications Tab -->
+    <div *ngIf="activeTab === 'applications'" class="tab-content">
+      <h2>Job Applications</h2>
+      
+      <div *ngIf="selectedJob" class="selected-job-info">
+        <h3>Applications for: {{ selectedJob.title }}</h3>
+        <button class="btn-secondary" (click)="selectedJob = null; loadApplications()">View All Applications</button>
+      </div>
+
+      <div *ngIf="applications.length > 0" class="applications-list">
+        <div *ngFor="let app of applications" class="application-card">
+          <div class="application-header">
+            <div class="candidate-info">
+              <div class="candidate-profile">
+                <img [src]="getCandidateProfileImage(app.candidate)" alt="Candidate" class="candidate-avatar">
+                <div class="candidate-details">
+                  <h4>{{ getCandidateName(app) }}</h4>
+                  <p class="candidate-email">{{ getCandidateEmail(app) }}</p>
+                  <p class="candidate-role">{{ getCandidateRole(app) }}</p>
+                </div>
+              </div>
+            </div>
+            <span class="status-badge" [class]="getApplicationStatus(app.status)">
+              {{ app.status }}
+            </span>
+          </div>
+          
+          <div class="application-details">
+            <p><strong>Job:</strong> {{ app.jobTitle || app.job?.title }}</p>
+            <p><strong>Applied:</strong> {{ app.appliedOn | date:'medium' }}</p>
+            <div *ngIf="app.resumeName || app.resume?.fileName" class="resume-section">
+              <div class="resume-info">
+                <span class="resume-label">📄 Resume:</span>
+                <span class="resume-name">{{ app.resumeName || app.resume?.fileName }}</span>
+                <button class="btn-download-resume" (click)="downloadResume(app.resume)" *ngIf="app.resume">
+                  ⬇️ Download
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Candidate Skills -->
+          <div class="candidate-skills">
+            <div class="section-header">
+              <span class="section-icon">💻</span>
+              <h5 class="section-title">Skills</h5>
+            </div>
+            <div *ngIf="getCandidateSkills(app.candidate).length > 0" class="skills-container">
+              <span *ngFor="let skill of getCandidateSkills(app.candidate)" class="skill-badge">{{ skill }}</span>
+            </div>
+            <p *ngIf="getCandidateSkills(app.candidate).length === 0" class="no-data">No skills listed</p>
+          </div>
+
+          <!-- Candidate Qualifications -->
+          <div class="candidate-qualifications">
+            <div class="section-header">
+              <span class="section-icon">🎓</span>
+              <h5 class="section-title">Qualifications</h5>
+            </div>
+            <div *ngIf="getCandidateQualifications(app.candidate).length > 0" class="qualifications-grid">
+              <div *ngFor="let qual of getCandidateQualifications(app.candidate)" class="qualification-card">
+                <div class="qual-type">{{ qual.type }}</div>
+                <div class="qual-value">{{ qual.value }}</div>
+              </div>
+            </div>
+            <p *ngIf="getCandidateQualifications(app.candidate).length === 0" class="no-data">No qualifications listed</p>
+          </div>
+
+
+
+          <!-- Action Buttons -->
+          <div class="application-actions">
+            <div *ngIf="app.status.toLowerCase() === 'pending' || app.status.toLowerCase() === 'applied'" class="action-buttons">
+              <button class="btn-success" (click)="updateApplicationStatus(app.applicationId, 'Accepted')">Accept</button>
+              <button class="btn-danger" (click)="updateApplicationStatus(app.applicationId, 'Rejected')">Reject</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div *ngIf="applications.length === 0" class="no-applications">
+        <p>No applications received yet.</p>
+      </div>
+    </div>
+
+    <!-- Profile Tab -->
+    <div *ngIf="activeTab === 'profile'" class="tab-content">
+      <h2>My Profile</h2>
+      
+      <!-- View Profile -->
+      <div *ngIf="profile && !isEditingProfile" class="profile-info">
+        <div class="profile-header">
+          <div class="profile-title-section">
+            <div class="profile-image-container">
+              <img [src]="getProfileImageUrl()" alt="Profile Image" class="profile-image">
+              <div class="image-upload-overlay">
+                <input type="file" (change)="uploadProfileImage($event)" accept="image/*" class="image-input" [disabled]="isUploadingImage">
+                <div *ngIf="isUploadingImage" class="image-uploading">
+                  <div class="spinner-small"></div>
+                </div>
+                <div *ngIf="!isUploadingImage" class="image-upload-icon">📷</div>
+              </div>
+            </div>
+            <h3>Personal Information</h3>
+          </div>
+          <button class="btn-primary" (click)="startEditProfile()">Edit Profile</button>
+        </div>
+        
+        <div class="profile-field">
+          <label>Full Name:</label>
+          <span>{{ profile.fullName }}</span>
+        </div>
+        <div class="profile-field">
+          <label>Email:</label>
+          <span>{{ profile.email }}</span>
+        </div>
+        <div class="profile-field">
+          <label>Role:</label>
+          <span>{{ getRoleDisplayName(profile.role) }}</span>
+        </div>
+        <div class="profile-field">
+          <label>Member Since:</label>
+          <span>{{ profile.createdOn | date:'medium' }}</span>
+        </div>
+        
+        <div class="profile-stats">
+          <div class="stat">
+            <span class="stat-number">{{ jobs.length }}</span>
+            <span class="stat-label">Jobs Posted</span>
+          </div>
+          <div class="stat">
+            <span class="stat-number">{{ applications.length }}</span>
+            <span class="stat-label">Applications</span>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Edit Profile -->
+      <div *ngIf="isEditingProfile" class="profile-edit">
+        <div class="profile-header">
+          <h3>Edit Profile</h3>
+          <div class="edit-actions">
+            <button class="btn-success" (click)="saveProfile()">Save Changes</button>
+            <button class="btn-secondary" (click)="cancelEditProfile()">Cancel</button>
+          </div>
+        </div>
+        
+        <div class="edit-section">
+          <label>Profile Image:</label>
+          <div class="profile-image-edit">
+            <img [src]="getProfileImageUrl()" alt="Profile Image" class="profile-image-preview">
+            <div class="image-upload-section">
+              <input type="file" (change)="uploadProfileImage($event)" accept="image/*" class="form-control" [disabled]="isUploadingImage">
+              <div *ngIf="isUploadingImage" class="upload-progress">
+                <div class="spinner"></div>
+                <span>Uploading image...</span>
+              </div>
+              <p class="file-info">Accepted formats: JPG, PNG, GIF (Max 2MB)</p>
+            </div>
+          </div>
+        </div>
+        
+        <div class="edit-section">
+          <label>Full Name:</label>
+          <input type="text" [(ngModel)]="editProfile.fullName" class="form-control">
+        </div>
+        
+        <div class="edit-section">
+          <label>Email:</label>
+          <input type="email" [(ngModel)]="editProfile.email" class="form-control">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

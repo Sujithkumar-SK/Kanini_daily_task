@@ -1,3 +1,5 @@
+using Backend.Models;
+
 namespace Backend.DTOs;
 
 public class ApplicationCreateDto
@@ -13,6 +15,10 @@ public class ApplicationResponseDto
   public string JobTitle { get; set; } = string.Empty;
   public string Status { get; set; } = string.Empty;
   public DateTime AppliedOn { get; set; }
+  public string? ResumeName { get; set; }
+  public Job? Job { get; set; }
+  public Resume? Resume { get; set; }
+  public User? Candidate { get; set; }
 }
 
 public class ApplicationUpdateDto

@@ -2,6 +2,7 @@ using Backend.Interfaces;
 using Backend.Models;
 using Microsoft.EntityFrameworkCore;
 namespace Backend.Repository;
+
 public class ApplicationRepository : IApplicationRepository
 {
   private readonly JobPortalContext _context;
@@ -13,7 +14,11 @@ public class ApplicationRepository : IApplicationRepository
   {
     _context.Applications.Add(data);
     await Commit();
-    return data;
+    return await _context.Applications
+    .Include(a => a.Candidate)
+    .Include(a => a.Job)
+    .Include(a => a.Resume)
+    .FirstOrDefaultAsync(a => a.ApplicationId == data.ApplicationId);
   }
   public async Task Commit()
   {
@@ -23,7 +28,9 @@ public class ApplicationRepository : IApplicationRepository
   {
     return await _context.Applications
       .Include(a => a.Candidate)
+      .ThenInclude(c => c.UserDetails)
       .Include(a => a.Job)
+      .Include(a=>a.Resume)
       .Where(a => a.JobId == jobId && a.IsActive)
       .ToListAsync();
   }
@@ -31,6 +38,8 @@ public class ApplicationRepository : IApplicationRepository
   {
     return await _context.Applications
       .Include(a => a.Job)
+      .Include(a => a.Candidate)
+      .Include(a => a.Resume)
       .Where(a => a.CandidateId == candidateId && a.IsActive)
       .ToListAsync();
   }
@@ -54,4 +63,15 @@ public class ApplicationRepository : IApplicationRepository
     await Commit();
     return true;
   }
+  public async Task<IEnumerable<Application>> GetApplicationsByRecruiterAsync(int recruiterId)
+  {
+    return await _context.Applications
+      .Include(a => a.Candidate)
+      .ThenInclude(c=>c.UserDetails)
+      .Include(a => a.Job)
+      .Include(a => a.Resume)
+      .Where(a => a.Job.PostedBy == recruiterId && a.IsActive)
+      .ToListAsync();
+  }
+
 }

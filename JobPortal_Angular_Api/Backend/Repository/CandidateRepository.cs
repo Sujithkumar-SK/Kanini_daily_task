@@ -3,17 +3,18 @@ using Backend.Models;
 using Backend.DTOs;
 using Microsoft.EntityFrameworkCore;
 namespace Backend.Repository;
-public class CandidatRepository : ICandidateRepository
+
+public class CandidateRepository : ICandidateRepository
 {
   private readonly JobPortalContext _context;
-  public CandidatRepository(JobPortalContext context)
+  public CandidateRepository(JobPortalContext context)
   {
     _context = context;
   }
   public async Task<User?> GetByIdAsync(int userId)
   {
     return await _context.Users
-        .Include(u => u.UserDetails)
+        .Include(u => u.UserDetails.Where(d=>d.IsActive))
         .FirstOrDefaultAsync(u => u.UserId == userId && u.IsActive);
   }
 
@@ -24,13 +25,15 @@ public class CandidatRepository : ICandidateRepository
 
     if (!string.IsNullOrEmpty(dto.FullName))
       user.FullName = dto.FullName;
+    if (!string.IsNullOrEmpty(dto.ProfileImage))
+      user.ProfileImage = Convert.FromBase64String(dto.ProfileImage.Split(',')[1]);
 
     if (!string.IsNullOrEmpty(dto.Password))
-    {
-      using var sha256 = System.Security.Cryptography.SHA256.Create();
-      var bytes = sha256.ComputeHash(System.Text.Encoding.UTF8.GetBytes(dto.Password));
-      user.PasswordHash = Convert.ToBase64String(bytes);
-    }
+      {
+        using var sha256 = System.Security.Cryptography.SHA256.Create();
+        var bytes = sha256.ComputeHash(System.Text.Encoding.UTF8.GetBytes(dto.Password));
+        user.PasswordHash = Convert.ToBase64String(bytes);
+      }
 
     await _context.SaveChangesAsync();
 
@@ -61,13 +64,18 @@ public class CandidatRepository : ICandidateRepository
 
       foreach (var qual in dto.Qualifications)
       {
-        if (Enum.TryParse<DetailType>(qual, out var type))
+        // qual should be in format "DetailType:Value" or just the DetailType name
+        var parts = qual.Split(':', 2);
+        var typeName = parts[0].Trim();
+        var value = parts.Length > 1 ? parts[1].Trim() : "";
+
+        if (Enum.TryParse<DetailType>(typeName, out var type) && type != DetailType.Skill)
         {
           _context.UserDetails.Add(new UserDetail
           {
             UserId = userId,
             DetailType = type,
-            Value = qual
+            Value = value
           });
         }
       }

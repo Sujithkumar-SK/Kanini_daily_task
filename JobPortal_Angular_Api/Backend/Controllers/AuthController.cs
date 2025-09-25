@@ -31,7 +31,8 @@ namespace Backend.Controllers
       var hashedInput = HashPassword(loginDto.Password);
 
       // validate password (assuming PasswordHash is stored as plain for now, ideally hash & compare)
-      if (user.PasswordHash != loginDto.Password)
+      //if (user.PasswordHash != loginDto.Password)
+      if(user.PasswordHash !=hashedInput)
         return Unauthorized("Invalid password");
 
       var token = _tokenService.GenerateToken(user);
@@ -39,6 +40,7 @@ namespace Backend.Controllers
       return Ok(new
       {
         token,
+        name = user.FullName,
         email = user.Email,
         role = user.Role.ToString()
       });

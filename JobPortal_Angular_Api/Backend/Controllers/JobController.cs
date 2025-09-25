@@ -1,7 +1,10 @@
 using Backend.Interfaces;
 using Backend.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.ActionConstraints;
+using System.Security.Claims;
+using Backend.DTOs;
 namespace Backend.Controllers;
 
 [Route("api/[controller]")]
@@ -27,12 +30,26 @@ public class JobController : ControllerBase
     return Ok(job);
   }
   [HttpPost]
-  public async Task<IActionResult> Create(Job job)
+  [Authorize(Roles = "Recruiter")]
+  public async Task<IActionResult> Create([FromBody] JobCreateDto jobDto)
   {
+    var userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)!.Value);
+    var job = new Job
+    {
+      Title = jobDto.Title,
+      Description = jobDto.Description,
+      Location = jobDto.Location,
+      EmploymentType = jobDto.EmploymentType,
+      Salary = jobDto.Salary,
+      PostedBy = userId,
+      PostedOn = DateTime.UtcNow,
+      IsActive = jobDto.IsActive
+    };
     var createdJob = await _ser.CreateJobAsync(job);
     return CreatedAtAction(nameof(GetById), new { id = createdJob.JobId }, createdJob);
   }
   [HttpPut("{id}")]
+  [Authorize(Roles = "Recruiter")]
   public async Task<IActionResult> Update(int id, Job job)
   {
     var updatedJob = await _ser.UpdateJobAsync(id, job);
@@ -40,10 +57,19 @@ public class JobController : ControllerBase
     return Ok(updatedJob);
   }
   [HttpDelete("{id}")]
+  [Authorize(Roles = "Recruiter")]
   public async Task<IActionResult> Delete(int id)
   {
     var deletedJob = await _ser.DeleteJobAsync(id);
     if (!deletedJob) return NotFound();
     return NoContent();
   }
+  [HttpGet("recruiter/{recruiterId}")]
+  [Authorize(Roles = "Recruiter")]
+  public async Task<IActionResult> GetByRecruiter(int recruiterId)
+  {
+    var jobs = await _ser.GetJobsByRecruiterAsync(recruiterId);
+    return Ok(jobs);
+  }
+
 }

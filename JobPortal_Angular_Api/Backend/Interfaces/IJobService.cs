@@ -9,5 +9,6 @@ public interface IJobService
   Task<Job> CreateJobAsync(Job job);
   Task<Job?> UpdateJobAsync(int jobId, Job job);
   Task<bool> DeleteJobAsync(int jobId);
+  Task<IEnumerable<Job>> GetJobsByRecruiterAsync(int recruiterId);
 }
 

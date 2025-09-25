@@ -38,4 +38,9 @@ public class JobService : IJobService
     await _repo.DeleteJobAsync(jobId);
     return true;
   }
+  public async Task<IEnumerable<Job>> GetJobsByRecruiterAsync(int recruiterId)
+{
+  return await _repo.GetJobsByRecruiterAsync(recruiterId);
+}
+
 }

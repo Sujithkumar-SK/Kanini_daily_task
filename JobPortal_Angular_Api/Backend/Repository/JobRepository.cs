@@ -13,6 +13,7 @@ public class JobRepository : IJobRepository
   {
     return await _context.Jobs.Include(j => j.JobSkills)
       .ThenInclude(js => js.Skill)
+      .Include(j=>j.Recruiter)
       .Where(j => j.IsActive)
       .ToListAsync();
   }
@@ -45,6 +46,15 @@ public class JobRepository : IJobRepository
   public async Task<bool> JobExistsAsync(int jobId)
   {
     return await _context.Jobs.AnyAsync(j => j.JobId == jobId && j.IsActive);
+  }
+  public async Task<IEnumerable<Job>> GetJobsByRecruiterAsync(int recruiterId)
+  {
+    return await _context.Jobs
+      .Include(j => j.JobSkills)
+      .ThenInclude(js => js.Skill)
+      .Include(j=>j.Recruiter)
+      .Where(j => j.PostedBy == recruiterId && j.IsActive)
+      .ToListAsync();
   }
   public async Task Commit()
   {

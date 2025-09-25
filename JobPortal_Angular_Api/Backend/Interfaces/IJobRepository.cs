@@ -10,6 +10,7 @@ namespace Backend.Interfaces
     Task UpdateJobAsync(Job job);
     Task DeleteJobAsync(int jobId);
     Task<bool> JobExistsAsync(int jobId);
+    Task<IEnumerable<Job>> GetJobsByRecruiterAsync(int recruiterId);
     Task Commit();
   }
 }
