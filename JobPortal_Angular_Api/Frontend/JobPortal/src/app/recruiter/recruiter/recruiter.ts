@@ -16,7 +16,16 @@ export class Recruiter implements OnInit {
   profile: any = null;
   jobs: any[] = [];
   applications: any[] = [];
+  filteredApplications: any[] = [];
   message = '';
+  
+  // Filter properties
+  searchTerm = '';
+  statusFilter = '';
+  tenthFilter: number | null = null;
+  twelfthFilter: number | null = null;
+  cgpaFilter: number | null = null;
+  skillsFilter = '';
   
   // Loading states
   isLoading = true;
@@ -44,6 +53,7 @@ export class Recruiter implements OnInit {
   isEditingProfile = false;
   editProfile: any = {};
   isUploadingImage = false;
+  selectedApplication: any = null;
   defaultProfileImage = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgdmlld0JveD0iMCAwIDEwMCAxMDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIxMDAiIGhlaWdodD0iMTAwIiBmaWxsPSIjRjNGNEY2Ii8+CjxjaXJjbGUgY3g9IjUwIiBjeT0iMzciIHI9IjE1IiBmaWxsPSIjOUNBM0FGIi8+CjxwYXRoIGQ9Ik0yMCA4MEMyMCA2OS4wNTQzIDI4LjA1NDMgNjAgMzkgNjBINjFDNzEuOTQ1NyA2MCA4MCA2OS4wNTQzIDgwIDgwVjEwMEgyMFY4MFoiIGZpbGw9IiM5Q0EzQUYiLz4KPC9zdmc+';
 
   constructor(
@@ -105,7 +115,7 @@ export class Recruiter implements OnInit {
     this.isCreatingJob = true;
     this.newJob = {
       title: '',
-      companyName: '',
+      companyName: this.profile?.CompanyName || this.profile?.companyName || '',
       description: '',
       location: '',
       employmentType: 'Full-time',
@@ -128,7 +138,7 @@ export class Recruiter implements OnInit {
     // Prepare job data - don't include recruiter object, backend will handle the relationship
     const jobData = {
       title: this.newJob.title,
-      description: `Company: ${this.newJob.companyName}\n\n${this.newJob.description}`,
+      description: this.newJob.description,
       location: this.newJob.location,
       employmentType: this.newJob.employmentType || 'Full-time',
       salary: this.newJob.salary || null,
@@ -196,6 +206,7 @@ export class Recruiter implements OnInit {
     this.recruiterService.getJobApplications(jobId).subscribe({
       next: (data) => {
         this.applications = data;
+        this.filteredApplications = [...data];
         this.cdr.detectChanges();
       },
       error: (err) => {
@@ -213,6 +224,7 @@ export class Recruiter implements OnInit {
         console.log('Is array:', Array.isArray(data));
         
         this.applications = data;
+        this.filteredApplications = [...data];
         
         // Log first application to check structure
         if (data.length > 0) {
@@ -271,6 +283,7 @@ export class Recruiter implements OnInit {
   loadProfile() {
     this.recruiterService.getProfile().subscribe({
       next: (data) => {
+        console.log('Profile data:', data);
         this.profile = data;
         this.loadingStates.profile = true;
         this.checkLoadingComplete();
@@ -295,7 +308,10 @@ export class Recruiter implements OnInit {
     this.isEditingProfile = true;
     this.editProfile = {
       fullName: this.profile.fullName || '',
-      email: this.profile.email || ''
+      email: this.profile.email || '',
+      companyName: this.profile.CompanyName || '',
+      companyWebsite: this.profile.CompanyWebsite || '',
+      companyDescription: this.profile.CompanyDescription || ''
     };
   }
 
@@ -305,7 +321,15 @@ export class Recruiter implements OnInit {
   }
 
   saveProfile() {
-    this.recruiterService.updateProfile(this.editProfile).subscribe({
+    const profileData = {
+      fullName: this.editProfile.fullName,
+      email: this.editProfile.email,
+      companyName: this.editProfile.companyName,
+      companyWebsite: this.editProfile.companyWebsite,
+      companyDescription: this.editProfile.companyDescription
+    };
+    
+    this.recruiterService.updateProfile(profileData).subscribe({
       next: () => {
         this.message = 'Profile updated successfully!';
         this.isEditingProfile = false;
@@ -524,4 +548,85 @@ export class Recruiter implements OnInit {
     }
     return 'Not Available';
   }
+
+  // Filter methods
+  applyFilters() {
+    this.filteredApplications = this.applications.filter(app => {
+      // Search term filter
+      if (this.searchTerm) {
+        const searchLower = this.searchTerm.toLowerCase();
+        const name = this.getCandidateName(app).toLowerCase();
+        const email = this.getCandidateEmail(app).toLowerCase();
+        const skills = this.getCandidateSkills(app.candidate).join(' ').toLowerCase();
+        
+        if (!name.includes(searchLower) && !email.includes(searchLower) && !skills.includes(searchLower)) {
+          return false;
+        }
+      }
+
+      // Status filter
+      if (this.statusFilter && app.status !== this.statusFilter) {
+        return false;
+      }
+
+      // Academic filters
+      const qualifications = this.getCandidateQualifications(app.candidate);
+      
+      if (this.tenthFilter) {
+        const tenth = qualifications.find(q => q.type === 'Tenth');
+        if (!tenth || parseFloat(tenth.value.replace('%', '')) < this.tenthFilter) {
+          return false;
+        }
+      }
+
+      if (this.twelfthFilter) {
+        const twelfth = qualifications.find(q => q.type === 'Twelfth');
+        if (!twelfth || parseFloat(twelfth.value.replace('%', '')) < this.twelfthFilter) {
+          return false;
+        }
+      }
+
+      if (this.cgpaFilter) {
+        const cgpa = qualifications.find(q => q.type === 'BE' || q.type === 'BSc' || q.type === 'BCom');
+        if (!cgpa || parseFloat(cgpa.value) < this.cgpaFilter) {
+          return false;
+        }
+      }
+
+      // Skills filter
+      if (this.skillsFilter) {
+        const requiredSkills = this.skillsFilter.toLowerCase().split(',').map(s => s.trim());
+        const candidateSkills = this.getCandidateSkills(app.candidate).map(s => s.toLowerCase());
+        
+        const hasAnySkill = requiredSkills.some(skill => 
+          candidateSkills.some(candidateSkill => candidateSkill.includes(skill))
+        );
+        
+        if (!hasAnySkill) {
+          return false;
+        }
+      }
+
+      return true;
+    });
+  }
+
+  clearFilters() {
+    this.searchTerm = '';
+    this.statusFilter = '';
+    this.tenthFilter = null;
+    this.twelfthFilter = null;
+    this.cgpaFilter = null;
+    this.skillsFilter = '';
+    this.filteredApplications = [...this.applications];
+  }
+
+  toggleFullProfile(app: any) {
+    if (this.selectedApplication?.applicationId === app.applicationId) {
+      this.selectedApplication = null;
+    } else {
+      this.selectedApplication = app;
+    }
+  }
+
 }

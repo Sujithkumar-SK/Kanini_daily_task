@@ -6,6 +6,7 @@ import { authGuard } from './auth/auth-guard';
 import { UserRole } from './Models/UserRole';
 import { CandidateDashboard } from './candidate/candidate-dashboard/candidate-dashboard';
 import { Recruiter } from './recruiter/recruiter/recruiter';
+import { Admin } from './admin/admin/admin';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -22,6 +23,11 @@ export const routes: Routes = [
     component: Recruiter,
     canActivate: [authGuard, roleGuard],
     data: { roles: [UserRole.Recruiter] }
+  },
+  {
+    path: 'admin',
+    component: Admin,
+    canActivate: [authGuard, roleGuard],
+    data: { roles: [UserRole.Admin] }
   }
-  // Future routes for admin dashboard
 ];

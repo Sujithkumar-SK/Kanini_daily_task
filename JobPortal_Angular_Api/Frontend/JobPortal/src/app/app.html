@@ -8,10 +8,16 @@
     <span *ngIf="auth.isLoggedIn()" class="user-info">
       Welcome, {{ auth.getCurrentUser()?.name }}
     </span>
-    <a (click)="logout()" *ngIf="auth.isLoggedIn()" class="nav-link logout-btn">Logout</a>
+    <a (click)="logout()" *ngIf="auth.isLoggedIn()" class="nav-link logout-btn" [title]="''">Logout</a>
   </div>
 </nav>
 
 <main class="main-content">
   <router-outlet></router-outlet>
 </main>
+
+<footer class="footer">
+  <div class="footer-content">
+    <p>For any help, contact us at: <a href="mailto:admin@gmail.com">admin@gmail.com</a></p>
+  </div>
+</footer>

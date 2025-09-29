@@ -1,15 +1,220 @@
 <div class="register-container">
-  <h2>Sign Up</h2>
-  <form [formGroup]="form" (ngSubmit)="submit()">
-    <input formControlName="fullName" placeholder="Full Name" />
-    <input formControlName="email" type="email" placeholder="Email" />
-    <input formControlName="password" type="password" placeholder="Password" />
+  <div class="register-card">
+    <div class="register-header">
+      <h1>Create Account</h1>
+      <p>Join our job portal platform</p>
+    </div>
+    
+    <form [formGroup]="form" (ngSubmit)="submit()" class="register-form">
+      <div class="form-group">
+        <label for="fullName">Full Name <span class="required">*</span></label>
+        <input 
+          id="fullName"
+          formControlName="fullName" 
+          placeholder="Enter your full name" 
+          class="form-input"
+          [class.error]="form.get('fullName')?.invalid && form.get('fullName')?.touched"
+        />
+        <div *ngIf="form.get('fullName')?.invalid && form.get('fullName')?.touched" class="validation-error">
+          <span *ngIf="form.get('fullName')?.errors?.['required']">Full name is required</span>
+          <span *ngIf="form.get('fullName')?.errors?.['minlength']">Full name must be at least 2 characters</span>
+        </div>
+      </div>
+      
+      <div class="form-group">
+        <label for="email">Email Address <span class="required">*</span></label>
+        <input 
+          id="email"
+          formControlName="email" 
+          type="email" 
+          placeholder="Enter your email" 
+          class="form-input"
+          [class.error]="form.get('email')?.invalid && form.get('email')?.touched"
+        />
+        <div *ngIf="form.get('email')?.invalid && form.get('email')?.touched" class="validation-error">
+          <span *ngIf="form.get('email')?.errors?.['required']">Email is required</span>
+          <span *ngIf="form.get('email')?.errors?.['email']">Please enter a valid email address</span>
+        </div>
+      </div>
+      
+      <div class="form-group">
+        <label for="password">Password <span class="required">*</span></label>
+        <input 
+          id="password"
+          formControlName="password" 
+          type="password" 
+          placeholder="Create a password" 
+          class="form-input"
+          [class.error]="form.get('password')?.invalid && form.get('password')?.touched"
+        />
+        <div *ngIf="form.get('password')?.invalid && form.get('password')?.touched" class="validation-error">
+          <span *ngIf="form.get('password')?.errors?.['required']">Password is required</span>
+          <span *ngIf="form.get('password')?.errors?.['minlength']">Password must be at least 6 characters</span>
+        </div>
+      </div>
 
-    <select formControlName="role">
-      <option *ngFor="let role of roles" [value]="role">{{ role }}</option>
-    </select>
+      <div class="form-group">
+        <label for="confirmPassword">Confirm Password <span class="required">*</span></label>
+        <input 
+          id="confirmPassword"
+          formControlName="confirmPassword" 
+          type="password" 
+          placeholder="Confirm your password" 
+          class="form-input"
+          [class.error]="form.get('confirmPassword')?.invalid && form.get('confirmPassword')?.touched"
+        />
+        <div *ngIf="form.get('confirmPassword')?.invalid && form.get('confirmPassword')?.touched" class="validation-error">
+          <span *ngIf="form.get('confirmPassword')?.errors?.['required']">Please confirm your password</span>
+          <span *ngIf="form.get('confirmPassword')?.errors?.['passwordMismatch']">Passwords do not match</span>
+        </div>
+      </div>
 
-    <button type="submit">Register</button>
-  </form>
-  <p *ngIf="error" style="color:red">{{ error }}</p>
+      <div class="form-group">
+        <label for="dateOfBirth">Date of Birth</label>
+        <input 
+          id="dateOfBirth"
+          formControlName="dateOfBirth" 
+          type="date" 
+          class="form-input"
+        />
+      </div>
+
+      <div class="form-group">
+        <label>I am a</label>
+        <div class="role-selection">
+          <label class="role-option" [class.selected]="form.get('role')?.value === 'Candidate'">
+            <input 
+              type="radio" 
+              formControlName="role" 
+              value="Candidate"
+              class="role-radio"
+            >
+            <div class="role-card">
+              <div class="role-icon">👤</div>
+              <div class="role-title">Candidate</div>
+              <div class="role-desc">Looking for job opportunities</div>
+            </div>
+          </label>
+          
+          <label class="role-option" [class.selected]="form.get('role')?.value === 'Recruiter'">
+            <input 
+              type="radio" 
+              formControlName="role" 
+              value="Recruiter"
+              class="role-radio"
+            >
+            <div class="role-card">
+              <div class="role-icon">🏢</div>
+              <div class="role-title">Recruiter</div>
+              <div class="role-desc">Hiring talented professionals</div>
+            </div>
+          </label>
+        </div>
+      </div>
+
+      <!-- Candidate Additional Fields -->
+      <div *ngIf="showCandidateFields" class="role-specific-fields">
+        <h3>📚 Candidate Details</h3>
+        
+        <!-- Profile Image -->
+        <div class="form-group">
+          <label for="profileImage">Profile Picture (Optional)</label>
+          <input id="profileImage" type="file" (change)="onImageSelected($event)" accept="image/*" class="form-input">
+        </div>
+        
+        <!-- Skills -->
+        <div class="form-group">
+          <label for="skillInput">Skills</label>
+          <div class="add-item-container">
+            <input id="skillInput" type="text" [(ngModel)]="newSkill" [ngModelOptions]="{standalone: true}" placeholder="Add a skill (e.g., JavaScript, Python)" class="form-input">
+            <button type="button" class="btn-add" (click)="addSkill()">Add</button>
+          </div>
+          <div *ngIf="skills.length > 0" class="skills-display">
+            <span *ngFor="let skill of skills; let i = index" class="skill-tag">
+              {{ skill }} <button type="button" (click)="removeSkill(i)" class="remove-btn">×</button>
+            </span>
+          </div>
+        </div>
+        
+        <!-- Qualifications -->
+        <div class="form-group">
+          <label for="qualificationType">Educational Qualifications</label>
+          <div class="qualification-input-row">
+            <select id="qualificationType" [(ngModel)]="newQualType" [ngModelOptions]="{standalone: true}" class="form-select-qual">
+              <option value="">Select qualification...</option>
+              <option *ngFor="let type of detailTypes" [value]="type">{{ type }}</option>
+            </select>
+            <input type="text" [(ngModel)]="newQualValue" [ngModelOptions]="{standalone: true}" placeholder="Details (e.g., 85%, Computer Science)" class="form-input-qual">
+          </div>
+          <button type="button" class="btn-add-qual" (click)="addQualification()" [disabled]="!newQualType || !newQualValue.trim()">Add Qualification</button>
+          <div *ngIf="qualifications.length > 0" class="qualifications-display">
+            <div *ngFor="let qual of qualifications; let i = index" class="qual-item">
+              <strong>{{ qual.type }}:</strong> {{ qual.value }}
+              <button type="button" (click)="removeQualification(i)" class="remove-btn">×</button>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Resume Upload -->
+        <div class="form-group">
+          <label for="resumeUpload">Resume (Optional)</label>
+          <input id="resumeUpload" type="file" (change)="onFileSelected($event)" accept=".pdf,.doc,.docx" class="form-input">
+          <p class="file-hint">Accepted formats: PDF, DOC, DOCX (Max 5MB)</p>
+        </div>
+      </div>
+
+      <!-- Recruiter Additional Fields -->
+      <div *ngIf="showRecruiterFields" class="role-specific-fields">
+        <h3>🏢 Company Details</h3>
+        
+        <div class="form-group">
+          <label for="companyName">Company Name *</label>
+          <input 
+            id="companyName"
+            formControlName="companyName" 
+            placeholder="Enter your company name"
+            class="form-input"
+            [class.error]="form.get('companyName')?.invalid && form.get('companyName')?.touched"
+          />
+          <div *ngIf="form.get('companyName')?.invalid && form.get('companyName')?.touched" class="validation-error">
+            <span *ngIf="form.get('companyName')?.errors?.['required']">Company name is required</span>
+          </div>
+        </div>
+        
+        <div class="form-group">
+          <label for="companyWebsite">Company Website (Optional)</label>
+          <input 
+            id="companyWebsite"
+            formControlName="companyWebsite" 
+            type="url"
+            placeholder="https://www.yourcompany.com"
+            class="form-input"
+          />
+        </div>
+        
+        <div class="form-group">
+          <label for="companyDescription">Company Description (Optional)</label>
+          <textarea 
+            id="companyDescription"
+            formControlName="companyDescription" 
+            placeholder="Brief description of your company..."
+            class="form-textarea"
+            rows="3"
+          ></textarea>
+        </div>
+      </div>
+
+      <button type="submit" class="register-btn" [disabled]="form.invalid">
+        Create Account
+      </button>
+    </form>
+    
+    <div *ngIf="error" class="error-message">
+      {{ error }}
+    </div>
+    
+    <div class="login-link">
+      Already have an account? <a href="/login">Sign in</a>
+    </div>
+  </div>
 </div>

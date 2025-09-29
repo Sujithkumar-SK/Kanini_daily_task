@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectorRef } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Auth } from '../service/auth';
 import { Router } from '@angular/router';
@@ -14,10 +14,10 @@ export class Login {
   form: FormGroup;
   error = '';
   constructor(private fb: FormBuilder, private auth:
-    Auth, private router: Router) {
+    Auth, private router: Router, private cdr: ChangeDetectorRef) {
     this.form = this.fb.group({
-      username: ['', Validators.required], password:
-        ['', Validators.required]
+      username: ['', [Validators.required, Validators.email]], 
+      password: ['', Validators.required]
     });
 
   }
@@ -41,8 +41,13 @@ export class Login {
             this.router.navigate(['/']);
         }
       },
-      error: (err) => (this.error =
-        err?.error?.message || 'Login failed')
+      error: (err) => {
+        this.error = err?.error?.message || err?.error || 'Login failed';
+        if (this.error.includes('deactivated')) {
+          this.error = 'Your account has been deactivated. Please contact administrator.';
+        }
+        this.cdr.detectChanges();
+      }
     });
   }
 }

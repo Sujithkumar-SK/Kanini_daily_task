@@ -128,10 +128,20 @@
               {{ job.isActive ? 'Active' : 'Inactive' }}
             </span>
           </div>
-          <p class="job-location">📍 {{ job.location }}</p>
-          <p class="job-type">{{ job.employmentType }}</p>
-          <p class="job-salary" *ngIf="job.salary">💰 ${{ job.salary | number }}</p>
-          <p class="job-description">{{ job.description | slice:0:150 }}...</p>
+          <div class="job-meta">
+            <p class="job-location">📍 {{ job.location }}</p>
+            <p class="job-type">{{ job.employmentType }}</p>
+            <p class="job-salary" *ngIf="job.salary">💰 ${{ job.salary | number }}</p>
+          </div>
+          <div class="job-company" *ngIf="job.recruiter?.fullName">
+            <p class="company-name">🏢 {{ job.recruiter.fullName }}</p>
+          </div>
+          <div class="job-skills" *ngIf="job.jobSkills && job.jobSkills.length > 0">
+            <div class="skills-container">
+              <span *ngFor="let jobSkill of job.jobSkills" class="skill-tag">{{ jobSkill.skill?.name }}</span>
+            </div>
+          </div>
+          <p class="job-description">{{ job.description | slice:0:150 }}</p>
           <p class="job-posted">Posted: {{ job.postedOn | date:'short' }}</p>
           <div class="job-actions">
             <button class="btn-primary" (click)="viewJobApplications(job)">View Applications</button>
@@ -156,77 +166,140 @@
         <button class="btn-secondary" (click)="selectedJob = null; loadApplications()">View All Applications</button>
       </div>
 
-      <div *ngIf="applications.length > 0" class="applications-list">
-        <div *ngFor="let app of applications" class="application-card">
-          <div class="application-header">
-            <div class="candidate-info">
-              <div class="candidate-profile">
-                <img [src]="getCandidateProfileImage(app.candidate)" alt="Candidate" class="candidate-avatar">
-                <div class="candidate-details">
-                  <h4>{{ getCandidateName(app) }}</h4>
-                  <p class="candidate-email">{{ getCandidateEmail(app) }}</p>
-                  <p class="candidate-role">{{ getCandidateRole(app) }}</p>
-                </div>
-              </div>
-            </div>
-            <span class="status-badge" [class]="getApplicationStatus(app.status)">
-              {{ app.status }}
-            </span>
+      <!-- Search and Filter Bar -->
+      <div class="filter-section">
+        <div class="search-bar">
+          <input type="text" [(ngModel)]="searchTerm" (input)="applyFilters()" placeholder="🔍 Search by name, email, or skills..." class="search-input">
+        </div>
+        
+        <div class="filters-container">
+          <div class="filter-group">
+            <label>Status:</label>
+            <select [(ngModel)]="statusFilter" (change)="applyFilters()" class="filter-select">
+              <option value="">All Status</option>
+              <option value="Applied">Applied</option>
+              <option value="Pending">Pending</option>
+              <option value="Accepted">Accepted</option>
+              <option value="Rejected">Rejected</option>
+            </select>
           </div>
           
-          <div class="application-details">
-            <p><strong>Job:</strong> {{ app.jobTitle || app.job?.title }}</p>
-            <p><strong>Applied:</strong> {{ app.appliedOn | date:'medium' }}</p>
-            <div *ngIf="app.resumeName || app.resume?.fileName" class="resume-section">
+          <div class="filter-group">
+            <label>10th %:</label>
+            <input type="number" [(ngModel)]="tenthFilter" (input)="applyFilters()" placeholder="Min %" class="filter-input">
+          </div>
+          
+          <div class="filter-group">
+            <label>12th %:</label>
+            <input type="number" [(ngModel)]="twelfthFilter" (input)="applyFilters()" placeholder="Min %" class="filter-input">
+          </div>
+          
+          <div class="filter-group">
+            <label>CGPA:</label>
+            <input type="number" [(ngModel)]="cgpaFilter" (input)="applyFilters()" placeholder="Min CGPA" class="filter-input" step="0.1">
+          </div>
+          
+          <div class="filter-group">
+            <label>Required Skills:</label>
+            <input type="text" [(ngModel)]="skillsFilter" (input)="applyFilters()" placeholder="e.g., Java, Python" class="filter-input">
+          </div>
+          
+          <button class="btn-clear-filters" (click)="clearFilters()">Clear All</button>
+        </div>
+        
+        <div class="filter-results">
+          <span>Showing {{ filteredApplications.length }} of {{ applications.length }} applications</span>
+        </div>
+      </div>
+
+      <div *ngIf="filteredApplications.length > 0" class="applications-list">
+        <div *ngFor="let app of filteredApplications" class="application-card">
+          <!-- Basic Application Info -->
+          <div class="application-summary">
+            <div class="candidate-basic-info">
+              <img [src]="getCandidateProfileImage(app.candidate)" alt="Candidate" class="candidate-avatar-small">
+              <div class="basic-details">
+                <h4 class="candidate-name">{{ getCandidateName(app) }}</h4>
+                <p class="job-applied"><strong>Job:</strong> {{ app.jobTitle || app.job?.title }}</p>
+                <p class="applied-time"><strong>Applied:</strong> {{ app.appliedOn | date:'short' }}</p>
+              </div>
+            </div>
+            <div class="summary-actions">
+              <span class="status-badge" [class]="getApplicationStatus(app.status)">{{ app.status }}</span>
+              <button class="btn-show-profile" (click)="toggleFullProfile(app)">
+                {{ selectedApplication?.applicationId === app.applicationId ? 'Hide Profile' : 'Show Full Profile' }}
+              </button>
+            </div>
+          </div>
+
+          <!-- Full Profile Details (Expandable) -->
+          <div *ngIf="selectedApplication?.applicationId === app.applicationId" class="full-profile-details">
+            <div class="profile-header-section">
+              <img [src]="getCandidateProfileImage(app.candidate)" alt="Candidate" class="candidate-avatar">
+              <div class="candidate-info-detailed">
+                <h3>{{ getCandidateName(app) }}</h3>
+                <p><strong>Email:</strong> {{ getCandidateEmail(app) }}</p>
+                <p><strong>Role:</strong> {{ getCandidateRole(app) }}</p>
+                <p><strong>Member Since:</strong> {{ getCandidateMemberSince(app) }}</p>
+              </div>
+            </div>
+
+            <!-- Resume Section -->
+            <div *ngIf="app.resumeName || app.resume?.fileName" class="resume-section-detailed">
+              <div class="section-header">
+                <span class="section-icon">📄</span>
+                <h5 class="section-title">Resume</h5>
+              </div>
               <div class="resume-info">
-                <span class="resume-label">📄 Resume:</span>
                 <span class="resume-name">{{ app.resumeName || app.resume?.fileName }}</span>
                 <button class="btn-download-resume" (click)="downloadResume(app.resume)" *ngIf="app.resume">
-                  ⬇️ Download
+                  ⬇️ Download Resume
                 </button>
               </div>
             </div>
-          </div>
 
-          <!-- Candidate Skills -->
-          <div class="candidate-skills">
-            <div class="section-header">
-              <span class="section-icon">💻</span>
-              <h5 class="section-title">Skills</h5>
-            </div>
-            <div *ngIf="getCandidateSkills(app.candidate).length > 0" class="skills-container">
-              <span *ngFor="let skill of getCandidateSkills(app.candidate)" class="skill-badge">{{ skill }}</span>
-            </div>
-            <p *ngIf="getCandidateSkills(app.candidate).length === 0" class="no-data">No skills listed</p>
-          </div>
-
-          <!-- Candidate Qualifications -->
-          <div class="candidate-qualifications">
-            <div class="section-header">
-              <span class="section-icon">🎓</span>
-              <h5 class="section-title">Qualifications</h5>
-            </div>
-            <div *ngIf="getCandidateQualifications(app.candidate).length > 0" class="qualifications-grid">
-              <div *ngFor="let qual of getCandidateQualifications(app.candidate)" class="qualification-card">
-                <div class="qual-type">{{ qual.type }}</div>
-                <div class="qual-value">{{ qual.value }}</div>
+            <!-- Skills Section -->
+            <div class="candidate-skills">
+              <div class="section-header">
+                <span class="section-icon">💻</span>
+                <h5 class="section-title">Skills</h5>
               </div>
+              <div *ngIf="getCandidateSkills(app.candidate).length > 0" class="skills-container">
+                <span *ngFor="let skill of getCandidateSkills(app.candidate)" class="skill-badge">{{ skill }}</span>
+              </div>
+              <p *ngIf="getCandidateSkills(app.candidate).length === 0" class="no-data">No skills listed</p>
             </div>
-            <p *ngIf="getCandidateQualifications(app.candidate).length === 0" class="no-data">No qualifications listed</p>
-          </div>
 
+            <!-- Qualifications Section -->
+            <div class="candidate-qualifications">
+              <div class="section-header">
+                <span class="section-icon">🎓</span>
+                <h5 class="section-title">Qualifications</h5>
+              </div>
+              <div *ngIf="getCandidateQualifications(app.candidate).length > 0" class="qualifications-grid">
+                <div *ngFor="let qual of getCandidateQualifications(app.candidate)" class="qualification-card">
+                  <div class="qual-type">{{ qual.type }}</div>
+                  <div class="qual-value">{{ qual.value }}</div>
+                </div>
+              </div>
+              <p *ngIf="getCandidateQualifications(app.candidate).length === 0" class="no-data">No qualifications listed</p>
+            </div>
 
-
-          <!-- Action Buttons -->
-          <div class="application-actions">
-            <div *ngIf="app.status.toLowerCase() === 'pending' || app.status.toLowerCase() === 'applied'" class="action-buttons">
-              <button class="btn-success" (click)="updateApplicationStatus(app.applicationId, 'Accepted')">Accept</button>
-              <button class="btn-danger" (click)="updateApplicationStatus(app.applicationId, 'Rejected')">Reject</button>
+            <!-- Action Buttons -->
+            <div class="application-actions">
+              <div *ngIf="app.status.toLowerCase() === 'pending' || app.status.toLowerCase() === 'applied'" class="action-buttons">
+                <button class="btn-success" (click)="updateApplicationStatus(app.applicationId, 'Accepted')">Accept</button>
+                <button class="btn-danger" (click)="updateApplicationStatus(app.applicationId, 'Rejected')">Reject</button>
+              </div>
             </div>
           </div>
         </div>
       </div>
 
+      <div *ngIf="filteredApplications.length === 0 && applications.length > 0" class="no-applications">
+        <p>No applications match your filters.</p>
+      </div>
+      
       <div *ngIf="applications.length === 0" class="no-applications">
         <p>No applications received yet.</p>
       </div>
@@ -266,6 +339,18 @@
         <div class="profile-field">
           <label>Role:</label>
           <span>{{ getRoleDisplayName(profile.role) }}</span>
+        </div>
+        <div class="profile-field" *ngIf="profile.companyName || profile.CompanyName">
+          <label>Company Name:</label>
+          <span>{{ profile.companyName || profile.CompanyName }}</span>
+        </div>
+        <div class="profile-field" *ngIf="profile.companyWebsite || profile.CompanyWebsite">
+          <label>Company Website:</label>
+          <span><a [href]="profile.companyWebsite || profile.CompanyWebsite" target="_blank">{{ profile.companyWebsite || profile.CompanyWebsite }}</a></span>
+        </div>
+        <div class="profile-field" *ngIf="profile.companyDescription || profile.CompanyDescription">
+          <label>Company Description:</label>
+          <span>{{ profile.companyDescription || profile.CompanyDescription }}</span>
         </div>
         <div class="profile-field">
           <label>Member Since:</label>
@@ -317,6 +402,21 @@
         <div class="edit-section">
           <label>Email:</label>
           <input type="email" [(ngModel)]="editProfile.email" class="form-control">
+        </div>
+        
+        <div class="edit-section" *ngIf="profile.role === 'Recruiter' || profile.role === 1">
+          <label>Company Name:</label>
+          <input type="text" [(ngModel)]="editProfile.companyName" class="form-control">
+        </div>
+        
+        <div class="edit-section" *ngIf="profile.role === 'Recruiter' || profile.role === 1">
+          <label>Company Website:</label>
+          <input type="url" [(ngModel)]="editProfile.companyWebsite" class="form-control" placeholder="https://">
+        </div>
+        
+        <div class="edit-section" *ngIf="profile.role === 'Recruiter' || profile.role === 1">
+          <label>Company Description:</label>
+          <textarea [(ngModel)]="editProfile.companyDescription" class="form-control" rows="3"></textarea>
         </div>
       </div>
     </div>

@@ -21,6 +21,7 @@ export class CandidateDashboard implements OnInit {
   profile: any = {};
   selectedJob: Job | null = null;
   selectedResumeId: number | null = null;
+  selectedApplication: any = null;
   message = '';
   searchTerm = '';
   filteredJobs: Job[] = [];
@@ -469,10 +470,184 @@ export class CandidateDashboard implements OnInit {
 
   getApplicationStatus(status: string): string {
     switch(status.toLowerCase()) {
-      case 'pending': return 'warning';
-      case 'accepted': return 'success';
-      case 'rejected': return 'danger';
-      default: return 'secondary';
+      case 'pending': return 'app-status-warning';
+      case 'accepted': return 'app-status-success';
+      case 'rejected': return 'app-status-danger';
+      default: return 'app-status-secondary';
     }
   }
+
+  viewResume(resume: any) {
+    if (!resume || !resume.resumeId) {
+      this.message = 'Resume not available for viewing';
+      return;
+    }
+    
+    this.candidateService.getResumeById(resume.resumeId).subscribe({
+      next: (fullResume) => {
+        try {
+          const fileData = fullResume.fileData;
+          if (!fileData) {
+            this.message = 'Resume file data not available';
+            return;
+          }
+          
+          const byteCharacters = atob(fileData);
+          const byteNumbers = new Array(byteCharacters.length);
+          for (let i = 0; i < byteCharacters.length; i++) {
+            byteNumbers[i] = byteCharacters.charCodeAt(i);
+          }
+          const byteArray = new Uint8Array(byteNumbers);
+          
+          const blob = new Blob([byteArray], { type: 'application/pdf' });
+          const url = window.URL.createObjectURL(blob);
+          window.open(url, '_blank');
+          
+          setTimeout(() => {
+            window.URL.revokeObjectURL(url);
+          }, 1000);
+        } catch (error) {
+          console.error('Error viewing resume:', error);
+          this.message = 'Failed to view resume';
+        }
+      },
+      error: (err) => {
+        console.error('Error fetching resume:', err);
+        this.message = 'Failed to fetch resume data';
+      }
+    });
+  }
+
+  downloadResume(resume: any) {
+    if (!resume || !resume.resumeId) {
+      this.message = 'Resume not available for download';
+      return;
+    }
+    
+    this.candidateService.getResumeById(resume.resumeId).subscribe({
+      next: (fullResume) => {
+        try {
+          const fileData = fullResume.fileData;
+          if (!fileData) {
+            this.message = 'Resume file data not available';
+            return;
+          }
+          
+          const byteCharacters = atob(fileData);
+          const byteNumbers = new Array(byteCharacters.length);
+          for (let i = 0; i < byteCharacters.length; i++) {
+            byteNumbers[i] = byteCharacters.charCodeAt(i);
+          }
+          const byteArray = new Uint8Array(byteNumbers);
+          
+          const blob = new Blob([byteArray], { type: 'application/pdf' });
+          const url = window.URL.createObjectURL(blob);
+          const link = document.createElement('a');
+          link.href = url;
+          link.download = resume.fileName || 'resume.pdf';
+          link.click();
+          window.URL.revokeObjectURL(url);
+        } catch (error) {
+          console.error('Error downloading resume:', error);
+          this.message = 'Failed to download resume';
+        }
+      },
+      error: (err) => {
+        console.error('Error fetching resume:', err);
+        this.message = 'Failed to fetch resume data';
+      }
+    });
+  }
+  
+  // Application Status Tracking Methods
+  getStepStatus(status: string, step: string): boolean {
+    const currentStatus = status?.toLowerCase() || 'pending';
+    
+    switch (step) {
+      case 'applied':
+        return true; // Always completed since application exists
+      case 'review':
+        return ['accepted', 'rejected'].includes(currentStatus);
+      case 'decision':
+        return ['accepted', 'rejected'].includes(currentStatus);
+      default:
+        return false;
+    }
+  }
+  
+  getCurrentStep(status: string): string {
+    const currentStatus = status?.toLowerCase() || 'pending';
+    
+    switch (currentStatus) {
+      case 'pending':
+      case 'applied':
+        return 'applied';
+      case 'under review':
+      case 'reviewing':
+        return 'review';
+      case 'accepted':
+      case 'rejected':
+        return 'decision';
+      default:
+        return 'review'; // Default to review for unknown statuses
+    }
+  }
+  
+  getProgressPercentage(status: string): number {
+    const currentStatus = status?.toLowerCase() || 'pending';
+    
+    switch (currentStatus) {
+      case 'pending':
+      case 'applied':
+        return 33;
+      case 'under review':
+      case 'reviewing':
+        return 66;
+      case 'accepted':
+      case 'rejected':
+        return 100;
+      default:
+        return 66;
+    }
+  }
+  
+  getStatusDisplayText(status: string): string {
+    if (!status) return 'Pending';
+    
+    const currentStatus = status.toLowerCase();
+    
+    switch (currentStatus) {
+      case 'pending':
+        return 'Pending';
+      case 'applied':
+        return 'Applied';
+      case 'under review':
+        return 'Under Review';
+      case 'reviewing':
+        return 'Under Review';
+      case 'accepted':
+        return 'Accepted 🎉';
+      case 'rejected':
+        return 'Rejected';
+      default:
+        return status;
+    }
+  }
+  
+  viewApplicationDetails(application: any) {
+    this.selectedApplication = application;
+  }
+  
+  closeApplicationDetails() {
+    this.selectedApplication = null;
+  }
+  
+  canWithdrawApplication(status: string): boolean {
+    if (!status) return true; // Allow withdrawal if no status (pending)
+    
+    const currentStatus = status.toLowerCase();
+    // Only allow withdrawal for pending, applied, or under review applications
+    return ['pending', 'applied', 'under review', 'reviewing'].includes(currentStatus);
+  }
+
 }

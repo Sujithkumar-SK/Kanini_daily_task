@@ -45,6 +45,10 @@ export class CandidateService {
     return this.http.delete(`${this.resumeUrl}/${id}`);
   }
 
+  getResumeById(id: number): Observable<any> {
+    return this.http.get(`${this.candidateUrl}/resume/${id}`);
+  }
+
   // Applied Jobs
   getApplications(): Observable<any[]> {
     return this.http.get<any[]>(`${this.applicationUrl}/candidate`);

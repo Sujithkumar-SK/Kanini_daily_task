@@ -59,10 +59,20 @@
     <div class="jobs-grid">
       <div *ngFor="let job of filteredJobs" class="job-card">
         <h3>{{ job.title }}</h3>
-        <p class="job-location">📍 {{ job.location }}</p>
-        <p class="job-type">{{ job.employmentType }}</p>
-        <p class="job-salary" *ngIf="job.salary">💰 ${{ job.salary | number }}</p>
-        <p class="job-description">{{ job.description | slice:0:150 }}...</p>
+        <div class="job-meta">
+          <p class="job-location">📍 {{ job.location }}</p>
+          <p class="job-type">{{ job.employmentType }}</p>
+          <p class="job-salary" *ngIf="job.salary">💰 ${{ job.salary | number }}</p>
+        </div>
+        <div class="job-company" *ngIf="job.recruiter?.fullName">
+          <p class="company-name">🏢 {{ job.recruiter.fullName }}</p>
+        </div>
+        <div class="job-skills" *ngIf="job.jobSkills && job.jobSkills.length > 0">
+          <div class="skills-container">
+            <span *ngFor="let jobSkill of job.jobSkills" class="skill-tag">{{ jobSkill.skill?.name }}</span>
+          </div>
+        </div>
+        <p class="job-description">{{ job.description | slice:0:150 }}</p>
         <p class="job-posted">Posted: {{ job.postedOn | date:'short' }}</p>
         <button class="btn-primary" (click)="viewJobDetails(job)">View Details & Apply</button>
       </div>
@@ -118,28 +128,166 @@
   <div *ngIf="activeTab === 'applications'" class="tab-content">
     <h2>My Job Applications</h2>
     <div *ngIf="applications.length > 0" class="applications-list">
-      <div *ngFor="let app of applications" class="application-card">
-        <h3>{{ app.job?.title || 'Job Title' }}</h3>
-        <p><strong>Company:</strong> {{ app.job?.recruiter?.fullName || 'Company Name' }}</p>
-        <p><strong>Location:</strong> {{ app.job?.location }}</p>
-        <p><strong>Applied:</strong> {{ app.appliedOn | date:'medium' }}</p>
-        <p><strong>Resume:</strong> {{ app.resume?.fileName || 'Resume not found' }}</p>
-        <div class="application-actions">
-          <span class="status-badge" [class]="getApplicationStatus(app.status)">
-            {{ app.status }}
-          </span>
-          <button 
-            *ngIf="app.status && (app.status.toLowerCase() === 'pending' || app.status.toLowerCase() === 'applied')"
-            class="btn-danger btn-small" 
-            (click)="withdrawApplication(app.applicationId)">
-            Withdraw
-          </button>
+      <div *ngFor="let app of applications" class="application-summary-card">
+        <div class="application-summary">
+          <div class="job-info">
+            <h3>{{ app.job?.title || 'Job Title' }}</h3>
+            <p class="company-name">{{ app.job?.recruiter?.fullName || 'Company Name' }}</p>
+            <p class="job-location">📍 {{ app.job?.location }}</p>
+            <p class="applied-date">Applied: {{ app.appliedOn | date:'short' }}</p>
+          </div>
+          <div class="application-summary-actions">
+            <span class="status-badge" [class]="getApplicationStatus(app.status)">
+              {{ app.status || 'Pending' }}
+            </span>
+            <div class="action-buttons">
+              <button class="btn-primary btn-small" (click)="viewApplicationDetails(app)" [title]="''">
+                View Details
+              </button>
+              <button 
+                *ngIf="canWithdrawApplication(app.status)"
+                class="btn-danger btn-small" 
+                (click)="withdrawApplication(app.applicationId)">
+                Withdraw
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="quick-progress">
+          <div class="progress-bar-mini">
+            <div class="progress-fill-mini" [style.width.%]="getProgressPercentage(app.status)"></div>
+          </div>
+          <span class="progress-text">{{ getProgressPercentage(app.status) }}% Complete</span>
         </div>
       </div>
     </div>
     <div *ngIf="applications.length === 0" class="no-applications">
       <p>You haven't applied to any jobs yet.</p>
       <button class="btn-primary" (click)="setActiveTab('jobs')">Browse Jobs</button>
+    </div>
+  </div>
+
+  <!-- Application Details Modal -->
+  <div *ngIf="selectedApplication" class="modal-overlay" (click)="closeApplicationDetails()">
+    <div class="modal-content application-modal" (click)="$event.stopPropagation()">
+      <div class="modal-header">
+        <h2>Application Details</h2>
+        <button class="close-btn" (click)="closeApplicationDetails()" [title]="''">×</button>
+      </div>
+      <div class="modal-body">
+        <!-- Job Information -->
+        <div class="job-details-section">
+          <h3>{{ selectedApplication.job?.title || 'Job Title' }}</h3>
+          <div class="job-meta">
+            <p><strong>Company:</strong> {{ selectedApplication.job?.recruiter?.fullName || 'Company Name' }}</p>
+            <p><strong>Location:</strong> {{ selectedApplication.job?.location }}</p>
+            <p><strong>Employment Type:</strong> {{ selectedApplication.job?.employmentType }}</p>
+            <p *ngIf="selectedApplication.job?.salary"><strong>Salary:</strong> ${{ selectedApplication.job?.salary | number }}</p>
+            <p><strong>Posted:</strong> {{ selectedApplication.job?.postedOn | date:'medium' }}</p>
+          </div>
+          <div class="job-description">
+            <h4>Job Description:</h4>
+            <p>{{ selectedApplication.job?.description }}</p>
+          </div>
+        </div>
+
+        <!-- Application Information -->
+        <div class="application-details-section">
+          <h4>Application Information</h4>
+          <div class="app-meta">
+            <p><strong>Applied On:</strong> {{ selectedApplication.appliedOn | date:'full' }}</p>
+            <p><strong>Resume Used:</strong> {{ selectedApplication.resume?.fileName || 'Resume not found' }}</p>
+            <p><strong>Application ID:</strong> #{{ selectedApplication.applicationId }}</p>
+          </div>
+        </div>
+
+        <!-- Detailed Status Tracker -->
+        <div class="status-tracker">
+          <div class="tracker-header">
+            <h4>Application Progress</h4>
+            <span class="current-status" [class]="getApplicationStatus(selectedApplication.status)">
+              {{ getStatusDisplayText(selectedApplication.status) }}
+            </span>
+          </div>
+          
+          <div class="progress-steps">
+            <!-- Step 1: Applied -->
+            <div class="step" [class.completed]="getStepStatus(selectedApplication.status, 'applied')" [class.current]="getCurrentStep(selectedApplication.status) === 'applied'">
+              <div class="step-icon">
+                <span *ngIf="getStepStatus(selectedApplication.status, 'applied')">✓</span>
+                <span *ngIf="!getStepStatus(selectedApplication.status, 'applied')">1</span>
+              </div>
+              <div class="step-content">
+                <h5>Application Submitted</h5>
+                <p>Your application has been sent to the recruiter</p>
+                <small>{{ selectedApplication.appliedOn | date:'short' }}</small>
+              </div>
+            </div>
+            
+            <!-- Step 2: Under Review -->
+            <div class="step" [class.completed]="getStepStatus(selectedApplication.status, 'review')" [class.current]="getCurrentStep(selectedApplication.status) === 'review'">
+              <div class="step-icon">
+                <span *ngIf="getStepStatus(selectedApplication.status, 'review')">✓</span>
+                <span *ngIf="getCurrentStep(selectedApplication.status) === 'review'">👁️</span>
+                <span *ngIf="!getStepStatus(selectedApplication.status, 'review') && getCurrentStep(selectedApplication.status) !== 'review'">2</span>
+              </div>
+              <div class="step-content">
+                <h5>Under Review</h5>
+                <p>Recruiter is reviewing your application</p>
+                <small *ngIf="getCurrentStep(selectedApplication.status) === 'review'">In Progress...</small>
+              </div>
+            </div>
+            
+            <!-- Step 3: Decision -->
+            <div class="step" [class.completed]="getStepStatus(selectedApplication.status, 'decision')" [class.current]="getCurrentStep(selectedApplication.status) === 'decision'" [class.rejected]="selectedApplication.status?.toLowerCase() === 'rejected'">
+              <div class="step-icon">
+                <span *ngIf="selectedApplication.status?.toLowerCase() === 'accepted'">🎉</span>
+                <span *ngIf="selectedApplication.status?.toLowerCase() === 'rejected'">❌</span>
+                <span *ngIf="!getStepStatus(selectedApplication.status, 'decision') && getCurrentStep(selectedApplication.status) !== 'decision'">3</span>
+              </div>
+              <div class="step-content">
+                <h5 *ngIf="selectedApplication.status?.toLowerCase() === 'accepted'">Congratulations! 🎉</h5>
+                <h5 *ngIf="selectedApplication.status?.toLowerCase() === 'rejected'">Application Declined</h5>
+                <h5 *ngIf="!getStepStatus(selectedApplication.status, 'decision')">Final Decision</h5>
+                
+                <p *ngIf="selectedApplication.status?.toLowerCase() === 'accepted'">Your application has been accepted!</p>
+                <p *ngIf="selectedApplication.status?.toLowerCase() === 'rejected'">Unfortunately, your application was not selected this time</p>
+                <p *ngIf="!getStepStatus(selectedApplication.status, 'decision')">Waiting for recruiter's decision</p>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Progress Bar -->
+          <div class="progress-bar">
+            <div class="progress-fill" [style.width.%]="getProgressPercentage(selectedApplication.status)"></div>
+          </div>
+          
+          <!-- Status Summary -->
+          <div class="status-summary">
+            <div class="summary-item">
+              <span class="summary-label">Current Status:</span>
+              <span class="summary-value" [class]="getApplicationStatus(selectedApplication.status)">{{ getStatusDisplayText(selectedApplication.status) }}</span>
+            </div>
+            <div class="summary-item">
+              <span class="summary-label">Progress:</span>
+              <span class="summary-value">{{ getProgressPercentage(selectedApplication.status) }}% Complete</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="modal-actions">
+          <button 
+            *ngIf="canWithdrawApplication(selectedApplication.status)"
+            class="btn-danger" 
+            (click)="withdrawApplication(selectedApplication.applicationId); closeApplicationDetails()">
+            Withdraw Application
+          </button>
+          <button class="btn-secondary" (click)="closeApplicationDetails()" [title]="''">
+            Close
+          </button>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -179,6 +327,8 @@
           <p *ngIf="resume.fileSize">Size: {{ resume.fileSize | number }} bytes</p>
         </div>
         <div class="resume-actions">
+          <button class="btn-primary" (click)="viewResume(resume)">View</button>
+          <button class="btn-secondary" (click)="downloadResume(resume)">Download</button>
           <button class="btn-danger" (click)="deleteResume(resume.resumeId)">Delete</button>
         </div>
       </div>

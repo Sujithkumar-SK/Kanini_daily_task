@@ -1,0 +1,263 @@
+<div class="admin-container">
+  <div class="admin-header">
+    <h1>Admin Dashboard</h1>
+    <p>Manage users, recruiters, and view analytics</p>
+  </div>
+
+  <!-- Navigation Tabs -->
+  <div class="nav-tabs">
+    <button 
+      class="tab-btn" 
+      [class.active]="activeTab === 'dashboard'"
+      (click)="setActiveTab('dashboard')">
+      📊 Dashboard
+    </button>
+    <button 
+      class="tab-btn" 
+      [class.active]="activeTab === 'users'"
+      (click)="setActiveTab('users')">
+      👥 Users
+    </button>
+    <!-- <button 
+      class="tab-btn" 
+      [class.active]="activeTab === 'recruiters'"
+      (click)="setActiveTab('recruiters')">
+      🏢 Recruiters
+    </button> -->
+  </div>
+
+  <!-- Loading Indicator -->
+  <div *ngIf="isLoading" class="loading-container">
+    <div class="spinner"></div>
+    <span>Loading dashboard...</span>
+  </div>
+
+  <!-- Message Display -->
+  <div *ngIf="message" class="alert" [class.success]="message.includes('success')" [class.error]="!message.includes('success')">
+    {{ message }}
+  </div>
+
+  <!-- Dashboard Tab -->
+  <div *ngIf="activeTab === 'dashboard' && !isLoading" class="tab-content">
+    <div class="dashboard-grid">
+      <!-- Analytics Cards -->
+      <div class="analytics-cards">
+        <div class="stat-card">
+          <div class="stat-icon">👥</div>
+          <div class="stat-info">
+            <h3>{{ analytics.totalUsers || 0 }}</h3>
+            <p>Total Users</p>
+          </div>
+        </div>
+        
+        <div class="stat-card">
+          <div class="stat-icon">👤</div>
+          <div class="stat-info">
+            <h3>{{ analytics.totalCandidates || 0 }}</h3>
+            <p>Candidates</p>
+          </div>
+        </div>
+        
+        <div class="stat-card">
+          <div class="stat-icon">🏢</div>
+          <div class="stat-info">
+            <h3>{{ analytics.totalRecruiters || 0 }}</h3>
+            <p>Recruiters</p>
+          </div>
+        </div>
+        
+        <div class="stat-card">
+          <div class="stat-icon">💼</div>
+          <div class="stat-info">
+            <h3>{{ analytics.jobsPosted || 0 }}</h3>
+            <p>Jobs Posted</p>
+          </div>
+        </div>
+        
+        <div class="stat-card">
+          <div class="stat-icon">📄</div>
+          <div class="stat-info">
+            <h3>{{ analytics.applicationsSubmitted || 0 }}</h3>
+            <p>Applications</p>
+          </div>
+        </div>
+        
+        <div class="stat-card">
+          <div class="stat-icon">✅</div>
+          <div class="stat-info">
+            <h3>{{ getActiveUsersCount() }}</h3>
+            <p>Active Users</p>
+          </div>
+        </div>
+        
+        <div class="stat-card">
+          <div class="stat-icon">❌</div>
+          <div class="stat-info">
+            <h3>{{ getInactiveUsersCount() }}</h3>
+            <p>Inactive Users</p>
+          </div>
+        </div>
+        
+        <div class="stat-card">
+          <div class="stat-icon">⏳</div>
+          <div class="stat-info">
+            <h3>{{ analytics.applicationsPending || 0 }}</h3>
+            <p>Pending Applications</p>
+          </div>
+        </div>
+        
+        <div class="stat-card">
+          <div class="stat-icon">✅</div>
+          <div class="stat-info">
+            <h3>{{ analytics.applicationsAccepted || 0 }}</h3>
+            <p>Accepted Applications</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Charts Section -->
+      <div class="charts-section">
+        <!-- User Roles Pie Chart -->
+        <div class="chart-container">
+          <h3>User Distribution</h3>
+          <div class="pie-chart">
+            <svg width="200" height="200" viewBox="0 0 200 200">
+              <g transform="translate(100,100)">
+                <!-- Pie chart segments will be generated here -->
+                <ng-container *ngFor="let segment of getUserRoleChartData(); let i = index">
+                  <path 
+                    [attr.d]="getPieSlicePath(segment, i, getUserRoleChartData())"
+                    [attr.fill]="segment.color"
+                    class="pie-slice">
+                  </path>
+                </ng-container>
+              </g>
+            </svg>
+            <div class="chart-legend">
+              <div *ngFor="let item of getUserRoleChartData()" class="legend-item">
+                <span class="legend-color" [style.background-color]="item.color"></span>
+                <span class="legend-label">{{ item.label }}: {{ item.value }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Activity Chart -->
+        <div class="chart-container">
+          <h3>Platform Activity</h3>
+          <div class="bar-chart">
+            <div *ngFor="let item of getActivityChartData()" class="bar-item">
+              <div class="bar-label">{{ item.label }}</div>
+              <div class="bar-container">
+                <div 
+                  class="bar" 
+                  [style.width.%]="getBarWidth(item.value, getActivityChartData())"
+                  [style.background-color]="item.color">
+                </div>
+                <span class="bar-value">{{ item.value }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Users Tab -->
+  <div *ngIf="activeTab === 'users'" class="tab-content">
+    <div class="section-header">
+      <h2>User Management</h2>
+      <div class="search-section">
+        <input 
+          type="text" 
+          [(ngModel)]="userFilter" 
+          placeholder="🔍 Search users by name, email, or role..."
+          class="search-input">
+      </div>
+    </div>
+
+    <div class="users-table">
+      <div class="table-header">
+        <div class="col-name">Name</div>
+        <div class="col-email">Email</div>
+        <div class="col-role">Role</div>
+        <div class="col-status">Status</div>
+        <div class="col-actions">Actions</div>
+      </div>
+      
+      <div *ngFor="let user of getFilteredUsers()" class="table-row">
+        <div class="col-name">{{ user.fullName }}</div>
+        <div class="col-email">{{ user.email }}</div>
+        <div class="col-role">
+          <span class="role-badge" [class]="user.role.toLowerCase()">{{ user.role }}</span>
+        </div>
+        <div class="col-status">
+          <span class="status-badge" [class.active]="user.isActive" [class.inactive]="!user.isActive">
+            {{ user.isActive ? 'Active' : 'Inactive' }}
+          </span>
+        </div>
+        <div class="col-actions">
+          <button 
+            class="btn-action" 
+            [class.btn-danger]="user.isActive" 
+            [class.btn-success]="!user.isActive"
+            (click)="toggleUserStatus(user)">
+            {{ user.isActive ? 'Deactivate' : 'Activate' }}
+          </button>
+        </div>
+      </div>
+      
+      <div *ngIf="getFilteredUsers().length === 0" class="no-results">
+        <p>No users found matching your search criteria.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Recruiters Tab -->
+  <div *ngIf="activeTab === 'recruiters'" class="tab-content">
+    <div class="section-header">
+      <h2>Recruiter Management</h2>
+      <div class="search-section">
+        <input 
+          type="text" 
+          [(ngModel)]="recruiterFilter" 
+          placeholder="🔍 Search recruiters by company or website..."
+          class="search-input">
+      </div>
+    </div>
+
+    <div class="recruiters-table">
+      <div class="table-header">
+        <div class="col-company">Company</div>
+        <div class="col-website">Website</div>
+        <div class="col-status">Status</div>
+        <div class="col-actions">Actions</div>
+      </div>
+      
+      <div *ngFor="let recruiter of getFilteredRecruiters()" class="table-row">
+        <div class="col-company">{{ recruiter.companyName }}</div>
+        <div class="col-website">
+          <a [href]="recruiter.website" target="_blank" class="website-link">{{ recruiter.website }}</a>
+        </div>
+        <div class="col-status">
+          <span class="status-badge" [class.active]="recruiter.isActive" [class.inactive]="!recruiter.isActive">
+            {{ recruiter.isActive ? 'Active' : 'Inactive' }}
+          </span>
+        </div>
+        <div class="col-actions">
+          <button 
+            class="btn-action" 
+            [class.btn-danger]="recruiter.isActive" 
+            [class.btn-success]="!recruiter.isActive"
+            (click)="toggleRecruiterStatus(recruiter)">
+            {{ recruiter.isActive ? 'Deactivate' : 'Activate' }}
+          </button>
+        </div>
+      </div>
+      
+      <div *ngIf="getFilteredRecruiters().length === 0" class="no-results">
+        <p>No recruiters found matching your search criteria.</p>
+      </div>
+    </div>
+  </div>
+</div>
