@@ -1,0 +1,19 @@
+<div class="container">
+  <p *ngIf="totalstd() === 0">No students found.</p>
+  <p *ngIf="totalstd() > 0">Total: {{ totalstd() }}</p>
+
+  <form [formGroup]="form" (ngSubmit)="addStudent()" class="form">
+    <input formControlName="name" placeholder="Name">
+    <input formControlName="age" type="number" placeholder="Age">
+    <button type="submit" [disabled]="form.invalid">Add Student</button>
+  </form>
+
+  <button (click)="clearStudents()">Clear All</button>
+
+  <ul>
+    <li *ngFor="let s of students(); let i=index">
+      {{ s.name }} - {{ s.age }} years old
+      <button (click)="deleteStudent(i)">Delete</button>
+    </li>
+  </ul>
+</div>
